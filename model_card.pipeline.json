@@ -3,7 +3,7 @@
   "model_id": "mineru-pipeline",
   "model_version": "3.4.2",
   "platforms": ["linux-rocm", "windows-hip"],
-  "badge": {"linux-rocm": "community-verified", "windows-hip": "community-wanted"},
+  "badge": {"linux-rocm": "community", "windows-hip": "community-wanted"},
   "eval_date": "2026-07-18",
   "omnidocbench_version": "v1.6",
   "overall": 86.48,

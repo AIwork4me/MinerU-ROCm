@@ -45,6 +45,16 @@ make eval-linux      # linux-rocm
 
 Eval config: [`eval/configs/omnidocbench_v16.yaml`](eval/configs/omnidocbench_v16.yaml).
 
+### Results — MinerU 3.4 pipeline (secondary model card, `mineru-pipeline`)
+
+| Backend | Overall ↑ | Text Edit ↓ | Formula CDM ↑ | Table TEDS ↑ |
+|---|---:|---:|---:|---:|
+| _official_ MinerU pipeline | 86.47 | — | — | — |
+| **ours (ROCm gfx1100, linux-rocm)** | **86.48** | 0.0566 | 83.07 | 82.04 |
+| windows-hip | _pending (colleague)_ | | | |
+
+The `linux-rocm` row is **reproduced** (self-attested, `badge: community`, conformance-passing) — see [`docs/reproducibility.md`](docs/reproducibility.md). The primary `mineru2.5` VLM model card is a separate row (Plan 2, not yet run). The VLM lives in `hub/registry.yaml`; the pipeline lives here in `model_card.pipeline.json` + this table.
+
 ## Reproducibility
 
 Results live under `results/omnidocbench/v16/<platform>/`. Each run produces a schema-validated `run_summary.json` + `provenance.json` (engine version, git commit, dataset revision, adapter command) so a number is independently reproducible from the committed adapter + config on the declared hardware. See [`docs/reproducibility.md`](docs/reproducibility.md).
@@ -52,6 +62,6 @@ Results live under `results/omnidocbench/v16/<platform>/`. Each run produces a s
 ## Known Gaps
 
 - The `smoke` backend emits placeholder text, not real OCR; `pipeline` (the default, real MinerU 3.4 in-process adapter) is the production path. CI/conformance can force `smoke` via `BACKEND=smoke` or `--backend smoke`.
-- `mineru-pipeline` is `community-verified` on linux-rocm (Overall **86.48** on OmniDocBench v1.6, gfx1100 — see [`docs/reproducibility.md`](docs/reproducibility.md)); windows-hip still `community-wanted`.
+- `mineru-pipeline` is `community` on linux-rocm (Overall **86.48** on OmniDocBench v1.6, gfx1100 — see [`docs/reproducibility.md`](docs/reproducibility.md)); windows-hip still `community-wanted`.
 - Provisioning scripts (`adapter/setup/`) are stubs.
 - See [`docs/known-gaps.md`](docs/known-gaps.md) for the full list.

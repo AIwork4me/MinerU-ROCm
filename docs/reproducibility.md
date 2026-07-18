@@ -35,6 +35,8 @@ So a third party can check out that commit, install the same engine + dataset re
 - **scorer venv:** `/root/ocr-eval/OmniDocBench/.venv` — Python 3.11.15 with OmniDocBench's pinned scoring deps (`bs4`, `apted`, `Levenshtein`, `pylatexenc`, `scipy`, …). CDM uses `pdflatex`/`magick` subprocesses, **no torch**.
 - **dataset:** OmniDocBench v1.6 (1651 GT pages); page images at `/root/ocr-eval/OmniDocBench_data/images/` (1742 entries — scorer matches the 1651 GT pages and ignores the 91 extras), GT manifest at `/workspace/OmniDocBench_data/OmniDocBench.json` (symlink to the same).
 
+> **Clean-dir convention (future runs).** The shared `images/` dir above has 1742 entries; the scorer silently ignores the 91 surplus non-GT images, so the committed score is correct. For **future** re-runs prefer the clean 1651-only image dir at `/root/ocr-eval/OmniDocBench_v16_images` (symlinks). The `Makefile`'s `eval-linux`/`eval-windows` targets default to it via `OMNIDOCBENCH_IMG_DIR ?= /root/ocr-eval/OmniDocBench_v16_images` (override per-run, e.g. `make eval-linux OMNIDOCBENCH_IMG_DIR=/path/to/images`). The committed run above used the legacy 1742 dir — same result.
+
 ### The two-venv orchestration
 
 The adapter imports `omnidocbench_amd.types` AND `mineru`; the OmniDocBench scorer needs its own pinned deps. They live in **different venvs**, so `infer` and `score`/`publish` run separately (the engine's `run --stage all` cannot span venvs):

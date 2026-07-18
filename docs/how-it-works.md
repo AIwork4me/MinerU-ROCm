@@ -39,3 +39,14 @@ The `omnidocbench-amd` CLI (`make eval-linux`) runs:
 4. **publish** — assemble + schema-validate `run_summary.json` and `provenance.json` into `results/`.
 
 `make publish` (or `scripts/check_conformance.py .`) verifies this repo still satisfies the contract.
+
+## Two model cards, one repo (registry story)
+
+This repo ships **two** model cards for one upstream model family (MinerU 2.5 / MinerU 3.4):
+
+| Card | File | What it is | Status |
+|---|---|---|---|
+| **primary** (registry row) | `model_card.json` + `hub/registry.yaml` `mineru2.5` | the **VLM** (MinerU 2.5 served via vLLM-on-ROCm) | Plan 2, not yet run (`overall: null`) |
+| **secondary** (this Plan 1 result) | `model_card.pipeline.json` + the README comparison table | the **MinerU 3.4 pipeline** (layout → OCR → table → formula, in-process) | reproduced, linux-rocm `community` (Overall **86.48**) |
+
+The platform's `hub/registry.yaml` carries **one row per `model_id`**, and that row is the VLM (`mineru2.5`). The pipeline (`mineru-pipeline`) is a secondary card inside this same repo, surfaced via `model_card.pipeline.json` + the README table — **so no new registry row is needed for the pipeline**. When the VLM lands in Plan 2, its result fills the existing `mineru2.5` registry row and the primary `model_card.json`; the pipeline card stays as the secondary entry.
