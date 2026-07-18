@@ -46,7 +46,9 @@ This repo ships **two** model cards for one upstream model family (MinerU 2.5 / 
 
 | Card | File | What it is | Status |
 |---|---|---|---|
-| **primary** (registry row) | `model_card.json` + `hub/registry.yaml` `mineru2.5` | the **VLM** (MinerU 2.5 served via vLLM-on-ROCm) | Plan 2, not yet run (`overall: null`) |
-| **secondary** (this Plan 1 result) | `model_card.pipeline.json` + the README comparison table | the **MinerU 3.4 pipeline** (layout → OCR → table → formula, in-process) | reproduced, linux-rocm `community` (Overall **86.48**) |
+| **primary** (registry row) | `model_card.json` + `hub/registry.yaml` `mineru2.5` | the **VLM** (MinerU 2.5 served via vLLM-on-ROCm) | reproduced, linux-rocm `community` (Overall **95.56**, 1651/1651, gate PASS) |
+| **secondary** (Plan 1 result) | `model_card.pipeline.json` + the README comparison table | the **MinerU 3.4 pipeline** (layout → OCR → table → formula, in-process) | reproduced, linux-rocm `community` (Overall **86.48**) |
 
-The platform's `hub/registry.yaml` carries **one row per `model_id`**, and that row is the VLM (`mineru2.5`). The pipeline (`mineru-pipeline`) is a secondary card inside this same repo, surfaced via `model_card.pipeline.json` + the README table — **so no new registry row is needed for the pipeline**. When the VLM lands in Plan 2, its result fills the existing `mineru2.5` registry row and the primary `model_card.json`; the pipeline card stays as the secondary entry.
+The platform's `hub/registry.yaml` carries **one row per `model_id`**, and that row is the VLM (`mineru2.5`). The pipeline (`mineru-pipeline`) is a secondary card inside this same repo, surfaced via `model_card.pipeline.json` + the README table — **so no new registry row is needed for the pipeline**. The VLM result now fills the primary `model_card.json` (Overall **95.56**, badge linux-rocm `community`); the pipeline card stays as the secondary entry.
+
+> **Registry update note (for the platform-repo maintainer):** the actual `hub/registry.yaml` lives in the **separate** platform repo [`OmniDocBench-AMD`](https://github.com/AIwork4me/OmniDocBench-AMD). The intended update there is: `mineru2.5` row → `badge.linux-rocm: community`, `overall: 95.56`, `eval_date: 2026-07-18`, `model_version: "2605"`. (`verified` still requires maintainer Docker reproduction; `windows-hip` stays `community-wanted`.) This repo does not edit that file — it only records the intended values here so the maintainer can apply them.

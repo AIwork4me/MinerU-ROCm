@@ -2,9 +2,9 @@
 
 [omnidocbench-amd](https://github.com/AIwork4me/OmniDocBench-AMD) 文档解析评测平台的单模型适配仓库。由官方 cookiecutter 模板生成；自带无需 GPU 的 `smoke` 后端，开箱即用。
 
-- 模型：`mineru2.5`（v0.1.0）
+- 模型：`mineru2.5`（VLM checkpoint 2605）
 - 平台：linux-rocm、windows-hip
-- 徽章：linux-rocm = `community`（已有可复现结果）；windows-hip = `community-wanted`。
+- 徽章：linux-rocm = `community`（OmniDocBench v1.6 Overall **95.56**，已复现）；windows-hip = `community-wanted`。`verified` 需维护者 Docker 复现。
 
 > 国内用户优先使用镜像与 ModelScope 拉取模型/数据集，速度更稳定。
 
@@ -47,15 +47,25 @@ make eval-linux      # linux-rocm
 
 评测配置：[`eval/configs/omnidocbench_v16.yaml`](eval/configs/omnidocbench_v16.yaml)。
 
+### 结果 —— MinerU2.5-Pro VLM（主 model card，`mineru2.5`）
+
+| Model / Backend | Overall ↑ | Text Edit ↓ | Formula CDM ↑ | Table TEDS ↑ |
+|---|---:|---:|---:|---:|
+| _official_ MinerU2.5-Pro | 95.75 | 0.036 | 97.45 | 93.42 |
+| **ours MinerU2.5-Pro（vlm-vllm，ROCm）** | **95.56** | 0.0359 | 96.73 | 93.54 |
+| ours MinerU2.5-Pro（vlm-transformers，ROCm） | _仅采样（质量干净；全量约 44 h）_ | | | |
+
+`vlm-vllm` 行在 linux-rocm **已复现**（自证、conformance 通过，`badge: community`）：1651/1651 页、0 失败、GPU 0（gfx1100）约 7 小时、空页率 0.12%、阅读顺序 EditDist 0.1240。以 +0.31 pp 距官方 95.75 PASS（≤0.5 pp）。`vlm-transformers` 后端是干净但较慢的 fallback（约 100–150 s/页；全量约 44 h 未跑），因此无完整 Overall。`windows-hip` 仍为 `community-wanted`。
+
 ### 结果 —— MinerU 3.4 pipeline（次要 model card，`mineru-pipeline`）
 
-| Backend | Overall ↑ | Text Edit ↓ | Formula CDM ↑ | Table TEDS ↑ |
+| Model / Backend | Overall ↑ | Text Edit ↓ | Formula CDM ↑ | Table TEDS ↑ |
 |---|---:|---:|---:|---:|
-| _official_ MinerU pipeline | 86.47 | — | — | — |
-| **ours（ROCm gfx1100，linux-rocm）** | **86.48** | 0.0566 | 83.07 | 82.04 |
+| _official_ MinerU 3.4 pipeline | 86.47 | — | — | — |
+| **ours MinerU 3.4 pipeline（ROCm gfx1100，linux-rocm）** | **86.48** | 0.0566 | 83.07 | 82.04 |
 | windows-hip | _待测（同事）_ | | | |
 
-`linux-rocm` 行为**已复现**（自证、conformance 通过，`badge: community`）—— 详见 [`docs/reproducibility.md`](docs/reproducibility.md)。主 `mineru2.5` VLM model card 是单独一行（Plan 2，尚未运行）。VLM 记录在 `hub/registry.yaml`；pipeline 记录在此处的 `model_card.pipeline.json` 与本表格。
+两个 `linux-rocm` 行均**已复现**（自证、conformance 通过，`badge: community`）—— 详见 [`docs/reproducibility.md`](docs/reproducibility.md)。上方主 `mineru2.5` VLM 行填充 `hub/registry.yaml` 中的 `mineru2.5` 条目；pipeline 记录在此处的 `model_card.pipeline.json` 与本表格（无独立 registry 行）。
 
 ## Reproducibility（可复现性）
 

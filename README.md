@@ -2,9 +2,9 @@
 
 A per-model adapter repo for the [omnidocbench-amd](https://github.com/AIwork4me/OmniDocBench-AMD) document-parsing evaluation platform. Rendered from the official cookiecutter template; ships with a no-GPU `smoke` backend so it runs out of the box.
 
-- Model: `mineru2.5` (v0.1.0)
+- Model: `mineru2.5` (VLM checkpoint 2605)
 - Platforms: linux-rocm, windows-hip
-- Badge: community-wanted (both platforms) — replace with `verified` once you commit reproducible results.
+- Badge: linux-rocm `community` (Overall **95.56** on OmniDocBench v1.6, reproduced); windows-hip `community-wanted`. `verified` needs maintainer Docker reproduction.
 
 ## Install
 
@@ -45,15 +45,25 @@ make eval-linux      # linux-rocm
 
 Eval config: [`eval/configs/omnidocbench_v16.yaml`](eval/configs/omnidocbench_v16.yaml).
 
+### Results — MinerU2.5-Pro VLM (primary model card, `mineru2.5`)
+
+| Model / Backend | Overall ↑ | Text Edit ↓ | Formula CDM ↑ | Table TEDS ↑ |
+|---|---:|---:|---:|---:|
+| _official_ MinerU2.5-Pro | 95.75 | 0.036 | 97.45 | 93.42 |
+| **ours MinerU2.5-Pro (vlm-vllm, ROCm)** | **95.56** | 0.0359 | 96.73 | 93.54 |
+| ours MinerU2.5-Pro (vlm-transformers, ROCm) | _sample-only (clean; ~44 h full)_ | | | |
+
+The `vlm-vllm` row is **reproduced** on linux-rocm (self-attested, `badge: community`, conformance-passing): 1651/1651 pages, 0 fail, ~7 h on GPU 0 (gfx1100), empty-rate 0.12%, read-order EditDist 0.1240. Gate PASS at +0.31 pp from the official 95.75 (≤0.5 pp). The `vlm-transformers` backend is a clean but slow fallback (~100–150 s/page; full-set ≈44 h not run), so it carries no full Overall. `windows-hip` is `community-wanted`.
+
 ### Results — MinerU 3.4 pipeline (secondary model card, `mineru-pipeline`)
 
-| Backend | Overall ↑ | Text Edit ↓ | Formula CDM ↑ | Table TEDS ↑ |
+| Model / Backend | Overall ↑ | Text Edit ↓ | Formula CDM ↑ | Table TEDS ↑ |
 |---|---:|---:|---:|---:|
-| _official_ MinerU pipeline | 86.47 | — | — | — |
-| **ours (ROCm gfx1100, linux-rocm)** | **86.48** | 0.0566 | 83.07 | 82.04 |
+| _official_ MinerU 3.4 pipeline | 86.47 | — | — | — |
+| **ours MinerU 3.4 pipeline (ROCm gfx1100, linux-rocm)** | **86.48** | 0.0566 | 83.07 | 82.04 |
 | windows-hip | _pending (colleague)_ | | | |
 
-The `linux-rocm` row is **reproduced** (self-attested, `badge: community`, conformance-passing) — see [`docs/reproducibility.md`](docs/reproducibility.md). The primary `mineru2.5` VLM model card is a separate row (Plan 2, not yet run). The VLM lives in `hub/registry.yaml`; the pipeline lives here in `model_card.pipeline.json` + this table.
+Both `linux-rocm` rows are **reproduced** (self-attested, `badge: community`, conformance-passing) — see [`docs/reproducibility.md`](docs/reproducibility.md). The primary `mineru2.5` VLM row above fills the `hub/registry.yaml` `mineru2.5` entry; the pipeline lives here in `model_card.pipeline.json` + this table (no separate registry row).
 
 ## Reproducibility
 
