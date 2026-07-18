@@ -76,11 +76,21 @@ if __name__ == "__main__":
     p.add_argument("--img-dir", required=True)
     p.add_argument("--out-dir", required=True)
     p.add_argument("--platform", required=True, choices=PLATFORMS)
-    p.add_argument("--backend", default="smoke")
-    p.add_argument("--server-url", default="")
-    p.add_argument("--api-model-name", default="")
+    # Default comes from adapter_config.BACKEND (so the repo's configured primary
+    # backend — `pipeline` for MinerU-ROCm — is used when the engine invokes the
+    # adapter without --backend). Pass an explicit --backend to override.
+    p.add_argument("--backend", default=None)
+    p.add_argument("--server-url", default=None)
+    p.add_argument("--api-model-name", default=None)
     a = p.parse_args()
-    if a.backend != "smoke" and a.backend not in SUB_ADAPTERS:
-        raise SystemExit(f"unknown backend: {a.backend!r} (expected smoke|pipeline|vlm-vllm|vlm-transformers)")
-    run_adapter(Path(a.img_dir), Path(a.out_dir), platform=a.platform,
-                config={"backend": a.backend, "server_url": a.server_url, "api_model_name": a.api_model_name})
+    # Resolve defaults from adapter_config, then let explicit CLI flags win.
+    cfg = _load_adapter_config().as_dict()
+    if a.backend is not None:
+        if a.backend != "smoke" and a.backend not in SUB_ADAPTERS:
+            raise SystemExit(f"unknown backend: {a.backend!r} (expected smoke|pipeline|vlm-vllm|vlm-transformers)")
+        cfg["backend"] = a.backend
+    if a.server_url is not None:
+        cfg["server_url"] = a.server_url
+    if a.api_model_name is not None:
+        cfg["api_model_name"] = a.api_model_name
+    run_adapter(Path(a.img_dir), Path(a.out_dir), platform=a.platform, config=cfg)

@@ -3,11 +3,28 @@
   "model_id": "mineru-pipeline",
   "model_version": "3.4.2",
   "platforms": ["linux-rocm", "windows-hip"],
-  "badge": {"linux-rocm": "community-wanted", "windows-hip": "community-wanted"},
-  "eval_date": "",
+  "badge": {"linux-rocm": "community-verified", "windows-hip": "community-wanted"},
+  "eval_date": "2026-07-18",
   "omnidocbench_version": "v1.6",
-  "overall": null,
-  "submetrics": {},
-  "hardware": {"gpu": "", "vram": "", "rocm_driver": ""},
-  "artifacts": {}
+  "overall": 86.48,
+  "submetrics": {
+    "text_edit_dist": 0.0566,
+    "text_accuracy_percent": 94.34,
+    "table_teds_percent": 82.04,
+    "table_teds_structure_only_percent": 88.84,
+    "formula_cdm_percent": 83.07,
+    "reading_order_edit_dist": 0.1534
+  },
+  "hardware": {
+    "gpu": "AMD gfx1100 (Radeon Pro W7900-class) x4, eval pinned to GPU 3",
+    "vram": "48 GB per GPU",
+    "rocm_driver": "ROCm 7.2.1"
+  },
+  "artifacts": {
+    "run_summary": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_cdm_run_summary.json",
+    "provenance": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_cdm_provenance.json",
+    "metric_result": "results/omnidocbench/v16/linux-rocm/mineru-pipeline-preds_quick_match_metric_result.json",
+    "run_stats": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_run_stats.json",
+    "sample_predictions": "results/omnidocbench/v16/linux-rocm/sample_predictions/"
+  }
 }

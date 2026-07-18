@@ -4,8 +4,11 @@ backend selects the path; model is advisory (which MinerU model a run targets).
 """
 from __future__ import annotations
 
-# smoke = no-GPU CI placeholder. Real: pipeline | vlm-vllm | vlm-transformers.
-BACKEND = "smoke"
+# smoke = no-GPU CI placeholder (CI/conformance only). Real: pipeline | vlm-vllm | vlm-transformers.
+# Default to `pipeline` so the platform engine's stock `infer` invocation (which
+# does not pass --backend) runs the real MinerU 3.4 pipeline on ROCm. CI/conformance
+# can still force smoke by setting BACKEND=smoke or passing --backend smoke.
+BACKEND = "pipeline"
 # Which MinerU model this run targets: "pipeline" (3.4) | "vlm" (2.5-Pro).
 MODEL = "pipeline"
 SERVER_URL = ""               # VLM OpenAI-compatible server (empty = spawn locally)

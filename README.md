@@ -51,7 +51,7 @@ Results live under `results/omnidocbench/v16/<platform>/`. Each run produces a s
 
 ## Known Gaps
 
-- The `smoke` backend emits placeholder text, not real OCR. Replace `_infer` in `adapter/run_adapter.py` with your model's inference.
-- No `verified` results on either platform yet (`badge: community-wanted`).
+- The `smoke` backend emits placeholder text, not real OCR; `pipeline` (the default, real MinerU 3.4 in-process adapter) is the production path. CI/conformance can force `smoke` via `BACKEND=smoke` or `--backend smoke`.
+- `mineru-pipeline` is `community-verified` on linux-rocm (Overall **86.48** on OmniDocBench v1.6, gfx1100 — see [`docs/reproducibility.md`](docs/reproducibility.md)); windows-hip still `community-wanted`.
 - Provisioning scripts (`adapter/setup/`) are stubs.
 - See [`docs/known-gaps.md`](docs/known-gaps.md) for the full list.
