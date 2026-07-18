@@ -13,8 +13,13 @@ import os
 BACKEND = os.environ.get("MINERU_ROCM_BACKEND", "pipeline")
 # Which MinerU model this run targets: "pipeline" (3.4) | "vlm" (2.5-Pro).
 MODEL = "pipeline"
-SERVER_URL = ""               # VLM OpenAI-compatible server (empty = spawn locally)
-API_MODEL_NAME = "mineru2.5"  # VLM model name as registered on the server
+# Env-overridable (matches BACKEND's pattern) so a single repo can run against any
+# OpenAI-compatible VLM server without editing source. vlm_adapter falls back to
+# http://127.0.0.1:8265/v1 + "mineru-pro" (serve_vlm_vllm.sh defaults) when these
+# are empty, but the engine's `infer` stage never sees the CLI --server-url /
+# --api-model-name flags (they're publish/run-only), so we surface them as env.
+SERVER_URL = os.environ.get("MINERU_ROCM_SERVER_URL", "")
+API_MODEL_NAME = os.environ.get("MINERU_ROCM_API_MODEL_NAME", "")
 WEIGHTS_DIR = ""              # resolved at runtime; pipeline weights via mineru-models-download
 
 def as_dict() -> dict:

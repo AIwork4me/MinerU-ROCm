@@ -1,0 +1,7529 @@
+{
+  "schema_version": 1,
+  "count": 1651,
+  "ok": 1074,
+  "fail": 0,
+  "fallback": 0,
+  "limit_pages": null,
+  "engine": "vlm-vllm",
+  "stats": [
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1290.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 66.692636013031,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_13.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.099448442459106,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1303.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.963284969329834,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1308.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.97679615020752,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1344.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.289953231811523,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1349.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 29.574975967407227,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1358.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 22.58923101425171,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1363.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 30.898033618927002,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1381.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.947399139404297,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_14.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.213821649551392,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1408.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.89006733894348,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1417.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.729364156723022,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1426.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.934313774108887,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1435.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.710410833358765,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1449.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.857334852218628,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1458.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.6432464122772217,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1473.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.190561532974243,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1478.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 37.41485810279846,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1496.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.123004674911499,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1509.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.646148443222046,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1523.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.130306243896484,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1539.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.506454229354858,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1544.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.499160289764404,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_155.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 34.526177644729614,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1564.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 39.99760603904724,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_16.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.071421384811401,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1608.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 33.35030937194824,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1669.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.339338302612305,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1719.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.812629461288452,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1751.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.549334526062012,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1761.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.18220043182373,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1776.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.760010242462158,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1812.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.730237245559692,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1826.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.862785577774048,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1836.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 28.1266450881958,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1840.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.558002233505249,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_188.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 24.667152643203735,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1884.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.453068017959595,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1898.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.75825834274292,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1910.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.771657943725586,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1920.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.40586495399475,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_194.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.905993700027466,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1959.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.047818660736084,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_1972.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.24126100540161,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2002.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.205394268035889,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2017.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.048799991607666,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2031.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.421641111373901,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2036.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.089348554611206,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_206.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 31.33939266204834,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2100.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.869965314865112,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2124.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 26.843405723571777,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2183.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.526808977127075,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2193.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.54367995262146,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2198.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.027880668640137,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2211.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.875837564468384,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_223.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.677855014801025,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2234.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.973924875259399,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2263.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 45.07953214645386,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2272.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.988593101501465,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2360.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.785667657852173,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_237.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 30.38957142829895,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2374.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 44.603928565979004,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2399.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.89339590072632,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2412.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.578603744506836,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2444.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 33.0121431350708,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2449.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.374193906784058,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2496.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.99824595451355,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_250.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.879434823989868,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2509.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.804068088531494,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2518.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 24.688398122787476,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2527.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.512850046157837,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2540.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.44572639465332,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2554.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.66222596168518,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2559.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.78747010231018,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2591.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.758922576904297,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2604.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 25.924545288085938,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2623.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.56560468673706,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2652.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.307365655899048,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2680.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.453382968902588,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2718.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.728506565093994,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2732.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.88881492614746,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2755.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.748320817947388,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_276.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.955042600631714,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2820.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.85426688194275,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2825.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.699881315231323,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2839.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 22.90934681892395,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2884.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.492634773254395,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2893.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 26.177052974700928,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2901.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 30.783836364746094,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2968.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.125067234039307,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2982.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.92865800857544,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_2991.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.100332260131836,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3009.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.529426097869873,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3013.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.895314455032349,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3063.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.82517957687378,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3114.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.999392032623291,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3146.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.579543113708496,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3173.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.444622993469238,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3222.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.59294867515564,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3274.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.541240930557251,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3303.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.046127080917358,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3313.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.95118260383606,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3341.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 34.887664556503296,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3361.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 23.904953718185425,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3375.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.109020471572876,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3399.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.91327953338623,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3428.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 28.863163948059082,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3458.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.62336230278015,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_349.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 69.12427735328674,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3685.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.651057958602905,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3713.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.112035512924194,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3718.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.633122205734253,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3738.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 35.749611377716064,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3747.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.6895341873168945,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3751.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.413158655166626,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_377.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 37.88962697982788,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3810.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.203756332397461,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_383.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.2246196269989,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3928.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.7937276363372803,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3937.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.951049566268921,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_397.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 22.863776683807373,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_3984.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 32.67800283432007,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_4065.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 22.79932951927185,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_419.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.457983016967773,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_429.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.067007064819336,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_439.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.434259653091431,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_443.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 23.042830228805542,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_453.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 29.32000231742859,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_458.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.70276165008545,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_467.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.93142867088318,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_472.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.508529186248779,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_482.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 45.62582039833069,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_541.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.533437252044678,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_546.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.938380718231201,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_574.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.789231777191162,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_601.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.331958532333374,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_620.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 22.180090188980103,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_625.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 24.128138542175293,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_664.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.385355710983276,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_669.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.272146463394165,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_673.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.783512830734253,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_678.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.480764627456665,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_693.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.763172149658203,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_715.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.00637698173523,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_769.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.852003574371338,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_782.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.910925388336182,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_809.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.914458990097046,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_835.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.939139127731323,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_85.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.2935376167297363,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_854.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.715071201324463,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_887.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.110445737838745,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_909.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.3801605701446533,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_913.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.268430709838867,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_918.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.760896682739258,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_922.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.60198163986206,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_942.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.304384231567383,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_947.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.4167773723602295,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_952.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 26.626182079315186,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_961.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.825063228607178,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_980.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.012048721313477,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_jiaocai_needrop_en_999.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 32.070693016052246,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_math-134115.pdf_670.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.956135511398315,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_socialsci-74973.pdf_31.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.532723665237427,
+      "attempts": 1
+    },
+    {
+      "image": "jiaocaineedrop_unit2t03.pdf_63.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.134350538253784,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.11.18_page_030.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.13061285018921,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.11.18_page_068.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 24.499231338500977,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.11.18_page_071.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 23.235610961914062,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.11.18_page_082.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.01945996284485,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.11.25_page_006.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.796006679534912,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.11.25_page_068.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.016306400299072,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.11.25_page_069.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.466899871826172,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.11.25_page_093.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.716140031814575,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.02_page_023.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.997873783111572,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.02_page_028.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.699428796768188,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.02_page_031.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 22.079279899597168,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.02_page_056.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.654139518737793,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.02_page_062.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.705629110336304,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.09_page_009.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.097304821014404,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.09_page_015.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.8903648853302,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.09_page_045.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.462851524353027,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.09_page_048.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.948667526245117,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.09_page_082.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.62967562675476,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.16_page_019.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.709083795547485,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.16_page_026.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.078099727630615,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.16_page_037.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.624449014663696,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.16_page_049.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.13479995727539,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.16_page_062.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.75174117088318,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.23_page_012.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 27.967205286026,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.23_page_024.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.301723718643188,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.23_page_052.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.496042251586914,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.23_page_060.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 22.921949863433838,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2023.12.23_page_104.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.498410940170288,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2024.02.24_page_007.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 26.1985867023468,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2024.02.24_page_008.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.642592191696167,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2024.02.24_page_033.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.02799391746521,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2024.02.24_page_068.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.967174530029297,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2024.02.24_page_076.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 62.976927042007446,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2024.03.02_page_025.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.715235471725464,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2024.03.02_page_028.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.836063861846924,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2024.03.02_page_031.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.154751539230347,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2024.03.02_page_032.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 23.562015533447266,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2024.03.02_page_075.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.8631534576416,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2024.03.09_page_016.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.368934869766235,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2024.03.09_page_029.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.047947883605957,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2024.03.09_page_064.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.557723999023438,
+      "attempts": 1
+    },
+    {
+      "image": "magazine_TheEconomist.2024.03.09_page_079.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.703979969024658,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_019d4d5296ba8f1c21277d72fb0cf0db_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 43.32925486564636,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_01f020903d7bc4b3fc69f500f41eb77e_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 44.80050802230835,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_028a1dd5500fbd774e4d85df3c460c4d_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 46.5423424243927,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_02912feb79994ae24665509d964ad9ce_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 43.70040273666382,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_06b975dbc47dc2dc2a3a1468293f6a2c_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 34.254581689834595,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_0b1bb8d03b4287eb95f67b68c2cf9f92_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 94.00065875053406,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_0b86dae4d8f328a0e79d9ac394000dec_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 44.06445002555847,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_0ce88e1e131aef7a59d0533be36870de_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 33.86812663078308,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_0cfb8a42b5d4194d8c73dba0cdf6256c_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 39.01296591758728,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_0edcd83c195557b43279fa73edaa59aa_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.089519739151,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_14b9d21f7fed39fb42849e9cde233930_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 39.46419334411621,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_17f81b80831d8d58564b9c8e3cf79261_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 30.3441903591156,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_1cddf9d22ca549f3a86cf1512a3110cc_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 38.440808057785034,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2140e879cd0d3c1b5ba2ea1e3a75aab6_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 34.20396661758423,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_26f4ed67a5e8922e7d42b35d317ebf4b_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 40.83389377593994,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a645bfcbcd473423581cd9f1ceb778e_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 41.797667264938354,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.49587106704712,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_10.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.647814750671387,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_11.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.303292989730835,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_12.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.533175945281982,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_13.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.546909093856812,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_14.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.87605905532837,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_15.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.422583818435669,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_16.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.897459983825684,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_17.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.076066017150879,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_18.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.81907367706299,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.933369636535645,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.006023168563843,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_4.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.624110698699951,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_5.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.11825942993164,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_6.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.32737112045288,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_7.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.629343271255493,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_8.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.833097457885742,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2a6b4fa088699701a6fa9ccecfb5c25d_9.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.179925680160522,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2c69e142b52dbb30cac2cb11d3eb25e5_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 38.642582178115845,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_2de954934f60ac538c5bd5dc40833a61_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 41.0264630317688,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_35352f94db65d19e097395380498ec15_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 47.13557195663452,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_354720d92a632709eb8e61795b191390_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 28.8067524433136,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_35bdaa11dec104ccbdc9e19ac8527d21_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 40.952162981033325,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_401c73055b88a62c479edd3d490cea8a_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 45.37132263183594,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_41a09cb64841567c220d8cac3c1cc193_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 42.60609292984009,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_4790b51e8fa793743699647c09a93ccb_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 39.89924693107605,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_4b4ad1f6cba28a4844d7ffa9306223a4_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 40.79939603805542,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_4cec63ef5a813c5a49dd8e577f3180e7_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 41.1585111618042,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_571a946262006cd89199b67353c408b8_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 35.31155276298523,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_5a8b7563a3262beecbecd7ddd3ef8827_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 43.96549987792969,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_5aedf678eff04d8ebac3692d54103e19_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 42.34007453918457,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_5bba361b0a5ca11745edbef140e2a431_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 35.33606457710266,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_5c4e17f22cdc19d414a3c521f631c899_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 37.24705219268799,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_5d4b8e73eacbc6ecac0d7b1396fd01d7_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 30.724941730499268,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_5e266dfd9c498cab274e12a7b4a75755_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 28.998009204864502,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_5e266dfd9c498cab274e12a7b4a75755_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.87053394317627,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_5e266dfd9c498cab274e12a7b4a75755_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.06609034538269,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_5e266dfd9c498cab274e12a7b4a75755_4.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 23.075812578201294,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_5e8bcc55b922fd521a667c6ef01027d5_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 33.565184116363525,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_635e4e6a64cf2ccfb2560f9b6dfe24b5_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 47.99454879760742,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_6d2b5f833fe20785bc395f757524cb05_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 37.78295159339905,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_6fa919bfb48695bc785d9f326e3cdd36_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 38.232370138168335,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_73fc8720a9b2798307ba43a8b8e47b5e_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 43.05775213241577,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_74fc3b01b2cc4a7e6ca0f1af2b998187_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 34.754611015319824,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_75bb60c3be9959e1be400d6b8281fea1_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 42.30034589767456,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_7746db2ad2ea24c827eac60244375bbf_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 39.21463322639465,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_7d8b25729455f1d061a95ec4269d72dc_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 29.657537937164307,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_8076765115f6c402e81c6bfb48139bc2_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 22.168331384658813,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_87769622e073730af94822416c60c710_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 40.93681979179382,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_95f2062735b213b3d7d471a48d5ec71b_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 39.191086769104004,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_9729b78cbf9f2820b9f257fff7e3171b_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 36.83333897590637,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_9bb9e05d38b370251a4b0a8d070d1d55_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 40.186249017715454,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_9eafddb83b0f7f99c42ff364b080e2c1_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 47.56641125679016,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_Chicago Tribune_0801@magazinesclubnew_page_015.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 33.66144371032715,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_Chicago Tribune_0801@magazinesclubnew_page_019.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 71.64969110488892,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_Chicago Tribune_0801@magazinesclubnew_page_032.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 26.11820650100708,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_Daily Mail_2022-08-01@magazinesclubnew_page_009.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 31.573201179504395,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_Daily Mail_2022-08-01@magazinesclubnew_page_068.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.948391437530518,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_Daily Mirror 2025-1-8@magazinesclubnew_page_029.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.301379442214966,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_Daily Mirror 2025-1-8@magazinesclubnew_page_034.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.17671823501587,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_Daily Mirror 2025-1-8@magazinesclubnew_page_058.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 24.513283014297485,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_Daily Star 2025-1-8@magazinesclubnew_page_060.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.47144889831543,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_NY Daily News_August 1@magazinesclubnew_page_007.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.251033306121826,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_NY Daily News_August 1@magazinesclubnew_page_020.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.679439783096313,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_The Globe and Mail - 2025-1-8@magazinesclubnew_page_003.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.01603651046753,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_The Globe and Mail - 2025-1-8@magazinesclubnew_page_014.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 67.68640112876892,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_The Globe and Mail - 2025-1-8@magazinesclubnew_page_018.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 33.76884889602661,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_The Globe and Mail - 2025-1-8@magazinesclubnew_page_027.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 22.670430421829224,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_The Guardian UK_0801@magazinesclubnew_page_048.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 22.92221450805664,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_The Guardian UK_0801@magazinesclubnew_page_051.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 37.17876219749451,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_The Guardian UK_0801@magazinesclubnew_page_052.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 29.912818431854248,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_The Guardian UK_0801@magazinesclubnew_page_061.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 39.109938621520996,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_The Times UK_0801@magazinesclubnew_page_001.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 23.532506942749023,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_The Times UK_0801@magazinesclubnew_page_020.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 29.803178548812866,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_The Times UK_0801@magazinesclubnew_page_031.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 24.242059230804443,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_The Times UK_0801@magazinesclubnew_page_083.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 32.349140644073486,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_The Wall Street Journal - 2025-01-08@magazinesclubnew_page_004.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 45.07464599609375,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_The Wall Street Journal - 2025-01-08@magazinesclubnew_page_009.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 35.0213885307312,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_The Wall Street Journal - 2025-01-08@magazinesclubnew_page_018.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 57.235432386398315,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_The Wall Street Journal - 2025-01-08@magazinesclubnew_page_021.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 27.046226739883423,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_TheBostonGlobe-2025-1-8@magazinesclubnew_page_003.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 36.49587678909302,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_TheBostonGlobe-2025-1-8@magazinesclubnew_page_011.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 37.193437337875366,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_TheBostonGlobe-2025-1-8@magazinesclubnew_page_025.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 131.3306930065155,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_TheBostonGlobe-2025-1-8@magazinesclubnew_page_033.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 43.87525820732117,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_TheGuardianUS-2025-1-8@magazinesclubnew_page_015.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 37.06351852416992,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_TheGuardianUS-2025-1-8@magazinesclubnew_page_029.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 36.11229109764099,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_TheGuardianUS-2025-1-8@magazinesclubnew_page_033.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 33.12206816673279,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_TheGuardianUS-2025-1-8@magazinesclubnew_page_041.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 34.96111297607422,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_TheWashingtonPost-2025-01-08@magazinesclubnew_page_009.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 26.249300241470337,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_TheWashingtonPost-2025-01-08@magazinesclubnew_page_042.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 91.0180459022522,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_USAToday-2025-01-08@magazinesclubnew_page_012.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 26.313570976257324,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_USAToday-2025-01-08@magazinesclubnew_page_021.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 28.962777853012085,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_USAToday-2025-01-08@magazinesclubnew_page_024.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 25.445621252059937,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_a105e3b0ddb10be6a596f76407c79180_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 63.71274137496948,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_a15057349a86850e55b084c235fa2f22_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 42.89873957633972,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_a7666484ee01a811247e52f784164cbb_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 40.40363550186157,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_a9c9e3816aa5cb6866d02c10273dc665_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 34.21449518203735,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_b615618f3cdb0f2c13ffb5865dea799c_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 82.72992897033691,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_b95d1d8eb0d756cc94a5d8b5db3cf69b_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 33.047733306884766,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_baa51a22898f0d534a6c404ba8f12fb1_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 29.135263442993164,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_baa51a22898f0d534a6c404ba8f12fb1_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 31.607885360717773,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_bd75af5f4791aa56ef05ce2443e8a7e0_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 38.240859031677246,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_bf784eedb0c377adb9a0f286954af785_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 27.44286298751831,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_bf784eedb0c377adb9a0f286954af785_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.808954000473022,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_c0794b9574ba55a589418fa1ae160b9a_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 48.46597623825073,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_c3c88b76543e2caf044c9f7689f23ec9_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 53.50858211517334,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_c79c0c10a5df54b21bccad8f64063ffa_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 37.01926350593567,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_c8e8e00e1b1a70aa44afd1fbdaf59430_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 38.0001335144043,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_c9147e07a59fdd1194da22f2ec07dd1c_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 35.06439733505249,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_c9e9b3e7b8a5f5a5b59304a9924c41b9_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 40.07514786720276,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_d1716a12000a38e1e4c0bf66309558db_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 41.83100342750549,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_d4ed0f39df940849b16439f49873ff5c_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 23.155338048934937,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_d6cd76e5afe881630173bd4921531a4b_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 33.42754101753235,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_d7fe1132386670993aae3dabc6247bc9_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.39030933380127,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_d7fe1132386670993aae3dabc6247bc9_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 23.650829553604126,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_d84e38031cf03d3fd4649910cf0ecce1_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 34.86940550804138,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_dd99f17cad0992a54fdf424b1c5e86ee_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 40.59644651412964,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_e3842a5681ef54c62a58804adec06c3f_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 36.64144825935364,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_e567840b2e327602422573ccdc1c4275_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 34.07742261886597,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_e6083de4647ef28434cb6a598b073ae4_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 29.30280327796936,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_e62730aaeb9b509119e0c3699ac18201_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 44.244380712509155,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_e6cb1ce916e0b7e120c84db53541a3d3_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.813743829727173,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_e6ddb0246224fb8bd8788e6cc7839021_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 64.72345161437988,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_e7246d706077d2064a6e667dfc73925e_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 41.311824321746826,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_e81b9b3561d4d4e865ff6713782fd432_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 41.65213322639465,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_eb569707cf5621d4c71d5898216cdb17_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 38.86062026023865,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_ef5c785d9cc21ccf6b73d143f231b5c5_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 42.27893924713135,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_f1de032fb6a25cf85c85c15cb2d2a63a_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 48.34669756889343,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_f36d00fe3544ae72725aac9dc7f19aa8_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 39.36040258407593,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_fe2c8b45b2a086cd75984640bb3080e1_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 37.445186614990234,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_fe5ed29024932fad071afc53807b16ba_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.551884651184082,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_fe5ed29024932fad071afc53807b16ba_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.34192991256714,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_fe5ed29024932fad071afc53807b16ba_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.83877420425415,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_fe5ed29024932fad071afc53807b16ba_4.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.878538608551025,
+      "attempts": 1
+    },
+    {
+      "image": "newspaper_fe5ed29024932fad071afc53807b16ba_5.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.92494249343872,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_10.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.049554824829102,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_100.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.038686752319336,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_101.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.390415906906128,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_102.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.542165040969849,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_103.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.083404779434204,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_104.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.307049036026001,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_11.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.608060598373413,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_118.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.9348673820495605,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_119.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.939171552658081,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_12.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.621993780136108,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_120.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.239490270614624,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_121.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.207523584365845,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_122.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.630496978759766,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_123.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.207819700241089,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_124.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.065842866897583,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_125.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.644912958145142,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_126.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.893126010894775,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_13.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.472011804580688,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_14.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.339588165283203,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_15.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.480398416519165,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_16.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.931719779968262,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_30.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.3975794315338135,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_31.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.86968183517456,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_32.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.122284650802612,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_33.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.584254264831543,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_34.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.244852304458618,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_35.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.701169967651367,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_36.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.8860907554626465,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_37.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.913978576660156,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_38.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.251657485961914,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_52.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.764693975448608,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_53.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.177130460739136,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_54.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.552692651748657,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_55.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.060312271118164,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_56.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.527865171432495,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_57.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.823978424072266,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_58.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.416484117507935,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_59.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.9215874671936035,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_60.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.76946234703064,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_74.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.455672979354858,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_75.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.826399803161621,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_76.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.455418825149536,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_77.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.221907138824463,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_78.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.813660144805908,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_79.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.988882780075073,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_8.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.337466716766357,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_80.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.226133823394775,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_81.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.697078943252563,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_82.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.626381874084473,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_9.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.596486568450928,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_96.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.121843814849854,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_97.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.69704794883728,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_98.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.426739454269409,
+      "attempts": 1
+    },
+    {
+      "image": "notes_1ba14cb325bc448f7201b20502ecf2b5_99.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.99606466293335,
+      "attempts": 1
+    },
+    {
+      "image": "notes_9e951846094758afac08c620144e3a76_10.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.115410327911377,
+      "attempts": 1
+    },
+    {
+      "image": "notes_9e951846094758afac08c620144e3a76_11.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.670165300369263,
+      "attempts": 1
+    },
+    {
+      "image": "notes_9e951846094758afac08c620144e3a76_12.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.796899318695068,
+      "attempts": 1
+    },
+    {
+      "image": "notes_9e951846094758afac08c620144e3a76_13.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.123137712478638,
+      "attempts": 1
+    },
+    {
+      "image": "notes_9e951846094758afac08c620144e3a76_14.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.507779598236084,
+      "attempts": 1
+    },
+    {
+      "image": "notes_9e951846094758afac08c620144e3a76_15.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.534686803817749,
+      "attempts": 1
+    },
+    {
+      "image": "notes_9e951846094758afac08c620144e3a76_16.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.173373222351074,
+      "attempts": 1
+    },
+    {
+      "image": "notes_9e951846094758afac08c620144e3a76_17.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.898428440093994,
+      "attempts": 1
+    },
+    {
+      "image": "notes_9e951846094758afac08c620144e3a76_9.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.978594064712524,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_111.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.438283681869507,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_112.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.193891286849976,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_113.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.553261995315552,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_114.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.936320304870605,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_115.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.760601997375488,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_116.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.405585050582886,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_117.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.986058473587036,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_118.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.696690082550049,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_119.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.37209415435791,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.809996128082275,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_23.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.748535394668579,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_24.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.721772193908691,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_25.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.296843767166138,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_26.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.018906831741333,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_27.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.975481271743774,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_28.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.723853349685669,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_29.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.166796445846558,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.658214807510376,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_30.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.912881851196289,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_31.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.684638500213623,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_4.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.405887365341187,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_45.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.37114429473877,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_46.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.229737758636475,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_47.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.531529664993286,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_48.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.447457075119019,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_49.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.085224390029907,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_5.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 1.717050313949585,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_50.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.753092050552368,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_51.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.365394353866577,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_52.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.48343276977539,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_53.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.010637044906616,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_6.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.185827493667603,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_67.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.009577751159668,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_68.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.434513330459595,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_69.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.733811140060425,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_7.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.37526249885559,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_70.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.137866735458374,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_71.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.6459743976593,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_72.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.037365436553955,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_73.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.61682367324829,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_74.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.310829401016235,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_75.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.519471883773804,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_8.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.631062269210815,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_89.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.885973930358887,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_9.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.740317583084106,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_90.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.461027383804321,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_91.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.0601136684417725,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_92.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.836803197860718,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_93.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.53862476348877,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_94.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.944177865982056,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_95.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.93646240234375,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_96.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.138450384140015,
+      "attempts": 1
+    },
+    {
+      "image": "notes_f7f010b78016aeebd76e56d9283eb67f_97.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.313324928283691,
+      "attempts": 1
+    },
+    {
+      "image": "page-00b6ac57-4466-4eb0-937d-bb29a44fa0d3.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 29.204267024993896,
+      "attempts": 1
+    },
+    {
+      "image": "page-014dee5d-dfce-406b-925e-4ec8ffe4ac16.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.2389395236969,
+      "attempts": 1
+    },
+    {
+      "image": "page-014f6999-c15c-41e8-8d06-47d7523fe352.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.30970025062561,
+      "attempts": 1
+    },
+    {
+      "image": "page-01700769-1314-4880-83ab-af23bee36da3.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.586409091949463,
+      "attempts": 1
+    },
+    {
+      "image": "page-01a2352e-2a3b-4a56-b3fc-d86b170f1f60.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.322040557861328,
+      "attempts": 1
+    },
+    {
+      "image": "page-035cb436-c01e-41db-b40e-8977678777eb.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 33.68801403045654,
+      "attempts": 1
+    },
+    {
+      "image": "page-05746fc5-2045-4dea-94e7-4bbab648d702.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.143722295761108,
+      "attempts": 1
+    },
+    {
+      "image": "page-062fc21c-6b9c-40be-8d0e-7a617509a9bc.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.04538083076477,
+      "attempts": 1
+    },
+    {
+      "image": "page-07088b2f-f9d6-4c38-9c97-d7f98bc3d556.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.371843814849854,
+      "attempts": 1
+    },
+    {
+      "image": "page-07b33434-d7fe-4ada-b764-ba2df172d1fb.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.522006511688232,
+      "attempts": 1
+    },
+    {
+      "image": "page-07d333cf-4ebf-427c-b146-e419962b81fa.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.844268560409546,
+      "attempts": 1
+    },
+    {
+      "image": "page-08172901-09b1-4698-827e-f7379ca6b531.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.38646125793457,
+      "attempts": 1
+    },
+    {
+      "image": "page-085e8c3e-54f9-4f46-b59b-163ee783dbfd.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.042844295501709,
+      "attempts": 1
+    },
+    {
+      "image": "page-0a262e27-b24d-4429-9b21-90563d4fada7.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.38611626625061,
+      "attempts": 1
+    },
+    {
+      "image": "page-0b011030-84e4-49e3-adfb-437c96b9947d.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.60190749168396,
+      "attempts": 1
+    },
+    {
+      "image": "page-0b20ed47-7c6c-4578-bbdf-057a89a083ec.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.269462585449219,
+      "attempts": 1
+    },
+    {
+      "image": "page-0b772bee-71ec-4d4a-a406-d7691b1a6e86.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.127427339553833,
+      "attempts": 1
+    },
+    {
+      "image": "page-0c1be55c-0b1b-4d62-b17d-ed752f9af9f2.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.357032537460327,
+      "attempts": 1
+    },
+    {
+      "image": "page-0c28f48b-33da-489c-bfc1-1fe82e5be68f.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.497917652130127,
+      "attempts": 1
+    },
+    {
+      "image": "page-0c8b5994-685d-4b1b-816a-74f43aff8a53.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.997707843780518,
+      "attempts": 1
+    },
+    {
+      "image": "page-0cbdcfa9-3248-4e54-8704-2bc73e6d29e7.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 25.303267002105713,
+      "attempts": 1
+    },
+    {
+      "image": "page-112859dc-07d9-473a-a027-94904db8fd84.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.423799991607666,
+      "attempts": 1
+    },
+    {
+      "image": "page-141c2c16-4b50-4c3b-a64b-3e2fd8bb4002.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.255977392196655,
+      "attempts": 1
+    },
+    {
+      "image": "page-14a6b411-9097-4eec-86da-92075868d243.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 34.6076295375824,
+      "attempts": 1
+    },
+    {
+      "image": "page-14cd673f-d86d-45a7-a13e-2b4e1d91c08f.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.619016170501709,
+      "attempts": 1
+    },
+    {
+      "image": "page-15cc8cbe-9ce3-4ad8-8737-9159b061ca95.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.713170289993286,
+      "attempts": 1
+    },
+    {
+      "image": "page-175b8afd-8077-4f65-bdbf-40682e0a9a4b.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.845748662948608,
+      "attempts": 1
+    },
+    {
+      "image": "page-1853e666-6f83-432c-afc8-923ce8cf0fea.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.231690168380737,
+      "attempts": 1
+    },
+    {
+      "image": "page-19300c18-7995-4099-a94c-b4c61d7622cb.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.729529857635498,
+      "attempts": 1
+    },
+    {
+      "image": "page-1955f827-fb35-4806-b3a4-463d9e0d6cc8.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 23.337311029434204,
+      "attempts": 1
+    },
+    {
+      "image": "page-1c08a4a2-8163-44d3-93f0-9449457dbba3.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.164679050445557,
+      "attempts": 1
+    },
+    {
+      "image": "page-1ce383cc-63a3-43c9-b6f2-7498a952b65c.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.816473960876465,
+      "attempts": 1
+    },
+    {
+      "image": "page-1cecd66d-3563-422a-a204-999bba0bb528.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 23.025018453598022,
+      "attempts": 1
+    },
+    {
+      "image": "page-1f03d0f2-1166-4b9b-9609-94bf8bfd29b2.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.385884761810303,
+      "attempts": 1
+    },
+    {
+      "image": "page-1f9a7efa-1d99-46c5-a2aa-48402d699f06.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 1.7623927593231201,
+      "attempts": 1
+    },
+    {
+      "image": "page-205e4273-5b94-43e5-bfaf-dc882416b067.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.638954401016235,
+      "attempts": 1
+    },
+    {
+      "image": "page-213e6a57-ba81-4afb-8184-2e1cf2a7664d.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 53.44757270812988,
+      "attempts": 1
+    },
+    {
+      "image": "page-21967f5d-667d-488e-a5b3-76b9d6f53656.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.64204502105713,
+      "attempts": 1
+    },
+    {
+      "image": "page-219a47e5-3b78-4fa4-9066-3b95bb342a87.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.793422222137451,
+      "attempts": 1
+    },
+    {
+      "image": "page-21ad32ba-fd62-43e5-964a-f5e95c0e0441.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.9887871742248535,
+      "attempts": 1
+    },
+    {
+      "image": "page-2329f04a-41b3-435b-993a-a0652294b07d.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.470629215240479,
+      "attempts": 1
+    },
+    {
+      "image": "page-232d386f-6c9d-4b50-9463-89dedce995e5.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.25532603263855,
+      "attempts": 1
+    },
+    {
+      "image": "page-24b49b01-6c1f-46d2-a389-6e537f9902e1.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.485111951828003,
+      "attempts": 1
+    },
+    {
+      "image": "page-25bb22df-f066-42ea-b1a9-e283ec22a303.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.905803203582764,
+      "attempts": 1
+    },
+    {
+      "image": "page-25cb2b2a-e44a-4043-90e1-3f7058d8b99e.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.750585317611694,
+      "attempts": 1
+    },
+    {
+      "image": "page-268266af-56c0-4b3b-9d07-73c6e50feb58.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.673784255981445,
+      "attempts": 1
+    },
+    {
+      "image": "page-27a46d41-49b5-4562-a546-6cbbafd23a81.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.020705699920654,
+      "attempts": 1
+    },
+    {
+      "image": "page-2861127b-41a4-44d5-b026-2de9cb408347.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.781147003173828,
+      "attempts": 1
+    },
+    {
+      "image": "page-28657a85-95cc-4bfa-8156-cc98518a0b4c.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.720140695571899,
+      "attempts": 1
+    },
+    {
+      "image": "page-28c45f5f-7e0d-464a-89ec-8de3a4abb927.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.741679191589355,
+      "attempts": 1
+    },
+    {
+      "image": "page-29ccb4ce-9266-4938-8f2d-b2b69ceb43cd.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.559617280960083,
+      "attempts": 1
+    },
+    {
+      "image": "page-2abc2a95-d39a-48db-9b6d-f40410412694.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.720329761505127,
+      "attempts": 1
+    },
+    {
+      "image": "page-2b4c4f44-c0de-41b6-9561-96195c233f47.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.110697984695435,
+      "attempts": 1
+    },
+    {
+      "image": "page-2d8358c5-114a-4bda-92c3-e8480d9ab082.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.749287128448486,
+      "attempts": 1
+    },
+    {
+      "image": "page-2dc37c8b-1547-43dd-8643-fdbecfe5eea8.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.670031547546387,
+      "attempts": 1
+    },
+    {
+      "image": "page-2deb83b3-abe2-442c-a544-0b6a8db464f1.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 32.12070178985596,
+      "attempts": 1
+    },
+    {
+      "image": "page-2ff22832-e343-46a7-b94f-47ed864ce486.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.342531204223633,
+      "attempts": 1
+    },
+    {
+      "image": "page-30aa7cae-34fd-4b0b-b01a-fd35ff3bdfea.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.978275299072266,
+      "attempts": 1
+    },
+    {
+      "image": "page-31fb2a53-5b32-40f6-9db1-52b357f3201f.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.824946880340576,
+      "attempts": 1
+    },
+    {
+      "image": "page-349417c3-e5f4-4dae-b018-7323ef36b04e.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.450915336608887,
+      "attempts": 1
+    },
+    {
+      "image": "page-34e4675f-4b7f-4bc3-8624-c399423d2c66.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.852494716644287,
+      "attempts": 1
+    },
+    {
+      "image": "page-35ecd651-17dd-43e6-8a6f-8f55d6796d96.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.173264265060425,
+      "attempts": 1
+    },
+    {
+      "image": "page-374e9c4b-6fdb-4176-8ac7-519b86d97e40.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.905795812606812,
+      "attempts": 1
+    },
+    {
+      "image": "page-37a801d0-4422-4ddb-8b45-73b259396212.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.66726541519165,
+      "attempts": 1
+    },
+    {
+      "image": "page-38fc7c6b-80ed-46be-bb53-29986a63ad3e.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 70.83238935470581,
+      "attempts": 1
+    },
+    {
+      "image": "page-39551bb3-1b65-4562-b258-1bc97898cdf9.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.588581323623657,
+      "attempts": 1
+    },
+    {
+      "image": "page-39abce32-298b-42ab-8c46-b4fbfbcaa674.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.127779483795166,
+      "attempts": 1
+    },
+    {
+      "image": "page-39d18b46-ad1b-4c7a-b7e2-132471c27c15.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.485966205596924,
+      "attempts": 1
+    },
+    {
+      "image": "page-39f38730-0ae6-4cfe-8b99-c65d06d09544.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.25565791130066,
+      "attempts": 1
+    },
+    {
+      "image": "page-3bed7e71-905d-4f69-aabe-dbff56d7ac4c.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.898562669754028,
+      "attempts": 1
+    },
+    {
+      "image": "page-3c690b07-30d7-4e77-bf20-012f0080fb1d.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.750600814819336,
+      "attempts": 1
+    },
+    {
+      "image": "page-3ce15378-6ffd-4f3c-9473-8b897451c770.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 55.05944228172302,
+      "attempts": 1
+    },
+    {
+      "image": "page-3e0da562-e549-4a04-8335-e76db83d57e6.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.110929012298584,
+      "attempts": 1
+    },
+    {
+      "image": "page-3ec8e45c-1c38-41d2-bb9d-c50745232f2a.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.448852300643921,
+      "attempts": 1
+    },
+    {
+      "image": "page-3ecc67a1-9b19-4fb9-b74d-acbb73db5c53.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.5467350482940674,
+      "attempts": 1
+    },
+    {
+      "image": "page-3f872a77-3faf-47d6-8574-bd2e5806ff98.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.589864730834961,
+      "attempts": 1
+    },
+    {
+      "image": "page-3f8eed58-8b86-4f3a-958d-13671977d3c6.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.123740673065186,
+      "attempts": 1
+    },
+    {
+      "image": "page-4009495f-1a7c-46dc-9f52-7f80f5f0cc5c.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.117357969284058,
+      "attempts": 1
+    },
+    {
+      "image": "page-404e0471-bd71-426a-8e5a-81b8327f88e5.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 23.98478651046753,
+      "attempts": 1
+    },
+    {
+      "image": "page-4089ffa0-27f5-4a20-ba2f-c68e3ad46ce2.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.624148607254028,
+      "attempts": 1
+    },
+    {
+      "image": "page-422d6037-0834-47e5-932a-408286b37ec5.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.882216691970825,
+      "attempts": 1
+    },
+    {
+      "image": "page-423cdc11-af52-4e41-8feb-a40741b15855.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.705704927444458,
+      "attempts": 1
+    },
+    {
+      "image": "page-4254323d-8940-46fc-8cbb-b255c26b9693.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.143019676208496,
+      "attempts": 1
+    },
+    {
+      "image": "page-430a31db-08e2-41e9-9812-8bd807b8e1c1.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.6905810832977295,
+      "attempts": 1
+    },
+    {
+      "image": "page-4319d401-c9e8-4326-9869-7572cf2e0e96.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.8204076290130615,
+      "attempts": 1
+    },
+    {
+      "image": "page-4431f432-9e71-46d3-a5ea-4d705ad163a8.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.769008159637451,
+      "attempts": 1
+    },
+    {
+      "image": "page-44a14308-9d3e-4044-9508-5c3e30141a19.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.293974876403809,
+      "attempts": 1
+    },
+    {
+      "image": "page-4540d82a-19d8-44ef-8f18-6d42fdb2a2de.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.97417664527893,
+      "attempts": 1
+    },
+    {
+      "image": "page-458ab820-615f-42fe-af33-3a8fb15ad691.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 47.74470400810242,
+      "attempts": 1
+    },
+    {
+      "image": "page-472c26e2-6bc2-4c05-9889-05132c87a8a9.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.381524801254272,
+      "attempts": 1
+    },
+    {
+      "image": "page-47977c29-59ca-4534-9a00-becad3bfdaa4.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.24376893043518,
+      "attempts": 1
+    },
+    {
+      "image": "page-48687e49-b9db-4251-96cf-124144aa4d08.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.607234239578247,
+      "attempts": 1
+    },
+    {
+      "image": "page-49746735-505c-442d-b3f6-c55b1bf9e48b.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.22881555557251,
+      "attempts": 1
+    },
+    {
+      "image": "page-49776237-a9be-441d-a326-002eb7084385.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.218107223510742,
+      "attempts": 1
+    },
+    {
+      "image": "page-4b8f8a9d-e061-4207-a42e-ebf9b7090099.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.595936059951782,
+      "attempts": 1
+    },
+    {
+      "image": "page-4c92c2ac-d7f7-43a5-b323-f242f31ddbf8.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.863412857055664,
+      "attempts": 1
+    },
+    {
+      "image": "page-4e3c4fd6-32b7-44c8-9247-4a09e83e87c8.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.200292348861694,
+      "attempts": 1
+    },
+    {
+      "image": "page-50209df6-f404-4e67-a646-bc9697f2e214.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.150285482406616,
+      "attempts": 1
+    },
+    {
+      "image": "page-50ffe5d2-cd27-449a-a813-d4a8c44b12ea.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 25.561168432235718,
+      "attempts": 1
+    },
+    {
+      "image": "page-51757cee-c153-4baf-8616-ac106b543885.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.01805067062378,
+      "attempts": 1
+    },
+    {
+      "image": "page-52875b3d-f4dc-44c2-a9bb-514b0763833d.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.756813526153564,
+      "attempts": 1
+    },
+    {
+      "image": "page-52e82aa9-7bd7-4683-8adc-520cae0291e0.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.152044773101807,
+      "attempts": 1
+    },
+    {
+      "image": "page-550c6f8b-929c-46c8-a3b6-264be02d2993.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.971831798553467,
+      "attempts": 1
+    },
+    {
+      "image": "page-56023e3d-ae9b-486d-b7bb-419624d18356.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.900758743286133,
+      "attempts": 1
+    },
+    {
+      "image": "page-572316a1-cdf8-4c50-81d4-2e6dc13dcdce.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.467092514038086,
+      "attempts": 1
+    },
+    {
+      "image": "page-573c437e-c309-4483-a038-ef2f440b104a.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.169551610946655,
+      "attempts": 1
+    },
+    {
+      "image": "page-57d5842c-85c2-41c9-9d37-65aad59c1277.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.615682601928711,
+      "attempts": 1
+    },
+    {
+      "image": "page-59ff417b-63b3-40a4-a6ac-8fc2cdf71b5f.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.831153869628906,
+      "attempts": 1
+    },
+    {
+      "image": "page-5a104368-22a2-440a-a1aa-49b7d1eb57f0.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.949522972106934,
+      "attempts": 1
+    },
+    {
+      "image": "page-5b2f2dec-8e96-450f-aea0-b73d46eac172.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.372963190078735,
+      "attempts": 1
+    },
+    {
+      "image": "page-5c7ed29b-b72b-4838-9536-a461adf3006d.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.64929723739624,
+      "attempts": 1
+    },
+    {
+      "image": "page-5cb4b2fe-c14d-450e-9b97-4b6e7c99493b.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 30.06614375114441,
+      "attempts": 1
+    },
+    {
+      "image": "page-5d58cdf7-6d00-4ea5-97b2-358cbc0cab21.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 45.847339391708374,
+      "attempts": 1
+    },
+    {
+      "image": "page-5ef91820-15a4-41af-b57f-36ec76879fee.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.372418403625488,
+      "attempts": 1
+    },
+    {
+      "image": "page-60d560a3-cd92-4b7d-b6c5-f0d6ce6dc3f1.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.85411787033081,
+      "attempts": 1
+    },
+    {
+      "image": "page-617783f8-bbd6-4faf-bca6-a05222c29314.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.583218097686768,
+      "attempts": 1
+    },
+    {
+      "image": "page-632fad6b-6da9-4567-bd2d-a4763a03a314.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.37986421585083,
+      "attempts": 1
+    },
+    {
+      "image": "page-6486c98f-3fc3-4c8f-b35c-ce6005ecb876.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.724285364151001,
+      "attempts": 1
+    },
+    {
+      "image": "page-653953a1-a20e-410a-9e86-95f2bafe04f2.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.854804515838623,
+      "attempts": 1
+    },
+    {
+      "image": "page-658add0f-ce6e-4007-8a99-de47dbc92a57.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.669925689697266,
+      "attempts": 1
+    },
+    {
+      "image": "page-66aa2b38-32c0-4222-839a-50df648218df.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.562153100967407,
+      "attempts": 1
+    },
+    {
+      "image": "page-67013be9-58e5-4842-809d-7a3c1fc91fc7.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.184222936630249,
+      "attempts": 1
+    },
+    {
+      "image": "page-6788acda-bfb0-479c-bc2a-9b471ec2cc33.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.082213163375854,
+      "attempts": 1
+    },
+    {
+      "image": "page-68e347d8-6f34-431b-a2a2-549b3634dabc.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 48.13014006614685,
+      "attempts": 1
+    },
+    {
+      "image": "page-69c15957-4d6d-485c-a244-04a1a8d29d37.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 29.8385591506958,
+      "attempts": 1
+    },
+    {
+      "image": "page-6c29d065-b8f0-4bb0-b7c3-779f9cbab09a.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.667494773864746,
+      "attempts": 1
+    },
+    {
+      "image": "page-6e75aef4-33d0-478a-a3a3-489c782bfa39.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.344544887542725,
+      "attempts": 1
+    },
+    {
+      "image": "page-6eaea9af-1dfa-4166-9881-b5047bbd0a4f.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.507912874221802,
+      "attempts": 1
+    },
+    {
+      "image": "page-7050793e-109f-4066-be91-107f94b617b9.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.351776123046875,
+      "attempts": 1
+    },
+    {
+      "image": "page-7319096f-4c23-42d5-815f-41397976da34.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.403763771057129,
+      "attempts": 1
+    },
+    {
+      "image": "page-73432bc8-cd0f-4e14-b119-0a9de73ab141.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.910565853118896,
+      "attempts": 1
+    },
+    {
+      "image": "page-7430bf33-f161-485f-b880-c9f4ce58b83b.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.106478214263916,
+      "attempts": 1
+    },
+    {
+      "image": "page-74749e1d-5239-4d8e-b89c-6d83f5e59374.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.2972235679626465,
+      "attempts": 1
+    },
+    {
+      "image": "page-74961b9a-ef4c-42d8-a95f-406e6b84cf63.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 26.639045476913452,
+      "attempts": 1
+    },
+    {
+      "image": "page-74c7629d-b064-4b8f-8667-bf943f5ba367.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.754086017608643,
+      "attempts": 1
+    },
+    {
+      "image": "page-773aa2c0-3413-41d0-b019-a573da251455.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.647488832473755,
+      "attempts": 1
+    },
+    {
+      "image": "page-776044e4-c33c-420d-84a8-acbffad569bd.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.66780686378479,
+      "attempts": 1
+    },
+    {
+      "image": "page-796ae342-1329-4bd4-9e64-4d1379cdd26e.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.775478601455688,
+      "attempts": 1
+    },
+    {
+      "image": "page-7a7566fd-43d8-46e4-8a4f-0330e1f27a88.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.069862604141235,
+      "attempts": 1
+    },
+    {
+      "image": "page-7a8cfa1e-c76b-4449-a38f-497648074cd1.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.559873342514038,
+      "attempts": 1
+    },
+    {
+      "image": "page-7bfad9a4-c5b7-40f3-8600-be513d1b1aaa.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.134401082992554,
+      "attempts": 1
+    },
+    {
+      "image": "page-7d2d833d-37b1-4c18-9ee6-4e09d352e265.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.761343479156494,
+      "attempts": 1
+    },
+    {
+      "image": "page-7dfc88d8-6d95-446c-b910-2410e8552f76.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.375229835510254,
+      "attempts": 1
+    },
+    {
+      "image": "page-7e4386d0-51fa-49cc-ad79-dc011a0772d9.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.421316623687744,
+      "attempts": 1
+    },
+    {
+      "image": "page-80a540c8-88d4-4643-b40e-282489353fb8.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.824791193008423,
+      "attempts": 1
+    },
+    {
+      "image": "page-82c2ab31-2cf0-47bb-bfb6-110770323718.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.665666818618774,
+      "attempts": 1
+    },
+    {
+      "image": "page-83587fc3-fe55-4e51-a3c5-f0664edba743.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.33827543258667,
+      "attempts": 1
+    },
+    {
+      "image": "page-83a26c96-4318-4587-9fba-877fd6fe5414.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.27687382698059,
+      "attempts": 1
+    },
+    {
+      "image": "page-83a675ab-0021-4979-8293-8af0d36146a0.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.715431451797485,
+      "attempts": 1
+    },
+    {
+      "image": "page-8524b54d-6372-4f9e-a662-5254349cfda3.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.811388731002808,
+      "attempts": 1
+    },
+    {
+      "image": "page-85377cdf-d6a2-4611-bd50-08795bf7acb6.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.234335660934448,
+      "attempts": 1
+    },
+    {
+      "image": "page-87866578-c897-404e-b751-51fd444f59b2.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.844745397567749,
+      "attempts": 1
+    },
+    {
+      "image": "page-8792f466-c570-468c-86dc-402a510e9bb7.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.770466089248657,
+      "attempts": 1
+    },
+    {
+      "image": "page-87c18f88-ea2f-4044-b092-02e9b2a7436d.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.129284381866455,
+      "attempts": 1
+    },
+    {
+      "image": "page-89180317-baf8-4c13-9b21-722e7d634eeb.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.291908979415894,
+      "attempts": 1
+    },
+    {
+      "image": "page-8c21f73a-b849-4f71-9573-57d50fbcc180.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.645941495895386,
+      "attempts": 1
+    },
+    {
+      "image": "page-8cbbe0d4-a3a8-4533-a620-048bebfa714b.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.123412370681763,
+      "attempts": 1
+    },
+    {
+      "image": "page-8d57c3d2-8e50-4161-871f-bfa7b8c0fdb6.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.948981761932373,
+      "attempts": 1
+    },
+    {
+      "image": "page-8d707810-de48-43ba-81a7-b976918e7be2.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 56.56939387321472,
+      "attempts": 1
+    },
+    {
+      "image": "page-8d885b06-4da2-453f-84f7-2f43bc4ae2dd.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.20557689666748,
+      "attempts": 1
+    },
+    {
+      "image": "page-8daacb2d-9648-48f0-a14b-acf186d58fca.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.18292236328125,
+      "attempts": 1
+    },
+    {
+      "image": "page-8e2f7ce3-83c4-4977-b6dc-278394c4bd64.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.452722311019897,
+      "attempts": 1
+    },
+    {
+      "image": "page-8f6792bd-b5e4-435e-b1b0-1b2daa3f7234.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.89338731765747,
+      "attempts": 1
+    },
+    {
+      "image": "page-91460e0a-922c-4f9b-9d11-d1a7981c3a05.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.5687575340271,
+      "attempts": 1
+    },
+    {
+      "image": "page-91b20bf2-3ad5-41f4-b739-4cc4b18ab1eb.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.52064061164856,
+      "attempts": 1
+    },
+    {
+      "image": "page-92062914-ea02-4640-8f54-24623dba4388.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 36.953206300735474,
+      "attempts": 1
+    },
+    {
+      "image": "page-9390721f-e06c-47ea-8b21-0f27c72df7b7.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 53.86983323097229,
+      "attempts": 1
+    },
+    {
+      "image": "page-942ac90d-4704-43f3-9286-719c7be9e655.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.139520883560181,
+      "attempts": 1
+    },
+    {
+      "image": "page-94600a77-35db-4549-b505-3dadc092b3f4.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.166438102722168,
+      "attempts": 1
+    },
+    {
+      "image": "page-9470d573-83bd-40bb-8491-534e9df043f6.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.947032928466797,
+      "attempts": 1
+    },
+    {
+      "image": "page-9477c155-19b3-4f2d-ac18-ee3f8997d2f8.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.088983297348022,
+      "attempts": 1
+    },
+    {
+      "image": "page-9551c5d5-0786-4bf6-9a87-86b4f6c4111f.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.016250133514404,
+      "attempts": 1
+    },
+    {
+      "image": "page-961a543b-d09d-4fd8-944a-1a38d67bb3bc.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.814745187759399,
+      "attempts": 1
+    },
+    {
+      "image": "page-99c0fd2f-608e-479c-9af5-5b012de4f6af.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.048471927642822,
+      "attempts": 1
+    },
+    {
+      "image": "page-9a25d716-f3a8-42e6-9a4d-e5e49a71ab41.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.128474473953247,
+      "attempts": 1
+    },
+    {
+      "image": "page-9b70f2f0-2a0e-4337-8750-84e79503e939.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.487974882125854,
+      "attempts": 1
+    },
+    {
+      "image": "page-9bcba6da-bdb0-4403-97cb-8874898ac8ab.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.700277090072632,
+      "attempts": 1
+    },
+    {
+      "image": "page-9cca07f9-2e06-4da7-b4f4-496c6e305543.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.991353750228882,
+      "attempts": 1
+    },
+    {
+      "image": "page-9d14b692-a01c-45bd-9726-929bd3c4b726.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.953533172607422,
+      "attempts": 1
+    },
+    {
+      "image": "page-9e69b0ce-dcd8-4b13-a5fb-a0bd6f85f77d.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.051322937011719,
+      "attempts": 1
+    },
+    {
+      "image": "page-9edf7687-029e-4e72-a9a6-c23faa1e1861.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.323336839675903,
+      "attempts": 1
+    },
+    {
+      "image": "page-9f6bc620-1983-4503-bb0f-f9c7949ccb77.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 59.18637943267822,
+      "attempts": 1
+    },
+    {
+      "image": "page-a0018d4b-a1a5-4f8b-872e-b5f5c05c6b36.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.581995725631714,
+      "attempts": 1
+    },
+    {
+      "image": "page-a31baeee-95aa-4758-8d3a-ebf33fdc1626.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.22240686416626,
+      "attempts": 1
+    },
+    {
+      "image": "page-a32698bb-e3ae-49bc-b3af-203fb77b2bdf.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.030755281448364,
+      "attempts": 1
+    },
+    {
+      "image": "page-a6d06208-475c-4c6e-9d84-858f7e2ecf72.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.50006103515625,
+      "attempts": 1
+    },
+    {
+      "image": "page-a70b2ec9-379a-4e83-9f64-852c343ec8cd.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.436310052871704,
+      "attempts": 1
+    },
+    {
+      "image": "page-a8d87718-ab19-4fc0-9ef5-3611ad10f88e.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.223661661148071,
+      "attempts": 1
+    },
+    {
+      "image": "page-a976a26e-4dbb-492a-a380-b923b87ed496.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.039921283721924,
+      "attempts": 1
+    },
+    {
+      "image": "page-aae359c6-5e6e-4e18-9187-2e9d55b6e9bd.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.413045883178711,
+      "attempts": 1
+    },
+    {
+      "image": "page-ab441454-71f1-4900-87c1-d71d5602261e.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.434417486190796,
+      "attempts": 1
+    },
+    {
+      "image": "page-ab4f331b-e8f3-41fb-ba6b-8da5ade54983.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 40.50341081619263,
+      "attempts": 1
+    },
+    {
+      "image": "page-ad5a110f-a4b4-430b-b5db-ecd0ee394451.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.058696985244751,
+      "attempts": 1
+    },
+    {
+      "image": "page-ad96cd76-ac99-45cc-94d1-f9c0451fbc6c.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.671690464019775,
+      "attempts": 1
+    },
+    {
+      "image": "page-ae356bde-652d-44a9-9e21-76cadf5a9dea.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.650387287139893,
+      "attempts": 1
+    },
+    {
+      "image": "page-aee8f1d9-7240-4517-b615-389594556d57.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.503761053085327,
+      "attempts": 1
+    },
+    {
+      "image": "page-af9aded3-1faf-4d12-ad5f-28a66d0a9114.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.4938383102417,
+      "attempts": 1
+    },
+    {
+      "image": "page-affbb0cc-d616-481d-b493-80ed1ccb5a10.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.543501138687134,
+      "attempts": 1
+    },
+    {
+      "image": "page-b0bdb7a8-c7de-4e6c-9e9c-bf979f3a3227.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.42434597015381,
+      "attempts": 1
+    },
+    {
+      "image": "page-b13fef06-6ae9-4b2d-a948-0340e03f97ce.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.32458209991455,
+      "attempts": 1
+    },
+    {
+      "image": "page-b145da5c-182f-4d4e-813a-28b8d6971b0f.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.934427738189697,
+      "attempts": 1
+    },
+    {
+      "image": "page-b1b8cc79-a7b3-4ac5-a7c2-49416b195ccb.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.333503007888794,
+      "attempts": 1
+    },
+    {
+      "image": "page-b21c7247-a843-4316-a44d-c3365077f077.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.836575508117676,
+      "attempts": 1
+    },
+    {
+      "image": "page-b2349b51-01db-4dc1-9e4a-58e52f5e4362.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.608366966247559,
+      "attempts": 1
+    },
+    {
+      "image": "page-b23ec9d4-e4aa-458f-8e65-c2c7f8e9dd46.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 36.39032530784607,
+      "attempts": 1
+    },
+    {
+      "image": "page-b2cc5729-a6b2-49ba-af62-788bf069b617.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.206604480743408,
+      "attempts": 1
+    },
+    {
+      "image": "page-b3394f89-fe60-4f69-a0ee-aca79889950d.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.66602396965027,
+      "attempts": 1
+    },
+    {
+      "image": "page-b342f5e6-cc5a-4920-b1b5-83f96bc476d8.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 1.4320988655090332,
+      "attempts": 1
+    },
+    {
+      "image": "page-b4b6b1d1-5fa6-42ce-8a62-8a6ddd4608f6.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.864217281341553,
+      "attempts": 1
+    },
+    {
+      "image": "page-b4d4cf5b-0a0e-454b-8220-8c7f58402791.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.482413530349731,
+      "attempts": 1
+    },
+    {
+      "image": "page-b527edec-3363-4d38-a390-2f3a307f2392.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.611735105514526,
+      "attempts": 1
+    },
+    {
+      "image": "page-b9d507e7-1239-42de-b70a-d7ca65393dc9.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.757478713989258,
+      "attempts": 1
+    },
+    {
+      "image": "page-ba4443e6-f432-435f-89e7-ddf0a571d2cd.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.947416305541992,
+      "attempts": 1
+    },
+    {
+      "image": "page-bb98165a-8033-4ea4-a527-58ac974f2c32.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.380913972854614,
+      "attempts": 1
+    },
+    {
+      "image": "page-bbe2b2d5-1e02-4d53-ba1c-158eaab2e6d5.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.80917239189148,
+      "attempts": 1
+    },
+    {
+      "image": "page-bd6eb36e-0856-4d9d-b587-21b4a0209c8b.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.147134065628052,
+      "attempts": 1
+    },
+    {
+      "image": "page-bd83d09b-302b-4cc6-999d-19fe668b6577.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.021898031234741,
+      "attempts": 1
+    },
+    {
+      "image": "page-bd9166d9-2c1a-4e3c-87f3-717e2474c77e.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.16264533996582,
+      "attempts": 1
+    },
+    {
+      "image": "page-be2ebf31-5f24-4d3e-97f0-4a8df7e773b4.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 58.969075441360474,
+      "attempts": 1
+    },
+    {
+      "image": "page-bea34248-acae-4578-9ff2-3149a84d7c38.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.813465356826782,
+      "attempts": 1
+    },
+    {
+      "image": "page-bf2cd266-22b7-41d7-a244-28595d23974f.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.224599599838257,
+      "attempts": 1
+    },
+    {
+      "image": "page-bf3685a0-f0ea-46a7-bb99-1526da8f8077.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.477561712265015,
+      "attempts": 1
+    },
+    {
+      "image": "page-c018d221-68b3-4a14-84cd-c9abde2db3a4.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.99454379081726,
+      "attempts": 1
+    },
+    {
+      "image": "page-c1c135ad-427e-482b-b01c-05c0ccbc6e76.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.542644023895264,
+      "attempts": 1
+    },
+    {
+      "image": "page-c32797b5-0a58-40da-82b4-b35dded00f25.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.483489990234375,
+      "attempts": 1
+    },
+    {
+      "image": "page-c6168ed8-ca6a-4ddd-8bfc-92dec77f1870.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.580854415893555,
+      "attempts": 1
+    },
+    {
+      "image": "page-c7771a62-5b6b-48f0-b591-6b657d26e125.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 91.23749327659607,
+      "attempts": 1
+    },
+    {
+      "image": "page-c7792da7-4167-4f5c-a7ca-ec0f8833f83b.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.703862190246582,
+      "attempts": 1
+    },
+    {
+      "image": "page-c7a51204-5142-4c7a-bc9d-1faf1fe1be02.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.794663190841675,
+      "attempts": 1
+    },
+    {
+      "image": "page-c7fec126-2adb-4094-8110-5d81a92e05b0.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.089969873428345,
+      "attempts": 1
+    },
+    {
+      "image": "page-c8a4555b-2c14-40c2-b67f-097dbc77a6b7.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.70339584350586,
+      "attempts": 1
+    },
+    {
+      "image": "page-c9614e79-fb1f-46ef-a660-0f8de860ae30.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.38705587387085,
+      "attempts": 1
+    },
+    {
+      "image": "page-c9654418-0624-48d4-8be7-6065f45dd1f9.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.20050597190857,
+      "attempts": 1
+    },
+    {
+      "image": "page-c99421f9-4435-44a9-82f8-7b044bb0ee1d.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.077006340026855,
+      "attempts": 1
+    },
+    {
+      "image": "page-cb30bac7-d4bd-47d0-ac84-e0b46d051fe9.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.302223205566406,
+      "attempts": 1
+    },
+    {
+      "image": "page-cc37a835-903b-4079-88fc-ae04625c9b5d.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.754976987838745,
+      "attempts": 1
+    },
+    {
+      "image": "page-ccd77e4e-4f94-45df-8e3d-e054a951f65f.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.25773000717163,
+      "attempts": 1
+    },
+    {
+      "image": "page-ccfdaadf-2231-4aad-89a9-2caf72099849.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.7653868198394775,
+      "attempts": 1
+    },
+    {
+      "image": "page-cd70bbf7-d3ee-4329-8e82-74144e709481.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.044133901596069,
+      "attempts": 1
+    },
+    {
+      "image": "page-cdb92c2f-f43f-45ef-ace7-91d4664a7834.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.704691648483276,
+      "attempts": 1
+    },
+    {
+      "image": "page-cdd33cf6-76ce-42bb-a99c-342c861afed0.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.19735860824585,
+      "attempts": 1
+    },
+    {
+      "image": "page-d0b2bb59-ce8e-4a1c-9ba1-a805606a477f.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.051419496536255,
+      "attempts": 1
+    },
+    {
+      "image": "page-d127acc0-f8c9-4f01-8e87-b4c19be7cbb0.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.761108160018921,
+      "attempts": 1
+    },
+    {
+      "image": "page-d1561665-5359-42fe-920c-d6e3bff81953.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.270701885223389,
+      "attempts": 1
+    },
+    {
+      "image": "page-d209d5c0-fe1e-4cf0-90d8-6d610948b235.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.938868522644043,
+      "attempts": 1
+    },
+    {
+      "image": "page-d271a2ab-4523-44c4-94b5-303bf54b69e9.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.41355013847351,
+      "attempts": 1
+    },
+    {
+      "image": "page-d2816bbe-3c28-4905-ad6d-5f873b525de3.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.5212242603302,
+      "attempts": 1
+    },
+    {
+      "image": "page-d29fe4d2-832a-4ad6-ac80-dc01cf8b0e16.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.498488664627075,
+      "attempts": 1
+    },
+    {
+      "image": "page-d2cdac80-318c-4157-ac6e-bdab333f66bd.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.204630136489868,
+      "attempts": 1
+    },
+    {
+      "image": "page-d43b98f8-6a96-44f8-a3cf-65de9397f582.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.378543376922607,
+      "attempts": 1
+    },
+    {
+      "image": "page-d4fe8fcc-37e2-4ac1-9ae2-7d00ac937937.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.731174945831299,
+      "attempts": 1
+    },
+    {
+      "image": "page-d5a3ea83-5427-4f90-a157-7b39b784b26e.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.436806678771973,
+      "attempts": 1
+    },
+    {
+      "image": "page-d5c82c0e-2a7d-4573-9dce-bff939504367.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.08011484146118,
+      "attempts": 1
+    },
+    {
+      "image": "page-d5e0cd38-ac0f-422c-b6d5-c8f001720491.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.90865421295166,
+      "attempts": 1
+    },
+    {
+      "image": "page-d5f79be0-5d57-4849-9897-6106dd32117a.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.334148406982422,
+      "attempts": 1
+    },
+    {
+      "image": "page-d627077d-61cd-45c5-936f-a2c306ec3b5b.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.571314334869385,
+      "attempts": 1
+    },
+    {
+      "image": "page-d8376ede-3935-4a80-8acb-525b14796774.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.41963529586792,
+      "attempts": 1
+    },
+    {
+      "image": "page-d9a27df2-127e-4f76-bb61-e7e741078bef.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.05760645866394,
+      "attempts": 1
+    },
+    {
+      "image": "page-d9cbe0d2-9aa5-4be4-8b43-e328e2bea931.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.540273904800415,
+      "attempts": 1
+    },
+    {
+      "image": "page-dad0f4e5-290f-496f-bbdd-099ad75c6ff0.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.566731929779053,
+      "attempts": 1
+    },
+    {
+      "image": "page-dad79c54-8125-4927-9988-ee1d2a139d7b.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 24.951979398727417,
+      "attempts": 1
+    },
+    {
+      "image": "page-db672e93-7102-4a62-a08b-c9122f1ace72.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.889742612838745,
+      "attempts": 1
+    },
+    {
+      "image": "page-dbed9c07-e155-4ba1-92f9-a2962dc9a8f9.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 42.3194477558136,
+      "attempts": 1
+    },
+    {
+      "image": "page-dc728bd5-50a9-41e8-9e5a-d4b01e6664a2.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.192538499832153,
+      "attempts": 1
+    },
+    {
+      "image": "page-dca64e05-1ce6-49ee-857a-9b5d05a87357.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 52.2189667224884,
+      "attempts": 1
+    },
+    {
+      "image": "page-dd5b0a99-4cc6-4fa9-ab63-a277947735b1.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.057460308074951,
+      "attempts": 1
+    },
+    {
+      "image": "page-ddb9d794-5230-4b43-b1ec-273b9e7ebc11.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.557363271713257,
+      "attempts": 1
+    },
+    {
+      "image": "page-df88c6e5-891e-4984-9f69-8d83891ecb67.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.815379619598389,
+      "attempts": 1
+    },
+    {
+      "image": "page-e13fef95-c179-4a0f-94f9-1cc970aab788.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.877884149551392,
+      "attempts": 1
+    },
+    {
+      "image": "page-e2fbf592-51f5-431a-8ae6-0c62e3349e89.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.680939197540283,
+      "attempts": 1
+    },
+    {
+      "image": "page-e4053f20-e6e6-430e-83ef-db298a3199aa.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.028908252716064,
+      "attempts": 1
+    },
+    {
+      "image": "page-e6c5454d-90ad-495c-85db-a416b7cd6452.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.458622217178345,
+      "attempts": 1
+    },
+    {
+      "image": "page-e721a819-6dbf-453a-a7ad-857c24f9aa3e.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.24711298942566,
+      "attempts": 1
+    },
+    {
+      "image": "page-e7681b54-2c4a-40a2-9abe-caebba01cefb.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.864017009735107,
+      "attempts": 1
+    },
+    {
+      "image": "page-e9e8bc8e-e22d-4d1a-a3fb-5d175e5e4d70.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.309051275253296,
+      "attempts": 1
+    },
+    {
+      "image": "page-eb7308e0-1395-4444-b6a5-9d33cc3a03b2.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.280301570892334,
+      "attempts": 1
+    },
+    {
+      "image": "page-ed0f3b67-a631-4e9d-b8d8-d9594a5aa652.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.6062650680542,
+      "attempts": 1
+    },
+    {
+      "image": "page-eff3dc3a-8d44-4c68-9c3a-55df4aaf1e36.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 22.044589519500732,
+      "attempts": 1
+    },
+    {
+      "image": "page-f029e208-32a7-49e6-a0a1-675590a3e55e.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.63090205192566,
+      "attempts": 1
+    },
+    {
+      "image": "page-f108020f-edc5-4a27-85d9-d9d9c5d67309.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.14778184890747,
+      "attempts": 1
+    },
+    {
+      "image": "page-f222e5f3-8628-47cd-a0b6-40f62123228f.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 62.86881351470947,
+      "attempts": 1
+    },
+    {
+      "image": "page-f245e436-c16e-4d7c-8797-c473bf25880a.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.043494701385498,
+      "attempts": 1
+    },
+    {
+      "image": "page-f3e750d8-8201-4a22-9419-9776798b7a32.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 72.14561581611633,
+      "attempts": 1
+    },
+    {
+      "image": "page-f46e72b1-865d-43e6-ab94-afae16c5f178.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.171212196350098,
+      "attempts": 1
+    },
+    {
+      "image": "page-f5b824d0-be81-48a9-aae6-3060d11a6503.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 58.073997259140015,
+      "attempts": 1
+    },
+    {
+      "image": "page-f628d36d-1c38-41a0-990b-7681c214e29c.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.1516103744506836,
+      "attempts": 1
+    },
+    {
+      "image": "page-f6ad0f1c-acb7-43c0-b08d-5606ca82fc1b.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.629427909851074,
+      "attempts": 1
+    },
+    {
+      "image": "page-f6b6cfb8-3bb5-4393-b3fb-70efef72aca5.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.3295259475708,
+      "attempts": 1
+    },
+    {
+      "image": "page-f8c08102-a96d-4533-b3a1-dac6020513b5.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 50.29084849357605,
+      "attempts": 1
+    },
+    {
+      "image": "page-f8fad378-8ee9-4bb0-b195-35a4d55f3113.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.468589782714844,
+      "attempts": 1
+    },
+    {
+      "image": "page-f9583127-1277-4424-be9d-35430e0aedd6.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.763402462005615,
+      "attempts": 1
+    },
+    {
+      "image": "page-fb79f57d-9d7e-4129-a08c-6fc189e84a21.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.204834938049316,
+      "attempts": 1
+    },
+    {
+      "image": "page-fbfad23e-60e1-40d5-ba55-e7a1bcb26c97.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.556106805801392,
+      "attempts": 1
+    },
+    {
+      "image": "page-fd04ea51-677c-4de2-8e8e-adfd791e2957.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.321401834487915,
+      "attempts": 1
+    },
+    {
+      "image": "page-fd7003ba-9af2-4b60-8c45-1e2ac1c7f474.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.90445613861084,
+      "attempts": 1
+    },
+    {
+      "image": "page-fe0bca35-a6c4-4591-a6dc-c5649c01ba6d.png",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.13655161857605,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_AEM.01420-09.pdf_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 23.042236328125,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_TNANO.2007.893575.pdf_0.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.935976028442383,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_bloodadvances.2019030924.pdf_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.628883361816406,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_c2gc35284b.pdf_6.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.638611078262329,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_carcin%2Fbgh032.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.599287509918213,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_fmicb.2019.01892.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.850232362747192,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_gbe%2Fevaa098.pdf_0.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.21404242515564,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_iccwamtip51612.2020.9317329.pdf_4.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.029786348342896,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_ie102256j.pdf_4.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.538388013839722,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_ijcac.2012040101.pdf_5.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.583637237548828,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_ijop.12033.pdf_5.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.849684238433838,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_j.1528-1167.2008.01552.x.pdf_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.648158311843872,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_j.cbpb.2019.110324.pdf_6.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.305116415023804,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_j.coisb.2017.11.013.pdf_0.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.1592276096344,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_j.conbuildmat.2019.117698.pdf_5.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.899824619293213,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_j.ejcts.2011.04.042.pdf_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.679788827896118,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_j.jallcom.2003.09.015.pdf_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 23.293856382369995,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_j.jmb.2003.10.009.pdf_4.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.8114013671875,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_j.jnutbio.2010.09.015.pdf_0.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.456247568130493,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_j.physe.2007.10.027.pdf_0.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.683614015579224,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_jai.12343.pdf_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 27.02878713607788,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_jb%2Fmvh022.pdf_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.22894263267517,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_jee%2Ftoaa103.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.032275438308716,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_jgh.13044.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 26.243614196777344,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_jneurosci.16-15-04625.1996.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.808281898498535,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_journal.pone.0166577.pdf_5.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 44.261281967163086,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_jp.2017.29.pdf_0.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.01220703125,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_jps.21547.pdf_7.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.470083236694336,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_md.0000000000002934.pdf_0.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.611763954162598,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_mol.66.4.921.pdf_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 21.962040185928345,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_prrv.2001.0150.pdf_0.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.031994342803955,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_pssa.201330411.pdf_0.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.58146858215332,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_s00381-021-05138-3.pdf_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.286498069763184,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_s00586-010-1656-7.pdf_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.610870599746704,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_s00784-003-0233-4.pdf_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 27.09491539001465,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_s00894-012-1568-z.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.045680046081543,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_s11661-013-1726-7.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.655062913894653,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_s12237-014-9873-7.pdf_4.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 32.938679218292236,
+      "attempts": 1
+    },
+    {
+      "image": "scihub_s12935-018-0683-z.pdf_0.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.425862789154053,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_0b41cf8ff07c565b2b3eed6b269c036bb41bc38effea5d0d11b90c69d07fac21.pdf_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.68195652961731,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_0c79d327060dbf9f1582d03c235dadb039533a19091d2c0d24f2ad95d267f79b.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.129994630813599,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_0dd24976bcc395ad595cf73b411d627e14c19ba0299bb3fa0d8108993d079545.pdf_8.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 22.58029007911682,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_11eeaa31ab6171a9d1ea55aeb0b167e51bffeaa8a83a97cb5e2c3fb7963bf1bf.pdf_7.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.248467683792114,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_1c5f17c3dfa38c45b86802b9d014da18.pdf_1372.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.405306577682495,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_2325ef43385f09f3c8539d0f817edf9b39a086325d416958e4b481904f9867db.pdf_12.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.082422494888306,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_293df2702e017fa1e78f6fe9b42d64ce.pdf_928.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.715687274932861,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_2b8553b00244437fa3e502aa2d3d319ed74459a1e264a4fdd9ecc14ce46609d5.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.561380624771118,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_2d0d871a074b4818b16b4425cafac8dd221d91fbde8deae28efba2af50359c50.pdf_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.014013290405273,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_2f4902871606698497c53ccb18d3fec2f83d05047d883cd65bbce26bfb27bcd2.pdf_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.622854232788086,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_3aa9b6677e17fd012b0a7a230b9f18db.pdf_1327.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.131338119506836,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_3f514841b9bba3e68710fde7af9562d36a424736a356ece18bb5eea86b43ada5.pdf_15.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 24.542795419692993,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_4304d65458262c3161cf5d0440c6a56851222ce1da3d7886cdd2320ce2222c4a.pdf_7.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.345410346984863,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_46f23989f000d2a83058955c99cdcc1220d6649f16db4f5719d356aa5ced01bc.pdf_7.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.98687720298767,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_51e549c0d1a2669ac976409fcf99ce91908b1e0a07f0fc70d92263abf6d07f18.pdf_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.07129979133606,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_5473246b8da789b9bfdeef53a70c4d72afd480415d5cbcedb83d105856710328.pdf_8.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.577929973602295,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_56df5dde920f95a11bf5b9d69353fbd82045f3fec4f553bc928a0b50c136f99a.pdf_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.947854280471802,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_593a9a157e4d56a5a57eb14f1d1beec5.pdf_944.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 50.59635519981384,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_6b6ed54523980841c1a28a656d0295ec638cf50c991c16cafec715237c83919f.pdf_31.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.539674758911133,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_6ffacf656934424ef14b39750f1d93926693dd8b7fa925859f1349d253ba2566.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.436815738677979,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_70a45bf10fb90ae0c91d44a11e0a97a8f9515d85626b54eb50a80b6146e5c2bf.pdf_10.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.535203218460083,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_7c6e8be0695a66c716176c95257a76e940f7d08d8227b37e9ee47142eca6b448.pdf_5.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 33.249730348587036,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_903cf6cd7820b5463e95c5aaab9f16134f9853cd7963567497337527e73b9bcc.pdf_7.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 37.21414566040039,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_9081a70ff98b3e7d640660a9412c447d.pdf_1287.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 34.009652614593506,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_9882208cc25205150eeb522e78541631.pdf_501.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 18.240220308303833,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_PattPatelCh12.pdf_27.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.3234448432922363,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_SE05.pdf_7.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.9209558963775635,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_SE14.pdf_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.903326988220215,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_SE17.pdf_10.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.028885126113892,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_SE20.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.767431020736694,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_a822e4cc59988e86ed9654dff1252cc3593961abf1aee12087c522068f2c54e2.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.934217214584351,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_abef2a4978ae4d13e931f0392502bd40.pdf_1130.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 27.015547037124634,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_abef2a4978ae4d13e931f0392502bd40.pdf_1287.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 45.75355792045593,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_aec1bf4ddb8fb4996b0512e90b3bfb31c9b151919f5d7b4a4f658f4b1f762b9e.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.552824020385742,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_b96c77724a4dcf5e1c535d2d4e8f77b26255cf5c4561d37e11fcff640a74919a.pdf_7.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.263664484024048,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_ba38a4c7e8f15937f3ae537cf2de2cd5.pdf_104.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.692693710327148,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_baa6d02928efcac46ccf7dfd3859de565cfb0bea918ae0ec0eed50944a7c20b4.pdf_11.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.035330533981323,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_bde265c4886a63cc9a96575991522f2abfce961325fcd4884fabd9a79c423ffa.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.858967304229736,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_c75b0a56d8f1b31d04fbe97f776244f25f5238f6cada15fb4007f8bfb17bdf9f.pdf_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.284340620040894,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_c894b375daca22d041c8a35946295d0a73d6589ad7c3d1d39d8664a2666372bf.pdf_10.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.456458806991577,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_cf41c3f5ddc7509959ef643ca6308d5ae90f3e87708855d6770df564b749fe7b.pdf_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.705674886703491,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_d346b889f1d85c61950a71d4b0ac2752.pdf_89.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.377258539199829,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_d4fc7cba428625974e93183edfccea73.pdf_89.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.29958176612854,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_e3b48594d5a2a6dc86b51244737f24867a0c1781e9f0e4fb52d96bbc6f9d95c7.pdf_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 28.634525775909424,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_e60b3b61281e87ddf42f9321a9e6ef9d.pdf_159.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.082571744918823,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_ee19df4a08e3d07ac1190446f5b3dd3f25438c661b87cf4fbb9040ac5fac443b.pdf_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.593753576278687,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_fa82190001969f29ed969fe5034956ba12f782219a8345468bb6593cba7ffc48.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.720519304275513,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_m3_Unit_1_Where_did_you_go.pdf_5.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.819622039794922,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1015.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 1.1747186183929443,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1020.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.594013214111328,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1080.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.659343719482422,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1090.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.687607288360596,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1120.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.301332712173462,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_120.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.350156784057617,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1220.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.0534780025482178,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1225.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.832868576049805,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1235.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 1.8131422996520996,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1360.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.033976078033447,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1375.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.5109922885894775,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_145.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.545736312866211,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1465.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.531139612197876,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1475.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.7843172550201416,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_150.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.7407796382904053,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1615.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.705071210861206,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1625.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 1.63969087600708,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1685.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 1.920053243637085,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1695.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.515793561935425,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1710.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.7379114627838135,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1735.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.2530288696289062,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1745.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.461559057235718,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1810.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.0255894660949707,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1820.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.052448034286499,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1825.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.600972414016724,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_1835.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.021129608154297,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_2400.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.161696195602417,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_2460.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.789280891418457,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_2545.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.506682634353638,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_2825.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.9180023670196533,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_2845.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 1.9375877380371094,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_2950.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.831599235534668,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_3125.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.201124668121338,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_3150.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.616543531417847,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_3215.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.860806941986084,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_3290.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.219506502151489,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_335.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.833723545074463,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_3395.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.006396770477295,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_3930.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.2268166542053223,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4000.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.6107380390167236,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4010.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.286208629608154,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4020.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.0000693798065186,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4050.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.9912402629852295,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4095.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.334550857543945,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4115.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.437339544296265,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4125.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.547970533370972,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4150.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.27977728843689,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4185.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.74299955368042,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4245.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.357903003692627,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4275.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.305509090423584,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4285.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.733838081359863,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4310.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.455158948898315,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4330.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.9599392414093018,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4380.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.555706262588501,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4460.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.9364545345306396,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_455.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.012803316116333,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4565.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.363065004348755,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4570.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.726762771606445,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4615.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.1860158443450928,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4630.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.38997745513916,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4635.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.3347067832946777,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4660.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.140305519104004,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4710.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.4437780380249023,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4750.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.205229043960571,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4770.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.139110803604126,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4820.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.291777610778809,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_485.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.6678428649902344,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4900.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.383357524871826,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_495.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.649385929107666,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_4975.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 1.8465385437011719,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.409937620162964,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5070.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 1.733469009399414,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5175.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.0139336585998535,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_520.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.165660858154297,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5205.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.528653621673584,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5245.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.306895017623901,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5300.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.466667652130127,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5305.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.2477915287017822,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5345.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.177855968475342,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5350.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.9741430282592773,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5435.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.6820342540740967,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5540.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.56372857093811,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5555.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.580869674682617,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5560.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.8050382137298584,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5620.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.0765602588653564,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5675.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.135142803192139,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5685.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.847615003585815,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5885.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.7864863872528076,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5930.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.28380560874939,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5940.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.455888032913208,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5945.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.480993270874023,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_5980.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.3332958221435547,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_6025.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.749910593032837,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_6070.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.5555930137634277,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_6130.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.324207067489624,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_6170.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.75394344329834,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_620.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.0512094497680664,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_685.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.593752145767212,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_70.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.253843784332275,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_725.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.9042129516601562,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_745.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.35506534576416,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_750.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 1.9464905261993408,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_770.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 1.9943242073059082,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_805.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.7219393253326416,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_820.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.9660325050354,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_825.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.021061182022095,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_840.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.475557327270508,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_870.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.2137317657470703,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_90.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.528733730316162,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_935.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.515499830245972,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaopptmerge_yanbaoPPT_985.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.5009982585906982,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_001c0e4e970dcae8f91980266459d41aa0fd9c54245320b5d41d9651c4fc575d.pdf_26.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.000434160232544,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_001c0e4e970dcae8f91980266459d41aa0fd9c54245320b5d41d9651c4fc575d.pdf_46.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.096725225448608,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_0071908e787f90267682e19ef093bb18dda6e1c1614534c445ddd62c425b3a94.pdf_36.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.597681045532227,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_0071908e787f90267682e19ef093bb18dda6e1c1614534c445ddd62c425b3a94.pdf_44.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.882006645202637,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_07331c0c18a9d47c7318a99860c8ccf95726fefa629d6e446677b30938f2f14f.pdf_18.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.77890920639038,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_0a47b1d6b03103a249101f13e89f2226a273a75378d8110d46eb42c1cfa65ffd.pdf_10.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.1943509578704834,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_0a49fd5fc362650bf30a0a9391a2d2f091e751ba3d51da18e630e23856905c63.pdf_8.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.653957366943359,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_0aa9545ccbc482a37e3b55c96897f0f24cee08bb80c7addfb0c219814af44a3b.pdf_27.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 30.07363247871399,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_0ef01b835238626f3589faa671abdfb832f2b98987eadad53cb2e35699dcc039.pdf_13.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.06194019317627,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_0ef01b835238626f3589faa671abdfb832f2b98987eadad53cb2e35699dcc039.pdf_18.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 37.6979444026947,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_1492d25d79af850815ea449254ea62418c3c7fd582792b5191e1879671ba1219.pdf_88.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 19.16894030570984,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_1cb2b2a2c6e3a1157a6f2876205bbeaa4d3958d0482e9cdc88dd2c002ed1ffc1.pdf_61.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.574110269546509,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_22297b092df74748ad1cd50ad9045024d5bac9f423854a04cc8dbfb428c4deb7.pdf_5.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.298818111419678,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_2bb182d656d09ada0534548b3ed375c020750a3e5e949d4ea0ea20536bcbeb20.pdf_0.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.498272657394409,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_2c5836d2ee86c7815050e5d75632777fb38f91911d81ddc758249c7c0b8a366a.pdf_9.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.536207675933838,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_323ab38d3b3b9a44837779e3c7b4a2f7088d9e0eb6c966d4d596faf6c01011a6.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.066144704818726,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_37eeaab2c1abfc6443b9781c9bca92468c4a8a9aac837e2523122b1ae632b74e.pdf_13.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.84552264213562,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_3dbe3df8f74dd8f975a3b13ca378ecbdf8f8cc6ce37ffdce349004bdf5b4628c.pdf_11.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.61772346496582,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_3e1be78252e2fdfe1adf12bba38ec2a7b30699e152d61269aa6e5827f5adcc35.pdf_13.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.41380786895752,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_46d1322f4302f190a3c973320545b892f3a83f0931f1e3ac158069c324049979.pdf_8.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.258748054504395,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_4862cd850679e945a98c54c8d4c37be0154b5790d2c32da35d0f5ca0be413693.pdf_9.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.058982610702515,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_4e9a940b90058ba924ee3a9a659167960bfe5b595134f556aad6a9d2ff004f73.pdf_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.550055265426636,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_4f58b4bb233e5ccdf512d286d177cb94e6f6ae91d5b089ac841727067a20a510.pdf_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.118376731872559,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_533f881f4aabe82c1477b97463169dc51256487aa3770f2f47a32c3a16723478.pdf_18.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.245206594467163,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_5e0df1ef7b30d8982c5cd3665f60d5b7a92d3ba7bb1b76c61b8a01777cebc7a6.pdf_19.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.547940969467163,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_5e780ffd1efcf79950df199abb69a114dd782d5b549ecd025b640f29a4feabef.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.909388065338135,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_6895262fb7b86d4e1dbb324a50fae4294eaf0713d2e1796866cb9f7ecb88d644.pdf_11.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.169584035873413,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_6a016aa81b2fc8281a2a51bae6417769e4cae7fbe161cbc4351596b82e7002fa.pdf_8.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.17678713798523,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_75f9d788216f5e26469269defcd466aa8d250542b2142c72782103913bc6e61b.pdf_6.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.52060604095459,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_782b0e71579c32d2a6c6c04494d8193c775e8c865b80b7252008ef661dae96b9.pdf_15.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.309376001358032,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_7c46e933c6b7fa7ceab9503da9546f676d1175f4499cd8b1f90a58b1c33f4498.pdf_65.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.387784481048584,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_7d1e64f512712a29658dd6c775c5120c90dda9a50698b42b953882a8a8020dbb.pdf_57.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.855395793914795,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_7f386f737cb55cffa10c8321a94bd38d7169cd69b3b253b9e2e502c12a68feea.pdf_15.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.323978900909424,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_8072f7ea9b3083ff5e8f9bfbba591771e61115039c96fda1c8ea391a7570f098.pdf_13.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.14566969871521,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_8072f7ea9b3083ff5e8f9bfbba591771e61115039c96fda1c8ea391a7570f098.pdf_5.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.362706661224365,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_864cbd5f0adeb98dea6cf7105cc8dfb272a9be974757633b2db8cf3f9a11c92b.pdf_33.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.509654521942139,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_864cbd5f0adeb98dea6cf7105cc8dfb272a9be974757633b2db8cf3f9a11c92b.pdf_40.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.628915309906006,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_89c3718f5a45179ef57a5063c6df36fc2c9b7e3ab4275f4905ed89f1c17232ea.pdf_14.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.946739196777344,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_8fc66512196d9d6f66f09955f83a7f693cf2e31c411da8ce6cdfbe9c39f90ff6.pdf_8.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.012999057769775,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_930d8c81854d7450cd35af7b050fed88e4e461b4f0ac0dab07e3232a4e703a06.pdf_14.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.317823886871338,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_965b491c51a8fcd511bcb12adcebca5836ab96fe8742a5d04d12669faec90531.pdf_2.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.964644908905029,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_9674ff37a7d4ea8fb80538bf2d8193dd0dca8f838bdd51f4862769746e996126.pdf_26.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.659518957138062,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_9be04f6bcbe2c6afc83f0751eb05e361872f9673ccd4bec49cf844c66f34bff0.pdf_19.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.630538940429688,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_a019c26b871cb84ec8fecb95b55ec68f2edec0db3c504de5fdaa72caba95d995.pdf_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.700576066970825,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_a6a80b48db3438977793c75185e980ee4aff22f79083427cb03ea4134f7b241f.pdf_67.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.689743995666504,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_a6b1184da1f8167144544b92fff11726f5218e5ca106c86dc00436c14725d7b9.pdf_5.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.375333309173584,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_afad9eb86f2a04271428aa988aec7d1949713bb5a5ce5c0cf26f320650b7966a.pdf_14.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.752604722976685,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_b2f600a88fc341bdd0b2b58b8bd4b0ab448277b06e167aa879b838e8139db19d.pdf_17.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.662922859191895,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_b5cf8249bdf8eebf7625f4b0e39ad38d684d7797ac7bf1617452cd0565ca28a2.pdf_29.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.985621213912964,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_b997efc056ce194205f46dbd1c669eb32da025c4a3055c88d5f19ce434040b7b.pdf_46.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.042209148406982,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_bc193526614fd5857f7b5254e67bced76222cf3396b01e516303b92609a20075.pdf_14.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.9522039890289307,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_bedda45af71c9703274cf8b2c62a772e6be615c355d2b255d9408b1b40b606de.pdf_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.686227083206177,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_bfe5f11c4ad2e94d966ef6801dc992816f42c9150e2be42b008c95f59713e901.pdf_137.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.601235628128052,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_bfe5f11c4ad2e94d966ef6801dc992816f42c9150e2be42b008c95f59713e901.pdf_139.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 14.410480499267578,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_c1ba77569ecdcc4e0ce5903a503f817fe347683a893426dc4acefd8b8770f047.pdf_9.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.448014497756958,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_c23ab881b15885d295fd4ea93d0c36a058ba1a53a36574087ddd39df2811d34d.pdf_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.357230186462402,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_cb862501e720c830960aa5387f65d10961604a63f0491bbdc7fb71257cbd2112.pdf_96.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 20.14086127281189,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_d2326887a8905dfa7f5745e04a3a526735a59d741feac1923a0c0926e48ed691.pdf_130.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.405118465423584,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_d3c82bef4d6b8f3a9d1c1b3e7a02d8ba86c91e585d83766d70b6f540456a6a54.pdf_4.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.51394510269165,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_d599e33e54376640020110ac1733ccdde8c6323d5d5f0c3ca8cb395dc6e46cf5.pdf_7.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.917224407196045,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_decf70a006d6f8f66725ead2f27b248a911016d258a236cefcdd26c6aff1d463.pdf_40.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.002453088760376,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_e2f6b15971d68a7f081216b0c0d8538cab413124fc8911f4db4fbb3d17f167c4.pdf_14.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.909762382507324,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_ea86fd46182ff9b675775645ecaf43782b996ffaeeb09c679f56a47aabfbf6b7.pdf_9.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.843504428863525,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_ec10ef335b55af1612e6ab51b5ebdff506d496da9eb8c17c74fe2751661c22f7.pdf_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.931950807571411,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_ey-better-pension-outcomes-reimagined-20180926.pdf_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 4.1481032371521,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_ey-beyond-traditional-corporate-governance.pdf_1.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.27506947517395,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_ey-digital-state-tax-article.pdf_0.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.192779302597046,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_ey-drug-device-combination-products-whitepaper.pdf_6.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.271856307983398,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_ey-financial-sustainability-whitepaper.pdf_17.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.496884822845459,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_ey-global-fintech-adoption-index.pdf_30.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.932333946228027,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_ey-how-can-all-benefit-from-green-leadership-by-the-few.pdf_21.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.055047988891602,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_ey-how-covid-19-has-triggered-a-sprint-toward-smarter-health-care.pdf_5.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.632797479629517,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_ey-icl-barking-and-dagenham-case-study.pdf_10.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.2205493450164795,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_ey-icl-harnessing-the-power-of-data.pdf_13.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.987250804901123,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_ey-is-your-next-step-about-changing-direction-or-directing-change.pdf_4.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.687187671661377,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_ey-political-guidelines-next-commission.pdf_14.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.573153257369995,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_ey-report-strategy-for-a-tech-driven-gba-zh.pdf_16.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 2.611426591873169,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_f197117877bfd892faf3c89f14c35ae92c3150ec7affb49dd51d8f8ce202604a.pdf_22.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.5469229221344,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_f285730f47c99283aba722e704b936c4362d8c175463dc13de640fc54e8887ac.pdf_75.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.085970401763916,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_f832cad1f46c067198e9df95ae7b150213f16805037c1a5725e72245010d3e97.pdf_3.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 17.874567985534668,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_1295.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.564128637313843,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_1332.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.45484447479248,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_1517.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 3.8550517559051514,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_1760.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.704678773880005,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_2098.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.89513611793518,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_2108.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.689953804016113,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_2172.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.081066370010376,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_2432.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.031060695648193,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_3074.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.634289264678955,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_3282.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 15.076945066452026,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_3302.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.190773963928223,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_3604.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.192182540893555,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_3745.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 12.839693546295166,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_4618.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 9.503828525543213,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_467.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.297847509384155,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_469.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.51009750366211,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_5.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.309026718139648,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_5544.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 8.396955728530884,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_5627.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 5.659203290939331,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_569.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 16.653820276260376,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_5846.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.751353740692139,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_5877.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 10.767412185668945,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_5946.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 13.182075262069702,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_6065.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 7.09237813949585,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_6148.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 11.320591449737549,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_6570.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 22.663097620010376,
+      "attempts": 1
+    },
+    {
+      "image": "yanbaor2_yanbaoPPT_916.jpg",
+      "status": "ok",
+      "error": "",
+      "seconds": 6.833874225616455,
+      "attempts": 1
+    }
+  ]
+}
