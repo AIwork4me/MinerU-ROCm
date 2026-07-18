@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "model_id": "mineru2.5",
+  "model_version": "0.1.0",
+  "platforms": ["linux-rocm", "windows-hip"],
+  "badge": {"linux-rocm": "community-wanted", "windows-hip": "community-wanted"},
+  "eval_date": "",
+  "omnidocbench_version": "v1.6",
+  "overall": null,
+  "submetrics": {},
+  "hardware": {"gpu": "", "vram": "", "rocm_driver": ""},
+  "artifacts": {}
+}

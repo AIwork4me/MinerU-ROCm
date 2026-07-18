@@ -1,0 +1,7 @@
+[project]
+name = "mineru-rocm"
+version = "0.1.0"
+license = { text = "Apache-2.0" }
+dependencies = ["omnidocbench-amd>=0.1.0"]
+[project.optional-dependencies]
+dev = ["pytest"]
