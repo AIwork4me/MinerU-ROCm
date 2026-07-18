@@ -1,11 +1,7 @@
 # Known gaps
 
-Track the open items for `MinerU-ROCm` here. A `verified` badge requires these to be resolved or explicitly scoped.
+Track the open items for `MinerU-ROCm` here. A `verified` badge requires these to be resolved or explicitly scoped. This list covers the **pipeline** path (MinerU 3.4 / `model: pipeline`); VLM-path gaps are tracked separately.
 
-- **`smoke` backend is a placeholder.** `_infer` in `adapter/run_adapter.py` raises `NotImplementedError`. Wire up real model inference before any evaluation.
-- **No `verified` results.** `model_card.json` badges both platforms `community-wanted`; no `run_summary.json` / `provenance.json` are committed under `results/` yet.
-- **Provisioning is stubbed.** `adapter/setup/00-install-deps.{sh,ps1}` only echo; implement weights download + runtime (ROCm EP / DirectML EP) setup.
-- **No VLM server config.** `adapter/setup/.env.local.example` has empty `SERVER_URL` / `WEIGHTS_DIR`; fill these for server-based backends.
-- **Windows/HIP path untested.** The `windows-hip` results dir exists but has no artifacts; validate the DirectML/ONNX path on a Windows machine before claiming it.
-
-Remove each bullet as it is resolved.
+- **ONNX tables run on CPU on ROCm.** The RapidOCR / RapidTable ONNX models in the pipeline fall back to the CPU execution provider on ROCm builds. Output is correct but slow; an optional ROCm-EP patch (building `onnxruntime-rocm` and pointing the table OCR EP at it) is not wired up here.
+- **`MINERU_FORMULA_CH_SUPPORT` must stay off.** Setting it to `true` pulls native PaddlePaddle-GPU, which has no ROCm wheel for this stack. Keep it `false` (default) and use the fallback formula renderer.
+- **windows-hip unverified.** No results have been produced on a Windows + HIP/DirectML machine. The `windows-hip` platform is declared in `model_card.*.json` but its results dir is empty; validate end-to-end before claiming the badge.

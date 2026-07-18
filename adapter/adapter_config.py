@@ -1,31 +1,17 @@
 """Adapter configuration for MinerU-ROCm.
 
-Edit the defaults below to match how your model is served (local weights, a
-vLLM/llama.cpp server, an ONNX runtime EP, ...). The adapter reads these via the
-``config`` dict passed to :func:`run_adapter.run_adapter`; the CLI in
-``run_adapter.py`` populates the same dict from its flags.
+backend selects the path; model is advisory (which MinerU model a run targets).
 """
 from __future__ import annotations
 
-# Inference backend. ``smoke`` ships a no-GPU placeholder so the repo is
-# runnable out of the box. Replace with one of: vllm | llama-cpp-server |
-# onnx-rocm | onnx-directml | <your-own> once you wire up ``_infer``.
+# smoke = no-GPU CI placeholder. Real: pipeline | vlm-vllm | vlm-transformers.
 BACKEND = "smoke"
-
-# vLLM / OpenAI-compatible server URL (empty = spawn locally).
-SERVER_URL = ""
-
-# Model name as registered on the server (for API-style backends).
-API_MODEL_NAME = "mineru2.5"
-
-# Local weights directory (resolved by the adapter at run time).
-WEIGHTS_DIR = ""
-
+# Which MinerU model this run targets: "pipeline" (3.4) | "vlm" (2.5-Pro).
+MODEL = "pipeline"
+SERVER_URL = ""               # VLM OpenAI-compatible server (empty = spawn locally)
+API_MODEL_NAME = "mineru2.5"  # VLM model name as registered on the server
+WEIGHTS_DIR = ""              # resolved at runtime; pipeline weights via mineru-models-download
 
 def as_dict() -> dict:
-    return {
-        "backend": BACKEND,
-        "server_url": SERVER_URL,
-        "api_model_name": API_MODEL_NAME,
-        "weights_dir": WEIGHTS_DIR,
-    }
+    return {"backend": BACKEND, "model": MODEL, "server_url": SERVER_URL,
+            "api_model_name": API_MODEL_NAME, "weights_dir": WEIGHTS_DIR}

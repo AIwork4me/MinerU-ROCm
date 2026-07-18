@@ -1,6 +1,6 @@
 # {{cookiecutter.repo_name}}
 
-[omnidocbench-amd](https://github.com/omnidocbench/omnidocbench-amd) 文档解析评测平台的单模型适配仓库。由官方 cookiecutter 模板生成；自带无需 GPU 的 `smoke` 后端，开箱即用。
+[omnidocbench-amd](https://github.com/AIwork4me/OmniDocBench-AMD) 文档解析评测平台的单模型适配仓库。由官方 cookiecutter 模板生成；自带无需 GPU 的 `smoke` 后端，开箱即用。
 
 - 模型：`{{cookiecutter.model_id}}`（v{{cookiecutter.model_version}}）
 - 平台：linux-rocm、windows-hip

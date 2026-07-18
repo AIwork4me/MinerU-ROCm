@@ -1,6 +1,6 @@
 # MinerU-ROCm
 
-A per-model adapter repo for the [omnidocbench-amd](https://github.com/omnidocbench/omnidocbench-amd) document-parsing evaluation platform. Rendered from the official cookiecutter template; ships with a no-GPU `smoke` backend so it runs out of the box.
+A per-model adapter repo for the [omnidocbench-amd](https://github.com/AIwork4me/OmniDocBench-AMD) document-parsing evaluation platform. Rendered from the official cookiecutter template; ships with a no-GPU `smoke` backend so it runs out of the box.
 
 - Model: `mineru2.5` (v0.1.0)
 - Platforms: linux-rocm, windows-hip
