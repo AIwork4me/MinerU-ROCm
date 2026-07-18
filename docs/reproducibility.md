@@ -109,10 +109,109 @@ Submetrics (from `mineru-pipeline-preds_quick_match_metric_result.json`):
 
 MinerU's pipeline is deterministic on a fixed ROCm stack for the layout/OCR UniMERNet passes (GPU kernels, same input → same output). The ONNX table-recognition model runs on CPU and is deterministic. We did not observe run-to-run variation needing a tolerance band, but the standard ROCm-kernel non-determinism caveat applies if the ROCm/MIOpen stack changes.
 
+## Reproducing the committed `mineru-vlm-vllm` result (Overall 95.56)
+
+The headline MinerU2.5-Pro VLM run — MinerU2.5-Pro-2605-1.2B served via vLLM-on-ROCm, driven by the `vlm-vllm` adapter (two-step layout → per-block extract via `mineru_vl_utils.MinerUClient` http-client). This is Plan 2 Task 8.
+
+### Hardware / environment (this run, 2026-07-18)
+
+- **GPU:** AMD gfx1100 (Radeon Pro W7900-class, 48 GB) — eval pinned to **GPU 0** via `HIP_VISIBLE_DEVICES=0`.
+- **ROCm:** 7.2.1, `HSA_OVERRIDE_GFX_VERSION=11.0.0`.
+- **VLM env:** `/opt/venv` — Python 3.12, `vllm` `0.16.1.dev0+g89a77b108.d20260317` (ROCm wheel), `mineru_vl_utils`, `omnidocbench-amd` installed. `LD_LIBRARY_PATH=/opt/rocm/lib`.
+- **scorer venv:** `/root/ocr-eval/OmniDocBench/.venv` — Python 3.11.15 (same as the pipeline run; the VLM does not load torch for scoring).
+- **dataset:** OmniDocBench v1.6, **clean 1651-page** image dir `/root/ocr-eval/OmniDocBench_v16_images` (jpg+png); GT manifest `/workspace/OmniDocBench_data/OmniDocBench.json`.
+- **model snapshot:** `/root/.cache/huggingface/models--opendatalab--MinerU2.5-Pro-2605-1.2B/snapshots/bff20d4ae2bf202df9f45284b4d43681555a97ed`.
+
+### Step 1 — serve the model (background; poll `/v1/models`)
+
+```bash
+cd /workspace/MinerU-ROCm
+HIP_VISIBLE_DEVICES=0 bash examples/serve_vlm_vllm.sh     # nohup's vLLM, writes /tmp/vlm-vllm.pid
+bash examples/wait_vlm.sh                                  # blocks until /v1/models responds (≤5 min)
+# sanity: /v1/models lists id="mineru-pro"; startup log shows
+#   logits_processors=['mineru_vl_utils:MinerULogitsProcessor'] and KV cache ~2.5M tokens
+```
+
+Server flags: `--served-model-name mineru-pro --dtype bfloat16 --chat-template adapter/qwen2vl_chat_template.jinja --logits-processors mineru_vl_utils:MinerULogitsProcessor --gpu-memory-utilization 0.70 --max-model-len 8192 --limit-mm-per-prompt '{"image": 1}' --enforce-eager`. `VLLM_USE_V1=1` is mandatory (v1 logits-processor API).
+
+### Step 2 — infer (full 1651-page clean set)
+
+The engine's `omnidocbench-amd infer` stage does not accept `--server-url`/`--api-model-name` (those are `run`/`publish`-only); the vlm adapter reads them from `adapter_config` (env-overridable: `MINERU_ROCM_SERVER_URL`, `MINERU_ROCM_API_MODEL_NAME`). Call the dispatcher directly so `--skip-existing` resume works (multi-hour run):
+
+```bash
+export HIP_VISIBLE_DEVICES=0 LD_LIBRARY_PATH=/opt/rocm/lib HSA_OVERRIDE_GFX_VERSION=11.0.0
+export MINERU_ROCM_BACKEND=vlm-vllm
+export MINERU_ROCM_SERVER_URL="http://127.0.0.1:8265/v1" MINERU_ROCM_API_MODEL_NAME="mineru-pro"
+/opt/venv/bin/python adapter/run_adapter.py \
+  --img-dir  /root/ocr-eval/OmniDocBench_v16_images \
+  --out-dir  /root/ocr-eval/mineru-vlm-vllm-preds \
+  --platform linux-rocm --backend vlm-vllm \
+  --server-url "http://127.0.0.1:8265/v1" --api-model-name "mineru-pro" \
+  --skip-existing
+```
+
+Writes one `<image_stem>.md` per page + `_run_stats.json` at the end. **Duration: ~4h35m wall** (13:24–20:29 UTC, including one resume after a background-task interruption; 1651 pages, avg ~16 s/page two-step on gfx1100 eager mode, max 131 s on dense exam pages). `ok=1651, fail=0, fallback=0`. **Empty-page rate: 2/1651 = 0.12%** (both are sparse English-textbook cover/contents pages — not EOS-first-token victims; well under the 2% concern threshold).
+
+> **Background-task caveat.** A foreground `vllm serve` is killed by the harness (exit 144); a `bash` background task is *also* reaped after long idle polls. The robust pattern is `setsid nohup <adapter> &` (own session/process group) — the adapter then survives indefinitely and you poll the filesystem (`_run_stats.json` appears at completion). The helper is `/root/ocr-eval/launch_detached_adapter.sh`. `--skip-existing` makes any interruption cleanly resumable.
+
+### Step 3 — stop the server (free GPU 0)
+
+```bash
+kill "$(cat /tmp/vlm-vllm.pid)"; pkill -f vllm.entrypoints   # frees VRAM 90%→baseline
+```
+
+### Step 4 — score (OmniDocBench venv, full GT)
+
+```bash
+sed 's|/root/ocr-eval/mineru-pipeline-preds|/root/ocr-eval/mineru-vlm-vllm-preds|' \
+  /root/ocr-eval/OmniDocBench/configs/mineru_pipeline_full.yaml \
+  > /workspace/MinerU-ROCm/configs/mineru_vlm_full.yaml
+source /root/ocr-eval/OmniDocBench/.venv/bin/activate
+cd /root/ocr-eval/OmniDocBench && python pdf_validation.py \
+  --config /workspace/MinerU-ROCm/configs/mineru_vlm_full.yaml
+# → result/mineru-vlm-vllm-preds_quick_match_metric_result.json (~25 min)
+```
+
+### Step 5 — publish (assemble run_summary + provenance)
+
+```bash
+cd /workspace/MinerU-ROCm
+/opt/venv/bin/omnidocbench-amd publish \
+  --model-id mineru-vlm-vllm --platform linux-rocm --version v16 --cdm \
+  --run-stats /root/ocr-eval/mineru-vlm-vllm-preds/_run_stats.json \
+  --metric-result /root/ocr-eval/OmniDocBench/result/mineru-vlm-vllm-preds_quick_match_metric_result.json \
+  --results-dir results/omnidocbench/v16/linux-rocm \
+  --git-commit "$(git rev-parse HEAD)" \
+  --adapter-command "HIP_VISIBLE_DEVICES=0 LD_LIBRARY_PATH=/opt/rocm/lib MINERU_ROCM_BACKEND=vlm-vllm python adapter/run_adapter.py --img-dir <OmniDocBench v1.6 images> --out-dir <preds> --platform linux-rocm --backend vlm-vllm --server-url http://127.0.0.1:8265/v1 --api-model-name mineru-pro" \
+  --server-url "http://127.0.0.1:8265/v1" --api-model-name mineru-pro \
+  --scoring-config /workspace/MinerU-ROCm/configs/mineru_vlm_full.yaml \
+  --dataset-manifest /workspace/OmniDocBench_data/OmniDocBench.json \
+  --dataset-revision v1.6
+```
+
+### Result — OmniDocBench v1.6 full set, mineru-vlm-vllm, linux-rocm (gfx1100)
+
+Submetrics (from `mineru-vlm-vllm-preds_quick_match_metric_result.json`, page.ALL):
+
+| Metric | Value | vs Plan 1 pipeline |
+|---|---|---|
+| Text `Edit_dist` → text-accuracy | 0.0359 → **96.41** | +2.07 pp (94.34) |
+| Table `TEDS` | **93.54** | +11.50 pp (82.04) |
+| Formula `CDM` | **96.73** | +13.66 pp (83.07) |
+| Reading order `Edit_dist` | 0.1240 | (0.1534) |
+
+**Overall = ((1 − 0.0359) × 100 + 93.54 + 96.73) / 3 = (96.41 + 93.54 + 96.73) / 3 = 95.56** using the page.ALL convention (same as Plan 1's 86.48). Target 95.75 → **Δ −0.19 pp**; gate ≥ 95.25 → **PASS** (margin +0.31 pp). This is **+9.08 pp over Plan 1's pipeline backend** (86.48), driven mainly by table TEDS and formula CDM — exactly the dimensions the VLM is supposed to dominate.
+
+> **`ok_pages` provenance (regenerated 2026-07-18).** The run was resumed once after a background-task interruption via the dispatcher's `--skip-existing`, so the dispatcher's own stats object initially recorded only the 1074 pages inferred in the final invocation (1651 − 577 already-on-disk). The committed `_run_stats.json`, `run_summary.json`, and `provenance.json` were since **regenerated from the on-disk truth**: all 1651 predictions are present (`ls /root/ocr-eval/mineru-vlm-vllm-preds/*.md | wc -l` = 1651), `fail=0`, and the corrected artifacts now record `ok_pages=1651` / `count=1651` / `page_count=1651`, consistent with the scorer's `prediction_count=1651`. The 577 resumed pages carry `seconds=0.0` in the per-page stats (their timing wasn't recorded across the resume boundary); their `status="ok"` is grounded in the presence of a non-empty `.md`. The headline Overall is computed over the full 1651-page set and is unchanged. `provenance.git_commit` points at the eval head `d8bbaeb` (where the artifacts and `--skip-existing` code live), not the base commit.
+
+### Non-determinism (VLM)
+
+vLLM in `--enforce-eager` bf16 with the `MinerULogitsProcessor` (no-repeat-100-gram) is **near-deterministic** for the layout pass (greedy) and per-block extraction; run-to-run drift is bounded by ROCm-kernel non-determinism on bf16 matmuls. We did not re-run the full set to bound a tolerance, but a 100-page sample prior to this run scored Overall ≈ 97.0 (0 empty pages), consistent with the full-set 95.56 once harder pages are included.
+
 ## Checklist before requesting a `verified` badge
 
-1. `adapter_config.BACKEND` is the real backend (not `smoke`). ✓ (`pipeline`)
+1. `adapter_config.BACKEND` is the real backend (not `smoke`). ✓ (`pipeline` for Plan 1; `vlm-vllm` for Plan 2 via `MINERU_ROCM_BACKEND`).
 2. `model_card.json.hardware` reflects the actual GPU/VRAM/driver.
-3. `results/omnidocbench/v16/<platform>/{run_summary,provenance,metric_result}.json` are committed.
+3. `results/omnidocbench/v16/<platform>/{run_summary,provenance,metric_result}.json` are committed (both `mineru-pipeline-*` and `mineru-vlm-vllm-*`).
 4. `make publish` (conformance) passes.
-5. Re-running the recorded adapter command reproduces the published overall score (within stated tolerance). ✓ (86.48 vs target 86.47, Δ +0.01).
+5. Re-running the recorded adapter command reproduces the published overall score (within stated tolerance). ✓ pipeline 86.48 vs target 86.47, Δ +0.01. ✓ VLM 95.56 vs target 95.75, Δ −0.19 (gate ≥ 95.25 PASS).

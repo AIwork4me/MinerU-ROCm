@@ -53,3 +53,25 @@ echo "[00-install-deps] downloading pipeline weights from $HF_ENDPOINT"
 mineru-models-download -s huggingface -m pipeline
 
 echo "[00-install-deps] done. Activate: source $VENV/bin/activate"
+
+# ---------------------------------------------------------------------------
+# VLM env (separate from this mineru-pipeline venv) — DOCUMENTATION ONLY.
+# This script provisions $MINERU_ROCM_VENV (mineru pipeline + scorer-side
+# deps above). The VLM adapter runs in a DIFFERENT, pre-built env:
+#
+#   VLM env   = /opt/venv        (Py3.12; created during the Plan-2 spike)
+#     - vllm 0.16.1.dev0+rocm (gfx1100), mineru_vl_utils==1.0.5
+#     - pip install -e /workspace/omnidocbench-amd   # so the engine-invoked
+#       adapter subprocess resolves mineru_vl_utils AND omnidocbench_amd.types
+#     - GPU 0 only (ROCm single-card)
+#
+#   Scoring   = /root/ocr-eval/OmniDocBench/.venv  (Py3.11; OmniDocBench v1.6 scorer)
+#
+#   LD_LIBRARY_PATH=/opt/rocm/lib  (set before invoking either /opt/venv python
+#   or vllm, so ROCm libs resolve on gfx1100).
+#
+# Verify (run by hand after provisioning):
+#   /opt/venv/bin/python -c "import vllm, mineru_vl_utils, omnidocbench_amd; \
+#       print('vlm env ok', vllm.__version__)"
+#   # -> vlm env ok 0.16.1.dev0+...
+# ---------------------------------------------------------------------------

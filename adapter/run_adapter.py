@@ -41,7 +41,8 @@ def _import_sub(name: str):
     return importlib.import_module(name)
 
 
-def run_adapter(img_dir: Path, out_dir: Path, *, platform: str, config: dict) -> dict:
+def run_adapter(img_dir: Path, out_dir: Path, *, platform: str, config: dict,
+                skip_existing: bool = False) -> dict:
     assert platform in PLATFORMS, f"unknown platform: {platform}"
     adapter_config = _load_adapter_config()
     cfg = {**adapter_config.as_dict(), **config}
@@ -53,14 +54,24 @@ def run_adapter(img_dir: Path, out_dir: Path, *, platform: str, config: dict) ->
         sub = None if backend == "smoke" else _import_sub(SUB_ADAPTERS[backend])  # KeyError → ValueError below
     except KeyError:
         raise ValueError(f"unknown backend: {backend!r} (expected smoke|pipeline|vlm-vllm|vlm-transformers)")
+    # Resume support: --skip-existing skips any image whose .md already exists in
+    # out_dir (multi-hour VLM runs can be interrupted; this lets a re-invocation
+    # pick up where it left off without re-inferring finished pages). Skipped pages
+    # are NOT counted in ok/fail (they're already on disk; the scorer reads .md
+    # files directly, not the run_stats counts).
+    skipped = 0
     for i in imgs:
+        out_md = out_dir / f"{i.stem}.md"
+        if skip_existing and out_md.exists():
+            skipped += 1
+            continue
         t0 = time.time()
         try:
             if sub is None:
                 md = f"# {i.stem}\n\n(smoke output — backend=smoke)\n"
             else:
                 md = sub.infer_page(i, platform, cfg)
-            (out_dir / f"{i.stem}.md").write_text(md, encoding="utf-8")
+            out_md.write_text(md, encoding="utf-8")
             stats.append(PageStatus(i.name, "ok", seconds=time.time() - t0, attempts=1))
         except Exception as e:  # per-page failure → record, continue, never raise
             stats.append(PageStatus(i.name, f"failed: {e}", error=str(e), seconds=time.time() - t0))
@@ -83,6 +94,8 @@ if __name__ == "__main__":
     p.add_argument("--backend", default=None)
     p.add_argument("--server-url", default=None)
     p.add_argument("--api-model-name", default=None)
+    p.add_argument("--skip-existing", action="store_true",
+                   help="resume: skip images whose .md already exists in out-dir")
     a = p.parse_args()
     # Resolve defaults from adapter_config, then let explicit CLI flags win.
     cfg = _load_adapter_config().as_dict()
@@ -94,4 +107,5 @@ if __name__ == "__main__":
         cfg["server_url"] = a.server_url
     if a.api_model_name is not None:
         cfg["api_model_name"] = a.api_model_name
-    run_adapter(Path(a.img_dir), Path(a.out_dir), platform=a.platform, config=cfg)
+    run_adapter(Path(a.img_dir), Path(a.out_dir), platform=a.platform, config=cfg,
+                skip_existing=a.skip_existing)
