@@ -9,4 +9,6 @@ jobs:
       - run: pip install -e ".[dev]" && pip install omnidocbench-amd pytest
       - run: python -c "from omnidocbench_amd.types import RunSummary"
       - run: pytest -q
-      - run: python /workspace/omnidocbench-amd/scripts/check_conformance.py . || true  # local-only; CI can't see the platform repo path — see note
+      - name: Conformance check (contract)
+        run: |
+          python -c "from omnidocbench_amd.conformance import check_repo; from pathlib import Path; import sys; r = check_repo(Path('.')); print('CONFORMANT' if r.ok else 'NON-CONFORMANT: ' + ', '.join(r.failures)); sys.exit(0 if r.ok else 1)"
