@@ -16,6 +16,7 @@ SUB_ADAPTERS = {"pipeline": "pipeline_adapter",
 
 
 def _load_adapter_config():
+    """Import adapter_config whether run as a package module or a bare subprocess (engine invokes as a script with no parent package)."""
     try:
         from . import adapter_config  # package-relative
     except ImportError:

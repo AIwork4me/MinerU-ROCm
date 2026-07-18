@@ -24,8 +24,8 @@ The `config["backend"]` key selects the inference path inside `run_adapter`:
 
 | backend | what it does | GPU? |
 |---|---|---|
-| `smoke` (default) | writes a placeholder `.md` per image | no |
-| your model | calls `_infer(img, platform, config)` → markdown | yes |
+| `pipeline` (default) | wraps upstream `mineru[all]` in-process on cuda → markdown | yes |
+| `smoke` | writes a placeholder `.md` per image | no |
 
 See [`backends.md`](backends.md) for the recommended backend per model type × platform.
 

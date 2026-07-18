@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "model_id": "mineru-pipeline",
-  "model_version": "3.4.2",
+  "model_version": "3.4.4",
   "platforms": ["linux-rocm", "windows-hip"],
   "badge": {"linux-rocm": "community", "windows-hip": "community-wanted"},
   "eval_date": "2026-07-18",
