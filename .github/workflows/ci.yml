@@ -6,5 +6,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
-      - run: pip install -e ".[dev]" && pip install omnidocbench-amd
-      - run: python -c "from omnidocbench_amd.types import RunSummary"  # engine importable
+      - run: pip install -e ".[dev]" && pip install omnidocbench-amd pytest
+      - run: python -c "from omnidocbench_amd.types import RunSummary"
+      - run: pytest -q
+      - run: python /workspace/omnidocbench-amd/scripts/check_conformance.py . || true  # local-only; CI can't see the platform repo path — see note
