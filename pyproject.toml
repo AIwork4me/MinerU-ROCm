@@ -42,6 +42,9 @@ Repository = "https://github.com/AIwork4me/MinerU-ROCm"
 Issues = "https://github.com/AIwork4me/MinerU-ROCm/issues"
 Upstream = "https://github.com/opendatalab/MinerU"
 
+[project.scripts]
+mineru-rocm = "mineru_rocm.cli:main"
+
 [tool.setuptools.packages.find]
 where = ["src"]
 
