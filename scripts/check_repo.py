@@ -3,7 +3,7 @@
 # Copyright 2026 AIwork4me
 """Repo-consistency gate. Exits 0 clean, 1 on any finding. Run in CI + locally."""
 from __future__ import annotations
-import ast, json, re, subprocess, sys, tomllib
+import ast, re, subprocess, sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]

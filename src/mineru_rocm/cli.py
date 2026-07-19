@@ -240,11 +240,22 @@ def build_parser() -> argparse.ArgumentParser:
     pr = sub.add_parser(
         "predict",
         help="robust run path via mineru_rocm.driver (pipeline | vlm-vllm)",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "Driver flags (--gt-json, --images-dir, --pred-dir, ...) MUST follow a "
+            "literal '--' separator, e.g.:\n"
+            "    mineru-rocm predict --backend pipeline -- --gt-json g.json "
+            "--images-dir i --pred-dir p\n"
+            "The natural form without '--' (e.g. 'predict --backend pipeline --gt-json g "
+            "...') is REJECTED by argparse REMAINDER before the driver runs. Direct "
+            "forwarding without '--' is tracked as a P3 improvement."
+        ),
     )
     pr.add_argument("--backend", required=True, choices=["pipeline", "vlm-vllm"])
     pr.add_argument(
         "extra", nargs=argparse.REMAINDER,
-        help="driver flags (--gt-json, --images-dir, --pred-dir, --max-retries, ...)",
+        help="driver flags (--gt-json, --images-dir, --pred-dir, --max-retries, ...); "
+        "MUST be preceded by a literal '--' (see epilog below)",
     )
 
     sc = sub.add_parser("score", help="OmniDocBench v1.6 scoring (scorer venv required)")

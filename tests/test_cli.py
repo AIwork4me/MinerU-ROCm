@@ -75,3 +75,24 @@ def test_predict_reaches_driver_arg_check():
     # no extra args → driver.parse_args raises SystemExit (missing required --gt-json/--pred-dir) before any GPU work
     with pytest.raises(SystemExit):
         cli.main(["predict", "--backend", "pipeline"])
+
+
+def test_predict_with_separator_reaches_driver(tmp_path, monkeypatch):
+    """predict forwards driver flags after a literal '--' (argparse REMAINDER limitation).
+
+    The natural form (no '--') is rejected by argparse; the '--' form reaches driver.run.
+    (Direct forwarding without '--' is tracked as a P3 improvement.)"""
+    gt = tmp_path / "gt.json"
+    gt.write_text(json.dumps([{"page_info": {"image_path": "a.png"}}]), encoding="utf-8")
+    img = tmp_path / "images"; img.mkdir(); (img / "a.png").write_bytes(b"x")
+    pred = tmp_path / "pred"
+    seen = {}
+    from mineru_rocm import driver
+    def _fake_run(dargs, command=None):
+        seen["called"] = dargs.backend
+        return 0
+    monkeypatch.setattr(driver, "run", _fake_run)
+    rc = cli.main(["predict", "--backend", "pipeline", "--",
+                   "--gt-json", str(gt), "--images-dir", str(img), "--pred-dir", str(pred)])
+    assert rc == 0
+    assert seen.get("called") == "pipeline"  # driver.run WAS reached with the right backend
