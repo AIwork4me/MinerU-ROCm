@@ -1,0 +1,42 @@
+MinerU-ROCm
+Copyright 2026 AIwork4me
+
+This repository is an evaluation-backed AMD ROCm port of opendatalab/MinerU.
+It is NOT affiliated with, sponsored, or endorsed by the MinerU Team or
+OpenDataLab.
+
+LICENSE OVERVIEW
+----------------
+All original packaging, tooling, and documentation in this repository are
+licensed under the Apache License 2.0 (see LICENSES/Apache-2.0.txt and the
+top-level LICENSE).
+
+COMPONENT LICENSES
+------------------
+1. Upstream `mineru` pipeline (opendatalab/MinerU, v3.4.x) — wrapped by the
+   pipeline backend — is under the MinerU Open Source License: Apache-2.0 PLUS
+   additional terms (commercial-use threshold: MAU > 100 million OR monthly
+   revenue > USD 20 million requires a separate commercial license; online
+   services built on MinerU must attribute MinerU; termination on breach).
+   See LICENSES/LicenseRef-MinerU-Open-Source-License.txt.
+   Source: https://github.com/opendatalab/MinerU
+
+2. `mineru-vl-utils` (opendatalab/mineru-vl-utils, v1.0.x) — drives the VLM
+   two-step inference — is Apache-2.0.
+   Source: https://github.com/opendatalab/mineru-vl-utils
+
+3. MinerU2.5-Pro-2605-1.2B model weights — Apache-2.0 (per HF cardData).
+   Source: https://huggingface.co/opendatalab/MinerU2.5-Pro-2605-1.2B
+
+4. PDF-Extract-Kit-1.0 pipeline weights (layout/formula/OCR/table sub-models)
+   — NO license is declared on the Hugging Face model card (cardData license
+   field is empty, verified 2026-07-19). Treat as license-ambiguous; do NOT
+   redistribute these weights. Tracked in docs/known-gaps.md; an upstream
+   clarification issue is planned.
+
+5. omnidocbench-amd engine (OPTIONAL, install via the [platform] extra) —
+   Apache-2.0. Used only by the optional platform-integration shim, not by the
+   standalone evaluation path.
+
+There is NO AGPL component and NO copyleft network-use source-disclosure
+obligation in this repository's dependency set.

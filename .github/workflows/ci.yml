@@ -6,7 +6,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
-      - run: pip install -e ".[dev]" && pip install omnidocbench-amd pytest
+      # [dev] = pytest/ruff/reuse; [platform] = omnidocbench-amd (the adapter still
+      # imports omnidocbench_amd.types until P1 lands a local types.py). The redundant
+      # explicit installs are no longer needed once both extras are pulled.
+      - run: pip install -e ".[dev,platform]"
       - run: python -c "from omnidocbench_amd.types import RunSummary"
       - run: pytest -q
       - name: Conformance check (contract)

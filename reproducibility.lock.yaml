@@ -1,0 +1,84 @@
+# reproducibility.lock.yaml — machine-readable reproducibility snapshot for the
+# MinerU-ROCm results. Verified fields carry a source comment; unverified fields
+# are `not_recorded` with a fill command. Do not invent values.
+#
+# STATUS: P0 skeleton. Real values are populated in P3 after the full-set re-run
+# and byte-exact SHA cross-checks. See
+# docs/superpowers/specs/2026-07-19-mineru-rocm-standalone-port-design.md §3.3.
+#
+# Verification status legend:
+#   # (verified)     = recomputed and recorded
+#   # (not_recorded) = fill command provided; populated in P3
+
+mineru_rocm:
+  repo: https://github.com/AIwork4me/MinerU-ROCm
+  commit: not_recorded   # (not_recorded) git rev-parse HEAD at the published-results commit (P3)
+
+mineru:
+  repo: https://github.com/opendatalab/MinerU
+  commit: not_recorded   # (not_recorded) fill: cd <mineru source> && git rev-parse HEAD  (P3)
+  version: not_recorded  # (not_recorded) fill: pip show mineru | grep Version  (P3; expect 3.4.x)
+
+mineru_vl_utils:
+  repo: https://github.com/opendatalab/mineru-vl-utils
+  commit: not_recorded   # (not_recorded) fill: pip show mineru-vl-utils (P3)
+  version: not_recorded  # (not_recorded) expect 1.0.x
+
+model:
+  vlm:                                   # MinerU2.5-Pro-2605-1.2B
+    hf_repo: opendatalab/MinerU2.5-Pro-2605-1.2B
+    benchmark_artifact:
+      safetensors_sha256: not_recorded   # (not_recorded) fill: sha256sum <snapshot>/model-*.safetensors (P3)
+      config_sha256: not_recorded        # (not_recorded) fill: sha256sum <snapshot>/config.json (P3)
+    current_remote_artifact:             # cross-checked byte-for-byte vs upstream HF via hf-mirror (P3)
+      hf_repo_revision: not_recorded     # (not_recorded) fill: HF_ENDPOINT=https://hf-mirror.com huggingface-cli download ... --revision
+      safetensors_lfs_oid: not_recorded  # (not_recorded) must == benchmark_artifact.safetensors_sha256
+      cross_check_source: "https://hf-mirror.com (HuggingFace mirror; official API data)"
+  pipeline_weights:                      # opendatalab/PDF-Extract-Kit-1.0 sub-models
+    layout_sha256: not_recorded          # (not_recorded) fill in P3
+    formula_sha256: not_recorded
+    ocr_sha256: not_recorded
+    table_sha256: not_recorded
+
+omnidocbench:
+  version: v1.6
+  scorer_repo_url: https://github.com/opendatalab/OmniDocBench
+  scorer_commit: not_recorded            # (not_recorded) fill: cd <OmniDocBench> && git rev-parse HEAD (P3)
+  gt_json_full_sha256: not_recorded      # (not_recorded) fill: sha256sum OmniDocBench.json (P3; 1651 pages)
+  gt_json_canary_sha256: not_recorded    # (not_recorded) populated when canary lands (P3)
+  eval_config_sha256: not_recorded       # (not_recorded) P3
+  canary_manifest_sha256: not_recorded   # (not_recorded) P3
+  metric:
+    overall_formula: "((1 - text_EditDist) * 100 + table_TEDS + formula_CDM) / 3"
+    aggregation: page.ALL                # OmniDocBench page_avg convention (NOT sample-weighted .all)
+    match_method: quick_match
+    note: "reading_order EditDist is reported separately and is NOT part of Overall"
+
+environment:
+  python: not_recorded                   # (not_recorded) fill: python -c "import sys; print(sys.version)" (P3)
+  rocm_hip: not_recorded                 # (not_recorded) fill: python -c "import torch; print(torch.version.hip)" (P3)
+  torch: not_recorded                    # (not_recorded) P3
+  vllm: not_recorded                     # (not_recorded) P3
+  transformers: not_recorded             # (not_recorded) P3
+  mineru: not_recorded                   # (not_recorded) P3
+  mineru_vl_utils: not_recorded          # (not_recorded) P3
+  gpu_arch: gfx1100                      # (per repo docs) RDNA3
+  rocm_smi_device_id: not_recorded       # (not_recorded) fill: rocm-smi --showproductname (P3)
+
+benchmark:
+  date: not_recorded                     # (not_recorded) P3
+  hardware: "AMD gfx1100 (Radeon PRO W7900, 48 GB), ROCm 7.2"
+  canary_N:                              # populated in P3 (canary size + page count finalized there)
+    pipeline_overall: not_recorded
+    vlm_vllm_overall: not_recorded
+    vlm_transformers_overall: not_recorded
+  full_1651:
+    pipeline_overall: not_recorded       # (not_recorded) P3 re-run target ~86.48 (±1.0 pp of verified official)
+    vlm_vllm_overall: not_recorded       # (not_recorded) P3 re-run target ~95.56 (±0.5 pp of verified official)
+    vlm_transformers: not_run            # sample-only; ~44 h full impractical (diagnostic)
+  official_reference:                    # re-verified against authoritative sources in P3
+    source: not_recorded                 # (not_recorded) P3: opendatalab/OmniDocBench leaderboard + arXiv:2604.04771 + MinerU README
+    vlm_overall: not_recorded            # (not_recorded) P3: authoritative value (95.69 vs 95.75 — re-verify)
+    pipeline_overall: not_recorded       # (not_recorded) P3: authoritative value (~86.47; submetrics not published upstream)
+    inference_engine: not_recorded       # (not_recorded) P3: upstream engine if stated (else "unspecified")
+    provenance_note: "Third-party figures not in an official source are treated as not_verified."
