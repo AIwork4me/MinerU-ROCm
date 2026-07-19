@@ -25,9 +25,10 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
-# Core package is GPU-free and has NO platform dependency. The omnidocbench-amd
-# engine integration is OPTIONAL (install [platform]); the standalone CLI lands in P1.
-dependencies = []
+# Core package is GPU-free and platform-free. The single core dep is PyYAML
+# (scoring writes/parses OmniDocBench eval configs). GPU/platform deps stay
+# optional: omnidocbench-amd engine integration is [platform]; the CLI lands in P1.
+dependencies = ["PyYAML>=6.0"]
 
 [project.optional-dependencies]
 # Optional: omnidocbench-amd platform integration. The current adapter/run_adapter.py

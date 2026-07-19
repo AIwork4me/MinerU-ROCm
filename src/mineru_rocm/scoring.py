@@ -16,6 +16,8 @@ import subprocess
 import tempfile
 from pathlib import Path
 
+import yaml
+
 # Machine-local defaults from the benchmark environment. Override per-host via the
 # OMNIDOCBENCH_VENV / OMNIDOCBENCH_REPO env vars (or --venv-python /
 # --omnidocbench-repo) so `mineru-rocm score` works from a wheel install anywhere.
@@ -50,8 +52,6 @@ def overall_score(metrics: dict) -> float | None:
 
 def write_eval_config(*, gt_json: str, pred_dir: str, out_yaml: Path) -> None:
     """Materialize an eval config from the template, substituting GT + pred paths."""
-    import yaml
-
     cfg = yaml.safe_load(_load_eval_template())
     cfg["end2end_eval"]["dataset"]["ground_truth"]["data_path"] = str(gt_json)
     cfg["end2end_eval"]["dataset"]["prediction"]["data_path"] = str(pred_dir)

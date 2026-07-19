@@ -6,12 +6,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
-      # [dev] = pytest/ruff/reuse; [platform] = omnidocbench-amd (the adapter still
-      # imports omnidocbench_amd.types until P1 lands a local types.py). The redundant
-      # explicit installs are no longer needed once both extras are pulled.
-      - run: pip install -e ".[dev,platform]"
-      - run: python -c "from omnidocbench_amd.types import RunSummary"
+      # P1a decoupled the core (local types.py replaces omnidocbench_amd.types) and the
+      # core is GPU-free, so CI installs [dev] only. [platform] (omnidocbench-amd) is
+      # OPTIONAL and not published to PyPI, so it is NOT installed here; the
+      # omnidocbench_amd.conformance check_repo gate therefore runs in the local /
+      # platform env, not in CI.
+      - run: pip install -e ".[dev]"
+      - run: python -c "from mineru_rocm.types import RunSummary, PageStatus; print('mineru_rocm.types ok')"
       - run: pytest -q
-      - name: Conformance check (contract)
-        run: |
-          python -c "from omnidocbench_amd.conformance import check_repo; from pathlib import Path; import sys; r = check_repo(Path('.')); print('CONFORMANT' if r.ok else 'NON-CONFORMANT: ' + ', '.join(r.failures)); sys.exit(0 if r.ok else 1)"

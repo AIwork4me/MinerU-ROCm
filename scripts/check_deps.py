@@ -6,7 +6,7 @@ from pathlib import Path
 with open(Path(__file__).resolve().parents[1] / "pyproject.toml", "rb") as f:
     p = tomllib.load(f)
 proj = p["project"]
-assert proj["dependencies"] == [], f"core must have no deps, got {proj['dependencies']!r}"
+assert proj["dependencies"] == ["PyYAML>=6.0"], f"core deps must be exactly [PyYAML>=6.0] (scoring needs yaml); got {proj['dependencies']!r}"
 extras = proj["optional-dependencies"]
 assert extras.get("platform") == ["omnidocbench-amd>=0.1.0"], f"[platform] wrong: {extras.get('platform')!r}"
 assert "omnidocbench-amd" not in extras.get("dev", []), "[dev] must not pull omnidocbench-amd (use [platform])"
