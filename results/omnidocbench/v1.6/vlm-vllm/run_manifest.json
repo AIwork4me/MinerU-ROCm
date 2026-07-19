@@ -1,0 +1,45 @@
+{
+  "schema_version": 2,
+  "repo_commit": "b75f788419d35a4210c201159a6c67923d60d65c",
+  "backend": "vlm-vllm",
+  "backend_provenance": {},
+  "model": "mineru-2.5-pro",
+  "model_revision": null,
+  "command": [
+    "mineru-rocm",
+    "predict",
+    "vlm-vllm"
+  ],
+  "timestamp": 1784497800.5652316,
+  "timestamp_iso": "2026-07-19T21:50:00.565237+00:00",
+  "run_counts": {
+    "attempted": 1651,
+    "succeeded": 1651,
+    "failed": 0,
+    "skipped": 0,
+    "interrupted": 0
+  },
+  "final_state": {
+    "expected": 1651,
+    "complete": 1649,
+    "failed": 0,
+    "pending": 2
+  },
+  "ports": null,
+  "gpu_ids": null,
+  "pixel_cap": null,
+  "max_tokens": null,
+  "env": {
+    "torch": "2.9.1+gitff65f5b",
+    "hip": "7.2.53211-e1a6bc5663",
+    "transformers": "4.57.6",
+    "vllm": "0.16.1.dev0+g89a77b108.d20260317"
+  },
+  "platform": {
+    "python": "3.12.3",
+    "system": "Linux",
+    "machine": "x86_64"
+  },
+  "status": "failed",
+  "extensions": {}
+}

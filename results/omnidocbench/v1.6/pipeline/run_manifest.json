@@ -1,0 +1,45 @@
+{
+  "schema_version": 2,
+  "repo_commit": "e05eec322dd8bf45447c3dec53349454f0424e61",
+  "backend": "pipeline",
+  "backend_provenance": {},
+  "model": "mineru-3.4-pipeline",
+  "model_revision": null,
+  "command": [
+    "mineru-rocm",
+    "predict",
+    "pipeline"
+  ],
+  "timestamp": 1784470196.7186813,
+  "timestamp_iso": "2026-07-19T14:09:56.718686+00:00",
+  "run_counts": {
+    "attempted": 1651,
+    "succeeded": 1651,
+    "failed": 0,
+    "skipped": 0,
+    "interrupted": 0
+  },
+  "final_state": {
+    "expected": 1651,
+    "complete": 1650,
+    "failed": 0,
+    "pending": 1
+  },
+  "ports": null,
+  "gpu_ids": null,
+  "pixel_cap": null,
+  "max_tokens": null,
+  "env": {
+    "torch": "2.14.0.dev20260717+rocm7.2",
+    "hip": "7.2.53211",
+    "transformers": "4.57.6",
+    "vllm": "0.19.1"
+  },
+  "platform": {
+    "python": "3.11.15",
+    "system": "Linux",
+    "machine": "x86_64"
+  },
+  "status": "failed",
+  "extensions": {}
+}
