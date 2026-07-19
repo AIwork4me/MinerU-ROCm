@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+import pytest
 from mineru_rocm.types import RunSummary, PageStatus
 
 
@@ -34,3 +35,10 @@ def test_write_round_trips(tmp_path):
     assert out.exists()
     d = json.loads((tmp_path / "_run_stats.json").read_text())
     assert d["count"] == 1 and d["ok"] == 1 and d["engine"] == "vlm-vllm"
+
+
+def test_run_summary_stats_is_required_positional():
+    # Engine parity: omnidocbench_amd.types.RunSummary requires stats positionally
+    # (verified — engine raises TypeError). Our port must match.
+    with pytest.raises(TypeError):
+        RunSummary(1, 1, 0, 0, None)

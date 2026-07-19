@@ -7,7 +7,7 @@ existing tests expect. Stdlib-only.
 """
 from __future__ import annotations
 import json
-from dataclasses import dataclass, asdict, field
+from dataclasses import dataclass, asdict
 from pathlib import Path
 
 SCHEMA_VERSION = 1
@@ -29,7 +29,7 @@ class RunSummary:
     fail: int
     fallback: int
     limit_pages: int | None
-    stats: list[PageStatus] = field(default_factory=list)
+    stats: list[PageStatus]
     engine: str = ""
 
     def to_run_stats(self) -> dict:
