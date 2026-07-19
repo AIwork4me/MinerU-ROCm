@@ -17,7 +17,7 @@ nohup /opt/venv/bin/python -m vllm.entrypoints.openai.api_server \
   --served-model-name mineru-pro \
   --trust-remote-code \
   --dtype bfloat16 \
-  --chat-template "$REPO/adapter/qwen2vl_chat_template.jinja" \
+  --chat-template "$REPO/src/mineru_rocm/backends/qwen2vl_chat_template.jinja" \
   --logits-processors mineru_vl_utils:MinerULogitsProcessor \
   --host 127.0.0.1 --port "$PORT" \
   --gpu-memory-utilization 0.70 \

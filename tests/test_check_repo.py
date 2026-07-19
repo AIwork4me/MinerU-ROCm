@@ -32,11 +32,30 @@ def test_readme_script_references_exist():
     assert cr.check_readme_scripts_exist(readme) == []
 
 
+def test_check_readme_lock_values_pass_when_consistent():
+    """The README results tables match the lock values (the drift gate)."""
+    import scripts.check_repo as cr
+    readme = (REPO / "README.md").read_text(encoding="utf-8")
+    lock = cr._load_lock()
+    findings = cr.check_readme_lock_values(readme, lock)
+    assert findings == [], findings
+
+
+def test_check_readme_lock_values_flags_drift():
+    """README numbers that disagree with the lock are findings (stale-table detection)."""
+    import scripts.check_repo as cr
+    lock = {"benchmark": {"full_1651": {"pipeline": {"overall": 99.99}, "vlm_vllm": {"overall": 88.88}}}}
+    readme = "Pipeline Overall 86.48 | VLM 95.46"  # neither 99.99 nor 88.88 present
+    findings = cr.check_readme_lock_values(readme, lock)
+    assert len(findings) == 2  # both pipeline + vlm_vllm flagged as drift
+
+
 def test_check_repo_clean_on_repo(capsys):
     """Integration gate: the FAST checks (no install smoke) all pass on the real repo.
 
     `check_install_smoke` runs `pip install -e .` (slow + mutates env) so it runs
-    in CI via `main()`, not here. This test covers the engine/lock/SPDX/README checks."""
+    in CI via `main()`, not here. This test covers engine/lock/SPDX/README + the
+    README↔lock value cross-check."""
     import scripts.check_repo as cr
     findings = []
     findings += cr.find_engine_imports(REPO / "src" / "mineru_rocm")
@@ -44,4 +63,5 @@ def test_check_repo_clean_on_repo(capsys):
     findings += cr.check_spdx()
     readme = (REPO / "README.md").read_text(encoding="utf-8") if (REPO / "README.md").is_file() else ""
     findings += cr.check_readme_scripts_exist(readme)
+    findings += cr.check_readme_lock_values(readme, cr._load_lock())
     assert findings == [], findings

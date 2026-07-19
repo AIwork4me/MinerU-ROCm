@@ -1,0 +1,240 @@
+{
+    "save_name": "pipeline_quick_match",
+    "runtime_environment": {
+        "system": {
+            "platform": "Linux-6.8.0-79-generic-x86_64-with-glibc2.39",
+            "python_version": "3.11.15 (main, Mar  3 2026, 09:26:23) [GCC 13.3.0]",
+            "python_executable": "/root/ocr-eval/OmniDocBench/.venv/bin/python",
+            "python_prefix": "/root/ocr-eval/OmniDocBench/.venv",
+            "conda_env": "",
+            "conda_prefix": "",
+            "libc": "glibc 2.39",
+            "uname": "Linux u-20-8d823edc 6.8.0-79-generic #79-Ubuntu SMP PREEMPT_DYNAMIC Tue Aug 12 14:42:46 UTC 2025 x86_64 x86_64",
+            "os_release": {
+                "PRETTY_NAME": "Ubuntu 24.04.4 LTS",
+                "NAME": "Ubuntu",
+                "VERSION_ID": "24.04",
+                "VERSION": "24.04.4 LTS (Noble Numbat)",
+                "VERSION_CODENAME": "noble",
+                "ID": "ubuntu",
+                "ID_LIKE": "debian",
+                "HOME_URL": "https://www.ubuntu.com/",
+                "SUPPORT_URL": "https://help.ubuntu.com/",
+                "BUG_REPORT_URL": "https://bugs.launchpad.net/ubuntu/",
+                "PRIVACY_POLICY_URL": "https://www.ubuntu.com/legal/terms-and-policies/privacy-policy",
+                "UBUNTU_CODENAME": "noble",
+                "LOGO": "ubuntu-logo"
+            }
+        },
+        "system_packages": {
+            "package_manager": "dpkg-query",
+            "tracked_packages": {
+                "ghostscript": "ghostscript=10.02.1~dfsg1-0ubuntu7.8",
+                "imagemagick": "imagemagick=8:6.9.12.98+dfsg1-5.2build2",
+                "fontconfig": "fontconfig=2.15.0-1.1ubuntu2",
+                "python3": "python3=3.12.3-0ubuntu2.1",
+                "python3-pip": "python3-pip=24.0+dfsg-1ubuntu1.3",
+                "python3-setuptools": "python3-setuptools=68.1.2-2ubuntu1.2",
+                "python3-wheel": "python3-wheel=0.42.0-2",
+                "texlive-base": "texlive-base=2023.20240207-1",
+                "texlive-binaries": "texlive-binaries=2023.20230311.66589-9build3",
+                "texlive-lang-chinese": "texlive-lang-chinese=2023.20240207-1",
+                "texlive-lang-cjk": "texlive-lang-cjk=2023.20240207-1",
+                "texlive-latex-base": "texlive-latex-base=2023.20240207-1",
+                "texlive-latex-extra": "texlive-latex-extra=2023.20240207-1",
+                "texlive-fonts-recommended": "texlive-fonts-recommended=2023.20240207-1",
+                "texlive-plain-generic": "texlive-plain-generic=2023.20240207-1",
+                "latexml": "latexml="
+            }
+        },
+        "python_packages": {
+            "apted": "1.0.3",
+            "beautifulsoup4": "4.11.1",
+            "evaluate": "0.4.3",
+            "func-timeout": "4.3.5",
+            "Levenshtein": "0.25.1",
+            "loguru": "0.7.2",
+            "lxml": "4.9.1",
+            "matplotlib": "3.7.5",
+            "nltk": "3.9.1",
+            "numpy": "1.24.4",
+            "pandas": "2.0.3",
+            "Pillow": "10.4.0",
+            "pylatexenc": "2.10",
+            "PyYAML": "6.0.2",
+            "scipy": "1.10.1",
+            "tabulate": "0.9.0",
+            "tqdm": "4.67.1",
+            "pip": "unavailable",
+            "setuptools": "unavailable",
+            "wheel": "unavailable"
+        },
+        "external_tools": {
+            "pdflatex": {
+                "path": "/usr/bin/pdflatex",
+                "returncode": 0,
+                "output": "pdfTeX 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) | kpathsea version 6.3.5 | Copyright 2023 Han The Thanh (pdfTeX) et al. | There is NO warranty.  Redistribution of this software is | covered by the terms of both the pdfTeX copyright and"
+            },
+            "kpsewhich": {
+                "path": "/usr/bin/kpsewhich",
+                "returncode": 0,
+                "output": "kpathsea version 6.3.5 | Copyright 2023 Karl Berry & Olaf Weber. | License LGPLv2.1+: GNU Lesser GPL version 2.1 or later <https://gnu.org/licenses/lgpl.html> | This is free software: you are free to change and redistribute it. | There is NO WARRANTY, to the extent permitted by law."
+            },
+            "tlmgr": {
+                "path": "/usr/bin/tlmgr",
+                "returncode": 0,
+                "output": "tlmgr revision 69653 (2024-01-31 22:52:46 +0100) | tlmgr using installation: /usr/share/texlive | TeX Live (https://tug.org/texlive) version 2023"
+            },
+            "ghostscript": {
+                "path": "/usr/bin/gs",
+                "returncode": 0,
+                "output": "10.02.1"
+            },
+            "magick": {
+                "path": "/usr/local/bin/magick",
+                "returncode": 0,
+                "output": "Version: ImageMagick 7.1.2-8 Q16-HDRI x86_64 2300ae543:20251025 https://imagemagick.org | Copyright: (C) 1999 ImageMagick Studio LLC | License: https://imagemagick.org/script/license.php | Features: Cipher DPC HDRI OpenMP(4.5) | Delegates (built-in): jbig jng jpeg lzma openexr png tiff webp x xml zlib zstd"
+            },
+            "convert": {
+                "path": "/usr/local/bin/convert",
+                "returncode": 0,
+                "output": "WARNING: The convert command is deprecated in IMv7, use \"magick\" instead of \"convert\" or \"magick convert\" | Version: ImageMagick 7.1.2-8 Q16-HDRI x86_64 2300ae543:20251025 https://imagemagick.org | Copyright: (C) 1999 ImageMagick Studio LLC | License: https://imagemagick.org/script/license.php | Features: Cipher DPC HDRI OpenMP(4.5)"
+            },
+            "identify": {
+                "path": "/usr/local/bin/identify",
+                "returncode": 0,
+                "output": "Version: ImageMagick 7.1.2-8 Q16-HDRI x86_64 2300ae543:20251025 https://imagemagick.org | Copyright: (C) 1999 ImageMagick Studio LLC | License: https://imagemagick.org/script/license.php | Features: Cipher DPC HDRI OpenMP(4.5) | Delegates (built-in): jbig jng jpeg lzma openexr png tiff webp x xml zlib zstd"
+            },
+            "latexmlc": {
+                "path": "latexmlc",
+                "returncode": null,
+                "output": "unavailable (FileNotFoundError: [Errno 2] No such file or directory: 'latexmlc')"
+            }
+        },
+        "texlive": {
+            "cjk_font_family": "gkai",
+            "cjk_sty": {
+                "path": "/usr/share/texmf/tex/latex/CJK/CJK.sty",
+                "version": "4.8.5 (16-Oct-2021)",
+                "date": "2021/10/16",
+                "header": "% This is the file CJK.sty of the CJK package",
+                "status": "ok"
+            },
+            "cjk_font_fd": {
+                "path": "/usr/share/texmf/tex/latex/CJK/UTF8/c70gkai.fd",
+                "version": "4.8.1",
+                "date": "2008/10/03",
+                "header": "% This is the file c70gkai.fd of the CJK package",
+                "status": "ok"
+            }
+        }
+    },
+    "stage_execution": {
+        "page_match": {
+            "workers": 13,
+            "page_count": 1651,
+            "quick_match_truncated_timeout_sec": 300,
+            "match_timeout_sec": 420,
+            "fallbacks": {
+                "quick_match_timeout": {
+                    "count": 0,
+                    "cases": []
+                },
+                "page_timeout": {
+                    "count": 0,
+                    "cases": []
+                }
+            }
+        },
+        "metrics": {
+            "display_formula": {
+                "CDM": {
+                    "workers": 13,
+                    "timeout_sec": null,
+                    "sample_count": 2352,
+                    "timeout_case_count": 0,
+                    "timeout_cases": [],
+                    "error_case_count": 0,
+                    "error_cases": [],
+                    "exception_case_count": 0,
+                    "exception_cases": []
+                }
+            },
+            "table": {
+                "TEDS": {
+                    "workers": 13,
+                    "timeout_sec": 120.0,
+                    "sample_count": 665,
+                    "timeout_case_count": 0,
+                    "timeout_cases": [],
+                    "error_case_count": 0,
+                    "error_cases": [],
+                    "exception_case_count": 0,
+                    "exception_cases": []
+                }
+            }
+        }
+    },
+    "page_denominators": {
+        "text_block": {
+            "Edit_dist": {
+                "ALL": 1557
+            }
+        },
+        "display_formula": {
+            "Edit_dist": {
+                "ALL": 313
+            },
+            "CDM": {
+                "ALL": 313
+            }
+        },
+        "table": {
+            "TEDS": {
+                "ALL": 458
+            },
+            "Edit_dist": {
+                "ALL": 458
+            },
+            "TEDS_structure_only": {
+                "ALL": 458
+            }
+        },
+        "reading_order": {
+            "Edit_dist": {
+                "ALL": 1638
+            }
+        }
+    },
+    "notebook_metric_summary": {
+        "source": "tools/generate_result_tables.ipynb#cell-2",
+        "metrics": {
+            "text_block_Edit_dist": {
+                "raw": 0.056576564006556355,
+                "page_denominator": 1557,
+                "notebook_value": 0.056576564006556355
+            },
+            "display_formula_CDM": {
+                "raw": 0.8306671340500542,
+                "page_denominator": 313,
+                "notebook_value": 83.06671340500542
+            },
+            "table_TEDS": {
+                "raw": 0.8203926432129425,
+                "page_denominator": 458,
+                "notebook_value": 82.03926432129424
+            },
+            "table_TEDS_structure_only": {
+                "raw": 0.8884494477113659,
+                "page_denominator": 458,
+                "notebook_value": 88.8449447711366
+            },
+            "reading_order_Edit_dist": {
+                "raw": 0.15340695746208646,
+                "page_denominator": 1638,
+                "notebook_value": 0.15340695746208646
+            }
+        },
+        "overall_notebook": 86.48277377521468
+    }
+}
