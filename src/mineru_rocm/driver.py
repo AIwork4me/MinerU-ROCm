@@ -22,13 +22,13 @@ from pathlib import Path
 from mineru_rocm import preflight, runner
 
 
-def _orchestrate(args, *, infer_page, backend: str, model: str, cfg: dict, platform: str = "linux-rocm") -> int:
+def _orchestrate(args, *, infer_page, backend: str, model: str, cfg: dict, platform: str = "linux-rocm", command: list[str] | None = None) -> int:
     """Run ``infer_page`` over the OmniDocBench page set with full runner integrity.
 
     ``infer_page(img, platform, cfg) -> str`` is injected so the orchestration is
     CPU-testable without a GPU. Returns 0 on a fully-ok run, 1 otherwise (failed
     pages, pending pages, or a pre-run abort). Writes ``run_manifest.json`` on
-    every run that starts (not on a conflict abort).
+    every run that completes the loop body (not on a conflict abort or a mid-run crash; resume recovers partial progress).
     """
     # --- preflight: GT + images exist (raises PreflightError on bad input) ---
     pages = preflight.pages_with_images(args.gt_json, args.images_dir)  # [(stem, abs_img), ...]
@@ -74,6 +74,7 @@ def _orchestrate(args, *, infer_page, backend: str, model: str, cfg: dict, platf
             pred_dir,
             backend=backend,
             model=model,
+            command=command,
             run_counts={
                 "attempted": len(todo), "succeeded": succeeded, "failed": failed,
                 "skipped": skipped, "interrupted": 0,
@@ -109,7 +110,7 @@ def parse_args(argv=None):
     return p.parse_args(argv)
 
 
-def run(args) -> int:
+def run(args, command=None) -> int:
     """Select the backend's infer_page + cfg, then orchestrate. Imports backends lazily (GPU deps stay out of module top-level)."""
     from mineru_rocm import config
 
@@ -126,7 +127,7 @@ def run(args) -> int:
     cfg = {**config.as_dict(), "lang": args.lang, "backend": args.backend}
     return _orchestrate(
         args, infer_page=backend_mod.infer_page, backend=args.backend,
-        model=model, cfg=cfg, platform=args.platform,
+        model=model, cfg=cfg, platform=args.platform, command=command,
     )
 
 
