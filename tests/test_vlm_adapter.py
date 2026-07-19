@@ -1,5 +1,5 @@
 # tests/test_vlm_adapter.py
-from vlm_adapter import normalize_vlm_markdown
+from mineru_rocm.backends.vlm import normalize_vlm_markdown
 
 def test_strips_md_start_end_markers():
     md = "<|md_start|>\n# Title\n\nbody\n<|md_end|>"

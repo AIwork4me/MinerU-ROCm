@@ -5,16 +5,8 @@ provisioning). Verifies the pure `normalize_markdown` post-processing helper
 that `infer_page` runs on mineru's raw Markdown output.
 """
 from __future__ import annotations
-import sys
-from pathlib import Path
 
-# Make `adapter/` importable as top-level modules (matches run_adapter.py's
-# sys.path injection for bare-script invocation).
-_ADAPTER = Path(__file__).resolve().parent.parent / "adapter"
-if str(_ADAPTER) not in sys.path:
-    sys.path.insert(0, str(_ADAPTER))
-
-from pipeline_adapter import normalize_markdown  # noqa: E402
+from mineru_rocm.backends.pipeline import normalize_markdown
 
 
 def test_display_formula_wrapped_in_double_dollar():
