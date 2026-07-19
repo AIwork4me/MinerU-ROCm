@@ -2,10 +2,10 @@
 # Copyright 2026 AIwork4me
 """OmniDocBench v1.6 dataset iteration + prediction filename mapping.
 
-Ground-truth JSON (e.g. /workspace/OmniDocBench_data/OmniDocBench.json) is a list
-of page dicts; each page_info.image_path is a BARE basename resolved under the
-dataset's images/ directory. Subsets OmniDocBench_150.json / OmniDocBench_30.json
-share the same format.
+Ground-truth JSON (e.g. OmniDocBench.json) is a list of page dicts; each
+page_info.image_path is a BARE basename resolved under the dataset's images/
+directory. Subsets OmniDocBench_150.json / OmniDocBench_30.json share the
+same format. Ported from HunyuanOCR-ROCm (hunyuan_ocr.omnidocbench).
 """
 
 from __future__ import annotations
