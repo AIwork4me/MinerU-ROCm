@@ -166,14 +166,14 @@ def _canary_materialize(args) -> int:
 
 def _predict(args) -> int:
     """Delegate to ``mineru_rocm.driver`` (the robust run path). The driver
-    imports backend deps lazily inside ``run()``, so reaching its arg check is
-    GPU-free; ``command=`` threads this CLI into the run manifest (Task 1's
-    hardening)."""
+    flags are first-class predict args (added via ``driver.add_arguments`` at
+    subparser-build time), so the cli ``args`` Namespace already carries
+    ``--backend`` + every driver flag — forward it straight to ``driver.run``.
+    The driver imports backend deps lazily inside ``run()``, so reaching its
+    arg check is GPU-free; ``command=`` threads this CLI into the run manifest."""
     from mineru_rocm import driver
 
-    drv_argv = ["--backend", args.backend, *_clean_extra(args.extra)]
-    dargs = driver.parse_args(drv_argv)
-    return driver.run(dargs, command=["mineru-rocm", "predict", args.backend])
+    return driver.run(args, command=["mineru-rocm", "predict", args.backend])
 
 
 def _score(args) -> int:
@@ -195,14 +195,6 @@ def _score(args) -> int:
         return 1
     print(scoring.format_score_table(args.label, result["metrics"]))
     return 0
-
-
-def _clean_extra(extra):
-    """Drop a leading ``--`` that argparse.REMAINDER may capture."""
-    extra = list(extra or [])
-    if extra and extra[0] == "--":
-        extra = extra[1:]
-    return extra
 
 
 # --- argparse wiring ---------------------------------------------------------
@@ -242,21 +234,20 @@ def build_parser() -> argparse.ArgumentParser:
         help="robust run path via mineru_rocm.driver (pipeline | vlm-vllm)",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=(
-            "Driver flags (--gt-json, --images-dir, --pred-dir, ...) MUST follow a "
-            "literal '--' separator, e.g.:\n"
-            "    mineru-rocm predict --backend pipeline -- --gt-json g.json "
+            "Driver flags (--gt-json, --images-dir, --pred-dir, --model, --platform, "
+            "--lang, --max-retries, --retry-backoff, --overwrite, --retry-failed) are "
+            "first-class predict args, e.g.:\n"
+            "    mineru-rocm predict --backend pipeline --gt-json g.json "
             "--images-dir i --pred-dir p\n"
-            "The natural form without '--' (e.g. 'predict --backend pipeline --gt-json g "
-            "...') is REJECTED by argparse REMAINDER before the driver runs. Direct "
-            "forwarding without '--' is tracked as a P3 improvement."
+            "Flags are forwarded directly to mineru_rocm.driver.run (no literal '--' needed)."
         ),
     )
-    pr.add_argument("--backend", required=True, choices=["pipeline", "vlm-vllm"])
-    pr.add_argument(
-        "extra", nargs=argparse.REMAINDER,
-        help="driver flags (--gt-json, --images-dir, --pred-dir, --max-retries, ...); "
-        "MUST be preceded by a literal '--' (see epilog below)",
-    )
+    # The driver flags are added via the shared driver.add_arguments so the cli
+    # `args` Namespace carries them directly (lazy-import: add_arguments only
+    # registers argparse metadata, it does NOT import torch/backend deps).
+    from mineru_rocm import driver as _driver
+
+    _driver.add_arguments(pr)
 
     sc = sub.add_parser("score", help="OmniDocBench v1.6 scoring (scorer venv required)")
     sc.add_argument("--pred-dir", required=True)

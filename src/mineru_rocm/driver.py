@@ -88,25 +88,35 @@ def _orchestrate(args, *, infer_page, backend: str, model: str, cfg: dict, platf
         return 0 if status == "ok" else 1
 
 
+def add_arguments(parser):
+    """Add the driver's CLI flags to ``parser``.
+
+    Shared by ``parse_args`` (the ``python -m mineru_rocm.driver`` path) and the
+    ``mineru-rocm predict`` CLI subparser, so the driver flags are first-class
+    predict args (no argparse REMAINDER / literal ``--`` needed at the CLI layer).
+    """
+    parser.add_argument("--gt-json", required=True)
+    parser.add_argument("--images-dir", required=True)
+    parser.add_argument("--pred-dir", required=True)
+    parser.add_argument("--backend", required=True, choices=["pipeline", "vlm-vllm"])
+    parser.add_argument("--model", default=None, help="advisory model name for the manifest (default per backend)")
+    parser.add_argument("--platform", default="linux-rocm")
+    parser.add_argument("--lang", default="ch")
+    parser.add_argument("--max-retries", type=int, default=2)
+    parser.add_argument("--retry-backoff", type=float, default=2.0)
+    parser.add_argument("--overwrite", action="store_true", help="re-run every page (ignore existing complete pages)")
+    parser.add_argument("--retry-failed", action="store_true", help="re-run only previously-failed pages")
+
+
 def parse_args(argv=None):
-    """CLI for `python -m mineru_rocm.driver`. The P1d `mineru-rocm predict` CLI wraps this."""
+    """CLI for `python -m mineru_rocm.driver`. The P1d `mineru-rocm predict` CLI forwards its flags via add_arguments."""
     import argparse
 
     p = argparse.ArgumentParser(
         prog="mineru_rocm.driver",
         description="Run a MinerU backend over an OmniDocBench page set (robust: atomic writes + run_manifest + resume).",
     )
-    p.add_argument("--gt-json", required=True)
-    p.add_argument("--images-dir", required=True)
-    p.add_argument("--pred-dir", required=True)
-    p.add_argument("--backend", required=True, choices=["pipeline", "vlm-vllm"])
-    p.add_argument("--model", default=None, help="advisory model name for the manifest (default per backend)")
-    p.add_argument("--platform", default="linux-rocm")
-    p.add_argument("--lang", default="ch")
-    p.add_argument("--max-retries", type=int, default=2)
-    p.add_argument("--retry-backoff", type=float, default=2.0)
-    p.add_argument("--overwrite", action="store_true", help="re-run every page (ignore existing complete pages)")
-    p.add_argument("--retry-failed", action="store_true", help="re-run only previously-failed pages")
+    add_arguments(p)
     return p.parse_args(argv)
 
 

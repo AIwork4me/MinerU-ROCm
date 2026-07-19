@@ -69,6 +69,25 @@ def check_readme_scripts_exist(readme: str) -> list[str]:
     return errs
 
 
+def check_readme_lock_values(readme: str, lock) -> list[str]:
+    """README results tables match the lock values (the drift gate).
+
+    The lock's full-1651 pipeline + vlm_vllm Overall must appear in the README —
+    catches a stale README (e.g. README still says 95.56 after a re-run scored 95.46).
+    Skipped (returns []) when the lock's Overall values aren't filled."""
+    if lock is None:
+        return []
+    full = (lock.get("benchmark") or {}).get("full_1651") or {}
+    findings = []
+    for key in ("pipeline", "vlm_vllm"):
+        overall = (full.get(key) or {}).get("overall")
+        if overall is None:
+            continue
+        if f"{overall}" not in readme:
+            findings.append(f"README drift: lock full_1651.{key} Overall {overall} not in README (stale results table?)")
+    return findings
+
+
 def check_install_smoke() -> list[str]:
     """`pip install -e .` succeeds (the PEP 639 / build regression guard)."""
     cp = subprocess.run([sys.executable, "-m", "pip", "install", "-e", ".", "--quiet"],
@@ -80,11 +99,13 @@ def check_install_smoke() -> list[str]:
 
 def main(argv=None) -> int:
     findings = []
-    findings += find_engine_imports(REPO / "src" / "mineru_rocm")
-    findings += check_lock_sections(_load_lock())
-    findings += check_spdx()
+    lock = _load_lock()
     readme = (REPO / "README.md").read_text(encoding="utf-8") if (REPO / "README.md").is_file() else ""
+    findings += find_engine_imports(REPO / "src" / "mineru_rocm")
+    findings += check_lock_sections(lock)
+    findings += check_spdx()
     findings += check_readme_scripts_exist(readme)
+    findings += check_readme_lock_values(readme, lock)
     findings += check_install_smoke()
     if findings:
         print("check_repo: " + str(len(findings)) + " finding(s):", file=sys.stderr)

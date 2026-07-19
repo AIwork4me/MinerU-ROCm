@@ -77,22 +77,29 @@ def test_predict_reaches_driver_arg_check():
         cli.main(["predict", "--backend", "pipeline"])
 
 
-def test_predict_with_separator_reaches_driver(tmp_path, monkeypatch):
-    """predict forwards driver flags after a literal '--' (argparse REMAINDER limitation).
+def test_predict_natural_invocation_reaches_driver(tmp_path, monkeypatch):
+    """predict WITHOUT a literal '--' reaches driver.run (the rework drops the REMAINDER limitation).
 
-    The natural form (no '--') is rejected by argparse; the '--' form reaches driver.run.
-    (Direct forwarding without '--' is tracked as a P3 improvement.)"""
+    The driver flags are first-class predict args (added via driver.add_arguments),
+    so the natural form ``predict --backend pipeline --gt-json g ...`` forwards
+    straight to driver.run. The legacy literal-'--' separator is no longer needed
+    (and is now rejected — argparse would treat post-'--' tokens as positionals)."""
     gt = tmp_path / "gt.json"
     gt.write_text(json.dumps([{"page_info": {"image_path": "a.png"}}]), encoding="utf-8")
     img = tmp_path / "images"; img.mkdir(); (img / "a.png").write_bytes(b"x")
-    pred = tmp_path / "pred"
     seen = {}
     from mineru_rocm import driver
     def _fake_run(dargs, command=None):
-        seen["called"] = dargs.backend
+        seen["backend"] = dargs.backend
+        seen["gt_json"] = dargs.gt_json
+        seen["images_dir"] = dargs.images_dir
+        seen["pred_dir"] = dargs.pred_dir
         return 0
     monkeypatch.setattr(driver, "run", _fake_run)
-    rc = cli.main(["predict", "--backend", "pipeline", "--",
-                   "--gt-json", str(gt), "--images-dir", str(img), "--pred-dir", str(pred)])
-    assert rc == 0
-    assert seen.get("called") == "pipeline"  # driver.run WAS reached with the right backend
+    rc = cli.main(["predict", "--backend", "pipeline",
+                   "--gt-json", str(gt), "--images-dir", str(img), "--pred-dir", str(tmp_path / "pred")])
+    assert rc == 0 and seen.get("backend") == "pipeline"  # reached driver.run, no '--' needed
+    # all driver flags were threaded through the cli Namespace to driver.run
+    assert seen.get("gt_json") == str(gt)
+    assert seen.get("images_dir") == str(img)
+    assert seen.get("pred_dir") == str(tmp_path / "pred")
