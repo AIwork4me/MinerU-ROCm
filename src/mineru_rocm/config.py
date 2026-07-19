@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 AIwork4me
 """Adapter configuration for MinerU-ROCm.
 
 backend selects the path; model is advisory (which MinerU model a run targets).

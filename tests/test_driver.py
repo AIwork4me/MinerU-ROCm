@@ -169,3 +169,54 @@ def test_module_is_runnable_help():
     )
     assert res.returncode == 0
     assert "--backend" in res.stdout and "--pred-dir" in res.stdout
+
+
+def test_orchestration_retry_failed_mode(tmp_path):
+    """--retry-failed: a previously-failed page is re-attempted; conservation holds."""
+    gt, img_dir = _make_gt_and_images(tmp_path, ["a", "b"])
+    pred = tmp_path / "pred"
+    # pre-seed "a" as FAILED the way the runner does (error record, no .md)
+    try:
+        raise RuntimeError("earlier crash")
+    except RuntimeError as e:
+        runner.record_error(pred, "a", image_path="a.png", backend="pipeline", endpoint="in-process", exc=e, attempt=1)
+    # pre-complete "b" so final state has no pending pages (status=ok)
+    runner.commit_success(pred, "b", "# b already done\n")
+
+    seen = []
+    def fake_infer(img, platform, cfg):
+        seen.append(Path(img).stem)
+        return f"# {Path(img).stem}\n"  # succeeds this time
+
+    code = driver._orchestrate(
+        _args(tmp_path, gt, img_dir, retry_failed=True), infer_page=fake_infer,
+        backend="pipeline", model="m", cfg={},
+    )
+    assert code == 0
+    assert seen == ["a"]  # only the failed page re-run; "b" (complete) NOT run under retry_failed
+    m = json.loads((pred / "run_manifest.json").read_text("utf-8"))
+    assert m["run_counts"]["attempted"] == 1 and m["run_counts"]["skipped"] == 1
+    assert m["final_state"]["complete"] == 2 and m["final_state"]["failed"] == 0  # a now complete, b already complete
+    assert runner.validate_manifest(m) == []
+
+
+def test_orchestration_overwrite_mode(tmp_path):
+    """--overwrite: even a complete page is re-inferred; conservation holds."""
+    gt, img_dir = _make_gt_and_images(tmp_path, ["a"])
+    pred = tmp_path / "pred"
+    runner.commit_success(pred, "a", "# old output\n")  # already complete
+
+    seen = []
+    def fake_infer(img, platform, cfg):
+        seen.append(Path(img).stem)
+        return f"# {Path(img).stem} NEW\n"
+
+    code = driver._orchestrate(
+        _args(tmp_path, gt, img_dir, overwrite=True), infer_page=fake_infer,
+        backend="pipeline", model="m", cfg={},
+    )
+    assert code == 0
+    assert seen == ["a"] and (pred / "a.md").read_text("utf-8") == "# a NEW\n"  # re-inferred
+    m = json.loads((pred / "run_manifest.json").read_text("utf-8"))
+    assert m["run_counts"]["attempted"] == 1 and m["run_counts"]["skipped"] == 0
+    assert runner.validate_manifest(m) == []

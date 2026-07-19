@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 AIwork4me
 """MinerU 3.4 pipeline adapter (backend=pipeline).
 
 Wraps upstream mineru[all] in-process on ROCm cuda. Loads the pipeline ONCE

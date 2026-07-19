@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 AIwork4me
 """Inference backends for mineru_rocm.
 
 - pipeline: in-process MinerU 3.4 pipeline on ROCm cuda.

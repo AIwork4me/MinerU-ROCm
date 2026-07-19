@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 AIwork4me
 """MinerU-ROCm adapter dispatcher — implements the omnidocbench-amd contract.
 
 Routes --backend to the right sub-adapter (pipeline | vlm-*). Keeps the

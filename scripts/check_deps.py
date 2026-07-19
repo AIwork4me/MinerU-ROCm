@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 AIwork4me
 """P0 validator: core is GPU/platform-free; omnidocbench-amd is only in [platform]."""
 import sys, tomllib
 from pathlib import Path
