@@ -1,25 +1,40 @@
 # MinerU-ROCm
 
-[omnidocbench-amd](https://github.com/AIwork4me/OmniDocBench-AMD) 文档解析评测平台的单模型适配仓库。由官方 cookiecutter 模板生成；自带无需 GPU 的 `smoke` 后端，开箱即用。
+> [opendatalab/MinerU](https://github.com/opendatalab/MinerU) 的**评估背书 AMD ROCm 移植** ——
+> 在 AMD **gfx1100 (RDNA3)** 上运行 **MinerU 3.4 pipeline** 与 **MinerU2.5-Pro** VLM，
+> 跨多个推理后端报告 **OmniDocBench v1.6** 结果。**非**精度对齐移植：不存在同页集 CUDA 对照，
+> 且上游 headline 可能用不同引擎。见基准方法学 *（P2 落地）*。
 
-- 模型：`mineru2.5`（VLM checkpoint 2605）
-- 平台：linux-rocm、windows-hip
-- 徽章：linux-rocm = `community`（OmniDocBench v1.6 Overall **95.56**，已复现）；windows-hip = `community-wanted`。`verified` 需维护者 Docker 复现。
+[![OmniDocBench v1.6](https://img.shields.io/badge/OmniDocBench-v1.6-blue)](https://github.com/opendatalab/OmniDocBench)
+[![VLM full](https://img.shields.io/badge/MinerU2.5--Pro%20VLM%20(full)-95.56-green)](#结果--mineru25-pro-vlm主-model-cardmineru25)
+[![pipeline full](https://img.shields.io/badge/MinerU%203.4%20pipeline%20(full)-86.48-yellowgreen)](#结果--mineru-34-pipeline次要-model-cardmineru-pipeline)
+[![status: evaluation-backed](https://img.shields.io/badge/status-evaluation--backed-blue)](reproducibility.lock.yaml)
+[![license: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0%20(+MinerU%20terms)-blue)](NOTICE)
 
 > 国内用户优先使用镜像与 ModelScope 拉取模型/数据集，速度更稳定。
 
+## 概览（At a glance）
+
+- **是什么。** 在 AMD ROCm 上运行 opendatalab MinerU（3.4 pipeline + 2.5-Pro VLM）并在 OmniDocBench v1.6 上评分的工具。
+- **在哪验证。** AMD **gfx1100 (RDNA3, 48 GB ×4)，ROCm 7.2**，bf16。
+- **最可靠结果。** **MinerU2.5-Pro VLM (vLLM-on-ROCm) 全量 1651 = 95.56 Overall**；**MinerU 3.4 pipeline 全量 1651 = 86.48 Overall**。
+- **最重要限制。** **非精度对齐。** 无同引擎 CUDA 对照；上游 headline 可能用不同引擎测量。所谓"官方 95.75"锚点正在重新核实（上游指向 ~95.69）—— 见填充后的 `reproducibility.lock.yaml`。
+- **上游。** 本仓是 [opendatalab/MinerU](https://github.com/opendatalab/MinerU) 的移植；[omnidocbench-amd](https://github.com/AIwork4me/OmniDocBench-AMD) 引擎只是**可选**消费者（装 `[platform]` extra），不是本仓的定义。
+
 ## Install（安装）
 
-```bash
-pip install -e ".[dev]"
-pip install omnidocbench-amd        # 引擎（提供 `omnidocbench-amd` CLI 与类型）
-```
-
-平台环境准备（权重、ROCm/DirectML 运行时）：
+核心包不依赖 GPU，也无平台依赖。
 
 ```bash
-make setup-linux     # 或：make setup-windows
+pip install -e ".[dev]"          # 核心 + dev/CI 工具（pytest、ruff、reuse）
+# 可选：omnidocbench-amd 引擎集成（adapter/run_adapter.py 路径）
+pip install -e ".[platform]"
 ```
+
+平台环境准备（权重、ROCm 运行时）：运行 `make setup-linux`（或
+`make setup-windows`）。GPU 后端还需额外安装 ROCm torch +（VLM 所需）
+vLLM-on-ROCm，须从已验证的 ROCm wheel 源单独安装 —— 见
+`docs/reproducibility.md`。
 
 ## Demo（演示）
 
@@ -67,9 +82,18 @@ make eval-linux      # linux-rocm
 
 两个 `linux-rocm` 行均**已复现**（自证、conformance 通过，`badge: community`）—— 详见 [`docs/reproducibility.md`](docs/reproducibility.md)。上方主 `mineru2.5` VLM 行填充 `hub/registry.yaml` 中的 `mineru2.5` 条目；pipeline 记录在此处的 `model_card.pipeline.json` 与本表格（无独立 registry 行）。
 
+## License —— 下载权重前必读
+
+本仓为 **Apache-2.0**（原创打包/工具）。MinerU pipeline 遵循 **MinerU Open Source License**（Apache-2.0 + 附加条款：MAU 超 1 亿或月营收超 2000 万美元需另获商业授权；在线服务须标注 MinerU）。`mineru-vl-utils` 与 MinerU2.5-Pro 权重为 Apache-2.0。**PDF-Extract-Kit-1.0** pipeline 权重在 HF 卡片上**未声明** license —— 视为授权不明，请勿再分发。完整分解见 [NOTICE](NOTICE) 与 [LICENSES/](LICENSES)。本仓与 MinerU Team / OpenDataLab 无隶属关系。
+
 ## Reproducibility（可复现性）
 
-结果位于 `results/omnidocbench/v16/<platform>/`。每次运行产出经 schema 校验的 `run_summary.json` + `provenance.json`（引擎版本、git commit、数据集版本、适配器命令），确保在声明的硬件上凭已提交的适配器与配置即可独立复现该分数。详见 [`docs/reproducibility.md`](docs/reproducibility.md)。
+[`reproducibility.lock.yaml`](reproducibility.lock.yaml) 是唯一事实来源 —— 锁定的 commit、与上游 HF 仓交叉校验的逐字节权重/GT SHA256、环境版本，以及指标公式。*（P0 仅交付骨架；P3 在全量重跑后填充已验证值。）* 详见 [docs/reproducibility.md](docs/reproducibility.md)。
+
+## Issues filed（已提交的 issue）
+
+- **[ROCm/AMDMIGraphX#5078](https://github.com/ROCm/AMDMIGraphX/issues/5078)** —— 影响 ROCm 上 ONNX 表格识别的 loop-subgraph 解析器 bug。
+- 上游 `opendatalab/MinerU` AMD.md 贡献 + PDF-Extract-Kit-1.0 license 澄清计划在 P4 进行。
 
 ## Known Gaps（已知限制）
 

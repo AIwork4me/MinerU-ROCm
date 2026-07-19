@@ -1,23 +1,40 @@
 # MinerU-ROCm
 
-A per-model adapter repo for the [omnidocbench-amd](https://github.com/AIwork4me/OmniDocBench-AMD) document-parsing evaluation platform. Rendered from the official cookiecutter template; ships with a no-GPU `smoke` backend so it runs out of the box.
+> Evaluation-backed AMD ROCm port of [MinerU](https://github.com/opendatalab/MinerU)
+> — runs the **MinerU 3.4 pipeline** and the **MinerU2.5-Pro** VLM on AMD
+> **gfx1100 (RDNA3)** and reports **OmniDocBench v1.6** results across multiple
+> inference backends. **Not** a precision-aligned port: no same-page-set CUDA
+> control exists, and the upstream headline may use a different engine. See
+> Benchmark methodology *(lands in P2)*.
 
-- Model: `mineru2.5` (VLM checkpoint 2605)
-- Platforms: linux-rocm, windows-hip
-- Badge: linux-rocm `community` (Overall **95.56** on OmniDocBench v1.6, reproduced); windows-hip `community-wanted`. `verified` needs maintainer Docker reproduction.
+[![OmniDocBench v1.6](https://img.shields.io/badge/OmniDocBench-v1.6-blue)](https://github.com/opendatalab/OmniDocBench)
+[![VLM full](https://img.shields.io/badge/MinerU2.5--Pro%20VLM%20(full)-95.56-green)](#results--mineru25-pro-vlm)
+[![pipeline full](https://img.shields.io/badge/MinerU%203.4%20pipeline%20(full)-86.48-yellowgreen)](#results--mineru-34-pipeline)
+[![status: evaluation-backed](https://img.shields.io/badge/status-evaluation--backed-blue)](reproducibility.lock.yaml)
+[![license: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0%20(+MinerU%20terms)-blue)](NOTICE)
+
+## At a glance
+
+- **What it is.** Tooling to run opendatalab MinerU (3.4 pipeline + 2.5-Pro VLM) on AMD ROCm and score it on OmniDocBench v1.6.
+- **Where verified.** AMD **gfx1100 (RDNA3, 48 GB ×4), ROCm 7.2**, bf16.
+- **Most reliable results.** **MinerU2.5-Pro VLM (vLLM-on-ROCm) full 1651 = 95.56 Overall**; **MinerU 3.4 pipeline full 1651 = 86.48 Overall**.
+- **Most important limitation.** **Not precision-aligned.** No same-engine CUDA control exists; the upstream headline may be measured with a different engine. The "official 95.75" anchor is being re-verified (upstream points to ~95.69) — see `reproducibility.lock.yaml` once populated.
+- **Upstream.** This is a port OF [opendatalab/MinerU](https://github.com/opendatalab/MinerU); the [omnidocbench-amd](https://github.com/AIwork4me/OmniDocBench-AMD) engine is one *optional* consumer (install the `[platform]` extra), not the definition of this repo.
 
 ## Install
 
-```bash
-pip install -e ".[dev]"
-pip install omnidocbench-amd        # the engine (provides the `omnidocbench-amd` CLI + types)
-```
-
-For platform provisioning (weights, ROCm/DirectML runtime), run:
+The core package is GPU-free and has no platform dependency.
 
 ```bash
-make setup-linux     # or: make setup-windows
+pip install -e ".[dev]"          # core + dev/CI tooling (pytest, ruff, reuse)
+# optional: omnidocbench-amd engine integration (the adapter/run_adapter.py path)
+pip install -e ".[platform]"
 ```
+
+For platform provisioning (weights, ROCm runtime), run `make setup-linux` (or
+`make setup-windows`). GPU backends additionally need a ROCm torch + (VLM)
+vLLM-on-ROCm, installed separately from a verified ROCm wheel source — see
+`docs/reproducibility.md`.
 
 ## Demo
 
@@ -65,9 +82,29 @@ The `vlm-vllm` row is **reproduced** on linux-rocm (self-attested, `badge: commu
 
 Both `linux-rocm` rows are **reproduced** (self-attested, `badge: community`, conformance-passing) — see [`docs/reproducibility.md`](docs/reproducibility.md). The primary `mineru2.5` VLM row above fills the `hub/registry.yaml` `mineru2.5` entry; the pipeline lives here in `model_card.pipeline.json` + this table (no separate registry row).
 
+## License — read before downloading weights
+
+This repo is **Apache-2.0** (original packaging/tooling). The MinerU pipeline is
+under the **MinerU Open Source License** (Apache-2.0 + additional terms:
+commercial use above MAU 100M or USD 20M/mo revenue needs a separate license;
+online services must attribute MinerU). `mineru-vl-utils` and the MinerU2.5-Pro
+weights are Apache-2.0. The **PDF-Extract-Kit-1.0** pipeline weights declare **no
+license** on their HF card — treat as license-ambiguous, do not redistribute. Full
+breakdown in [NOTICE](NOTICE) and [LICENSES/](LICENSES). Not affiliated with the
+MinerU Team / OpenDataLab.
+
 ## Reproducibility
 
-Results live under `results/omnidocbench/v16/<platform>/`. Each run produces a schema-validated `run_summary.json` + `provenance.json` (engine version, git commit, dataset revision, adapter command) so a number is independently reproducible from the committed adapter + config on the declared hardware. See [`docs/reproducibility.md`](docs/reproducibility.md).
+[`reproducibility.lock.yaml`](reproducibility.lock.yaml) is the single source of
+truth — pinned commits, byte-exact weight/GT SHA256 cross-checked against the
+upstream HF repos, environment versions, and the metric formula. *(P0 ships the
+skeleton; verified values are populated in P3 after the full-set re-run.)* See
+[docs/reproducibility.md](docs/reproducibility.md).
+
+## Issues filed
+
+- **[ROCm/AMDMIGraphX#5078](https://github.com/ROCm/AMDMIGraphX/issues/5078)** — Loop-subgraph parser bug affecting ONNX table recognition on ROCm.
+- Upstream `opendatalab/MinerU` AMD.md contribution + PDF-Extract-Kit-1.0 license clarification are planned (P4).
 
 ## Known Gaps
 
