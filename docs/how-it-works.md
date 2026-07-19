@@ -1,6 +1,6 @@
 # How it works
 
-`MinerU-ROCm` is a per-model adapter repo for the **omnidocbench-amd** engine. The engine drives the OmniDocBench v1.6 pipeline; this repo only supplies the model-specific inference step.
+`MinerU-ROCm` is **benchmark infrastructure for evaluating opendatalab MinerU on AMD ROCm** — not a model port. It runs the MinerU 3.4 pipeline and the MinerU2.5-Pro VLM, and scores them on OmniDocBench v1.6. The standalone CLI (`mineru-rocm`, lands in P1) is the primary interface; the omnidocbench-amd engine remains an *optional* consumer via the `[platform]` extra.
 
 ## The contract
 

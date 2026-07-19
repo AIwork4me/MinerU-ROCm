@@ -1,0 +1,40 @@
+# SPDX-REUSE configuration. Bulk-covers original repo files as Apache-2.0.
+# Vendored upstream files (added in P1) will carry their own annotations.
+version = 1
+
+[[annotations]]
+path = [
+  "**/*.py",
+  "**/*.md",
+  "**/*.yaml",
+  "**/*.yml",
+  "**/*.toml",
+  "**/*.cff",
+  "**/*.sh",
+  "**/*.ps1",
+  "**/*.jinja",
+  "**/*.json",
+  "**/*.example",
+  "**/*.gitkeep",
+  ".gitignore",
+  "Makefile",
+  "LICENSE",
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 AIwork4me"
+SPDX-License-Identifier = "Apache-2.0"
+
+# NOTICE is the compliance document that enumerates the MinerU-OSL upstream
+# component and points to the LicenseRef license text, so it carries both the
+# repo's Apache-2.0 and the referenced MinerU OSL identifiers.
+[[annotations]]
+path = "NOTICE"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 AIwork4me"
+SPDX-License-Identifier = "Apache-2.0 AND LicenseRef-MinerU-Open-Source-License"
+
+[[annotations]]
+path = ["examples/*.png", "docs/assets/*"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 AIwork4me"
+SPDX-License-Identifier = "Apache-2.0"
