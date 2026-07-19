@@ -45,7 +45,7 @@ A side-by-side audit of MinerU-ROCm vs the reference HunyuanOCR-ROCm (local clon
 **Tier 1 — trust-defining (must close to match the reference):**
 1. **No `reproducibility.lock.yaml`.** Hunyuan's lock is a single source of truth — commits + GT/weight SHA256 cross-checked **byte-for-byte** against the official HF repos + env + metric formula; README tables auto-render from it; CI fails on drift. MinerU's provenance is scattered across engine-generated `provenance.json` + hand-written README tables; no single source, no weight cross-check.
 2. **No `benchmark-methodology.md`.** The "evaluation-backed vs precision-aligned" framing lives only in the 2026-07-17 spec §4, not as a user-facing doc; no "what is/isn't comparable" discipline; no formal/diagnostic/invalid classification (Hunyuan explicitly excludes the invalid vLLM 46.31). **Side finding:** the README's "official 95.75" anchor is unverified — upstream sources point to ~95.69; this is exactly the provenance lapse Hunyuan caught with 94.74-vs-94.10.
-3. **License declaration is likely wrong.** `pyproject` declares `Apache-2.0`, but `opendatalab/MinerU` upstream is **AGPL-3.0**; the 2026-07-17 spec §16.9 itself flags "confirm upstream license compatibility before distributing." Hunyuan handles this meticulously (mixed-license `NOTICE` + `LICENSES/` + SPDX `REUSE.toml`).
+3. **License declaration is underspecified.** `pyproject` declares bare `Apache-2.0`, but `opendatalab/MinerU` is **Apache-2.0 + additional MinerU terms** (commercial-use threshold: MAU >100M **or** revenue >USD 20M/mo requires a separate license; online-service **attribution** obligation; termination clause — SPDX `LicenseRef-MinerU-Open-Source-License`), and the PDF-Extract-Kit-1.0 pipeline weights declare **no license** on their HF cardData. The declaration should name the MinerU additional terms for the pipeline-wrapping path and flag the undeclared weights. Hunyuan handles mixed licenses meticulously (`NOTICE` + `LICENSES/` + SPDX `REUSE.toml`). *(Verified 2026-07-19 from the local `mineru-3.4.4` dist-info LICENSE.md, `mineru_vl_utils-1.0.5` METADATA [Apache-2.0], and hf-mirror cardData for the two weight repos.)*
 
 **Tier 2 — engineering maturity:**
 4. **Packaging** — no `src/` package, no wheel, no CLI (Hunyuan: `hunyuan-ocr` CLI + `dist/` wheel + `SHA256SUMS`, GPU-free core, `v0.1.3`).
@@ -93,7 +93,7 @@ Module responsibilities (porting Hunyuan's `src/hunyuan_ocr/` blueprint):
 | Module | Responsibility | Source |
 |---|---|---|
 | `contract.py` | Frozen inference contract: pipeline config (`MINERU_DEVICE_MODE=cuda`, formula-CH off, ONNX-table policy) + VLM two-step params (`MinerULogitsProcessor` no-repeat-100, OTSL→HTML, server flags) | New (locks upstream recipe) |
-| `tasks.py` / `postprocess.py` | Two-step type-specific prompts + OTSL→HTML conversion | **Verbatim port from `mineru_vl_utils`** (AGPL — §3.5) |
+| `tasks.py` / `postprocess.py` | Two-step type-specific prompts + OTSL→HTML conversion | **Verbatim port from `mineru_vl_utils`** (Apache-2.0 — §3.5) |
 | `backends/pipeline.py` | Wraps upstream `mineru[all]` in-process on cuda → md | Refactor of current `pipeline_adapter.py` |
 | `backends/vlm_vllm.py` | Drives `mineru-vl-utils` two-step → vLLM-on-ROCm server | Refactor of current `vlm_adapter.py` |
 | `backends/vlm_transformers.py` | transformers fallback (logits processor ported into `generate`) | Current |
@@ -227,9 +227,9 @@ reproducibility.lock.yaml   # the anchor
 ### 3.5 License + release + CI + testing + upstream engagement
 
 **License correction (Tier-1 #3):**
-- **Verify first** (P0) the upstream license of each component: MinerU (AGPL-3.0) / `mineru-vl-utils` / MinerU2.5-Pro weights / PDF-Extract-Kit-1.0 weights — confirm against upstream, do not assert.
-- `pyproject.license` → mixed declaration: `Mixed: AGPL-3.0 (code ported from MinerU/mineru-vl-utils + pipeline-wrapped builds) AND Apache-2.0 (original packaging/tooling). Weights under <verified>. See NOTICE and LICENSES/.`
-- `NOTICE` (full breakdown) + `LICENSES/{Apache-2.0.txt, LicenseRef-MinerU-AGPL.txt, <weight-license>}` + `REUSE.toml` + CI `reuse lint`. README license section: read-before-download; AGPL network-use disclosure; upstream non-affiliation disclaimer.
+- **Verified 2026-07-19** (local dist-info + hf-mirror cardData): `mineru` (pipeline) = Apache-2.0 **+ MinerU additional terms** (`LicenseRef-MinerU-Open-Source-License`: commercial threshold MAU >100M or revenue >USD 20M/mo; online-service attribution; termination); `mineru_vl_utils` = Apache-2.0; MinerU2.5-Pro weights = apache-2.0; **PDF-Extract-Kit-1.0 weights = undeclared on HF cardData** (open item — read its README and record; if truly undeclared, surface as a `known-gaps` caveat and, if useful, file an upstream issue).
+- `pyproject.license` → `Apache-2.0` (the base that governs everything here), with the MinerU additional terms recorded for the pipeline-wrapping path. No AGPL — there is no network-use source-disclosure obligation.
+- `NOTICE` (full breakdown naming the MinerU additional terms + the undeclared-weights caveat) + `LICENSES/{Apache-2.0.txt, LicenseRef-MinerU-Open-Source-License.txt}` + `REUSE.toml` + CI `reuse lint`. README license section: read-before-download; MinerU online-service attribution + commercial-threshold note; upstream non-affiliation disclaimer.
 
 **Release / version / CHANGELOG / CITATION:** cut **v1.0.0** on completion; add `CHANGELOG.md`, `CITATION.cff` (cite this repo + MinerU2.5-Pro paper + MinerU), `dist/` wheel + `SHA256SUMS`, `docs/{release-artifact,release-checklist}.md`, git tags.
 
@@ -271,7 +271,7 @@ P0 and P2 are doc/structure-only and CPU-only (no GPU). P1 is CPU-only. P3 is th
 - [ ] `reproducibility.lock.yaml` populated with **verified** values (commits + byte-exact weight/GT SHAs cross-checked vs upstream HF + env + metric formula); README results auto-rendered from it; `check_repo.py` green.
 - [ ] `benchmark-methodology.md` present (precision-aligned caveat, never-mixed tables, `page.ALL` convention, provenance table).
 - [ ] Both models re-run on gfx1100 full-set; results within tolerance of the **verified** official anchor (VLM ±0.5 pp, pipeline ±1.0 pp); scored twice; formal/diagnostic/invalid classified.
-- [ ] License correctly declared (mixed: AGPL-3.0 + Apache-2.0 + weight license); `NOTICE`/`LICENSES`/`REUSE.toml`; `reuse lint` green.
+- [ ] License correctly declared (Apache-2.0 base + MinerU additional terms for the pipeline-wrapping path + undeclared-weights caveat); `NOTICE`/`LICENSES`/`REUSE.toml`; `reuse lint` green.
 - [ ] Canary introduced; CI green (`ci.yml` + `gpu-smoke.yml`); ≥10 test files; v1.0.0 released (tag + wheel + SHA256SUMS + CHANGELOG + CITATION).
 - [ ] Upstream `opendatalab/MinerU` engagement filed; "Issues filed" section in README.
 
@@ -279,7 +279,7 @@ P0 and P2 are doc/structure-only and CPU-only (no GPU). P1 is CPU-only. P3 is th
 
 ## 6. Risks & open questions
 
-1. **Upstream license exact text** — must verify `mineru-vl-utils`, MinerU2.5-Pro weights, and PDF-Extract-Kit-1.0 weight licenses before finalizing `NOTICE` (P0). If any is more restrictive than AGPL-3.0, the mixed-license breakdown adjusts.
+1. **Upstream license exact text** — verified 2026-07-19 (see §3.5): everything is Apache-2.0-based; the only open item is **PDF-Extract-Kit-1.0 weights**, which declare no license on their HF cardData — read its README and record; if genuinely undeclared, surface as a `known-gaps` caveat and consider an upstream issue. No AGPL obligation exists.
 2. **Official anchor** — the verified number may be 95.69 (not 95.75); the gate delta and the "PASS at +0.31 pp" claim in the current README will both be restated. If the authoritative source itself disagrees across OmniDocBench leaderboard vs paper vs MinerU README, the lock records the primary source and flags the others.
 3. **Porting fidelity from Hunyuan** — the Hunyuan blueprint is single-model-three-server-backends; MinerU is two-models with an in-process pipeline backend + http-client VLM. The `runner`/`scoring`/`validation` ports are model-agnostic and carry over cleanly; the `predict` driver must handle both in-process (pipeline) and server (vlm-*) modes (richer than Hunyuan, same shape).
 4. **GPU-CI bridge** — Hunyuan's `gpu-smoke` relies on a self-hosted gfx1100 runner + commit-status plumbing; this env has 4× idle gfx1100, so the bridge is reproducible, but the exact runner topology must be confirmed (P4).
