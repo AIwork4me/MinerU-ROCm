@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 AIwork4me
 """Run summary + per-page status types for mineru_rocm.
 
 Local verbatim port of the engine types contract (RunSummary /

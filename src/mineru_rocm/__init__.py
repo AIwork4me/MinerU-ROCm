@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 AIwork4me
 """mineru_rocm — evaluation-backed AMD ROCm port of opendatalab/MinerU.
 
 Benchmark infrastructure for running the MinerU 3.4 pipeline and the

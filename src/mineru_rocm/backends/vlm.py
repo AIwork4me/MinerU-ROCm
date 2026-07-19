@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 AIwork4me
 """VLM adapter (MinerU2.5-Pro-2605-1.2B). Drives mineru-vl-utils two-step inference
 (layout -> per-block extract) against a vLLM-on-ROCm server OR an in-process
 transformers engine.

@@ -12,5 +12,6 @@ jobs:
       # omnidocbench_amd.conformance check_repo gate therefore runs in the local /
       # platform env, not in CI.
       - run: pip install -e ".[dev]"
+      - run: python scripts/check_repo.py
       - run: python -c "from mineru_rocm.types import RunSummary, PageStatus; print('mineru_rocm.types ok')"
       - run: pytest -q
