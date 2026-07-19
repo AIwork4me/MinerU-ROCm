@@ -85,3 +85,55 @@ def _orchestrate(args, *, infer_page, backend: str, model: str, cfg: dict, platf
             status=status,
         )
         return 0 if status == "ok" else 1
+
+
+def parse_args(argv=None):
+    """CLI for `python -m mineru_rocm.driver`. The P1d `mineru-rocm predict` CLI wraps this."""
+    import argparse
+
+    p = argparse.ArgumentParser(
+        prog="mineru_rocm.driver",
+        description="Run a MinerU backend over an OmniDocBench page set (robust: atomic writes + run_manifest + resume).",
+    )
+    p.add_argument("--gt-json", required=True)
+    p.add_argument("--images-dir", required=True)
+    p.add_argument("--pred-dir", required=True)
+    p.add_argument("--backend", required=True, choices=["pipeline", "vlm-vllm"])
+    p.add_argument("--model", default=None, help="advisory model name for the manifest (default per backend)")
+    p.add_argument("--platform", default="linux-rocm")
+    p.add_argument("--lang", default="ch")
+    p.add_argument("--max-retries", type=int, default=2)
+    p.add_argument("--retry-backoff", type=float, default=2.0)
+    p.add_argument("--overwrite", action="store_true", help="re-run every page (ignore existing complete pages)")
+    p.add_argument("--retry-failed", action="store_true", help="re-run only previously-failed pages")
+    return p.parse_args(argv)
+
+
+def run(args) -> int:
+    """Select the backend's infer_page + cfg, then orchestrate. Imports backends lazily (GPU deps stay out of module top-level)."""
+    from mineru_rocm import config
+
+    if args.backend == "pipeline":
+        from mineru_rocm.backends import pipeline as backend_mod
+        model = args.model or "mineru-3.4-pipeline"
+    elif args.backend == "vlm-vllm":
+        from mineru_rocm.backends import vlm as backend_mod
+        model = args.model or "mineru-2.5-pro"
+    else:  # argparse choices prevents this, but be explicit
+        print(f"[fatal] unknown backend: {args.backend!r}", file=sys.stderr)
+        return 2
+
+    cfg = {**config.as_dict(), "lang": args.lang, "backend": args.backend}
+    return _orchestrate(
+        args, infer_page=backend_mod.infer_page, backend=args.backend,
+        model=model, cfg=cfg, platform=args.platform,
+    )
+
+
+def main(argv=None) -> int:
+    args = parse_args(argv)
+    return run(args)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

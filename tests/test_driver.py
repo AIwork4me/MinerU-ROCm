@@ -22,7 +22,7 @@ def _make_gt_and_images(tmp_path, stems):
 def _args(tmp_path, gt, img_dir, **over):
     base = dict(
         gt_json=str(gt), images_dir=str(img_dir), pred_dir=str(tmp_path / "pred"),
-        backend="pipeline", model="m", platform="linux-rocm",
+        backend="pipeline", model="m", platform="linux-rocm", lang="ch",
         max_retries=2, retry_backoff=0.0, overwrite=False, retry_failed=False,
     )
     base.update(over)
@@ -124,3 +124,47 @@ def test_orchestration_conflict_aborts(tmp_path):
     )
     assert code == 1
     assert not (tmp_path / "pred" / "run_manifest.json").exists()  # nothing written
+
+
+def test_parse_args_required_and_defaults():
+    a = driver.parse_args(["--gt-json", "g.json", "--images-dir", "i", "--pred-dir", "p", "--backend", "pipeline"])
+    assert a.gt_json == "g.json" and a.backend == "pipeline" and a.platform == "linux-rocm"
+    assert a.max_retries == 2 and a.retry_backoff == 2.0 and a.lang == "ch"
+    assert a.overwrite is False and a.retry_failed is False
+
+
+def test_parse_args_rejects_unknown_backend():
+    import pytest as _pytest
+    with _pytest.raises(SystemExit):
+        driver.parse_args(["--gt-json", "g", "--images-dir", "i", "--pred-dir", "p", "--backend", "bogus"])
+
+
+def test_run_routes_to_pipeline_backend(tmp_path, monkeypatch):
+    """run(backend=pipeline) calls backends.pipeline.infer_page via _orchestrate (no GPU)."""
+    gt, img_dir = _make_gt_and_images(tmp_path, ["a"])
+    called = {}
+    from mineru_rocm.backends import pipeline as be
+    monkeypatch.setattr(be, "infer_page", lambda img, platform, cfg: called.setdefault("hit", str(img)) or f"# {Path(img).stem}\n")
+    a = _args(tmp_path, gt, img_dir, backend="pipeline")
+    assert driver.run(a) == 0
+    assert "hit" in called  # the real backend selector was invoked
+
+
+def test_run_routes_to_vlm_backend(tmp_path, monkeypatch):
+    """run(backend=vlm-vllm) calls backends.vlm.infer_page via _orchestrate (no GPU)."""
+    gt, img_dir = _make_gt_and_images(tmp_path, ["a"])
+    from mineru_rocm.backends import vlm as be
+    monkeypatch.setattr(be, "infer_page", lambda img, platform, cfg: f"# {Path(img).stem}\n")
+    a = _args(tmp_path, gt, img_dir, backend="vlm-vllm")
+    assert driver.run(a) == 0
+
+
+def test_module_is_runnable_help():
+    """`python -m mineru_rocm.driver --help` exits 0 and shows the flags."""
+    import subprocess
+    res = subprocess.run(
+        ["/opt/venv/bin/python", "-m", "mineru_rocm.driver", "--help"],
+        capture_output=True, text=True,
+    )
+    assert res.returncode == 0
+    assert "--backend" in res.stdout and "--pred-dir" in res.stdout
