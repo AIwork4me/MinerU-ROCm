@@ -15,6 +15,8 @@ from __future__ import annotations
 
 import json
 import os
+import subprocess
+import sys
 import time
 from pathlib import Path
 
@@ -199,4 +201,335 @@ def aggregate_errors(pred_dir, out_name: str = "_errors.jsonl") -> Path:
                 continue
     body = "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows)
     write_atomic(out, body)
+    return out
+
+
+# NOTE: --venv-python is redacted because it is a machine-local absolute path,
+# not a credential — keeping it out of the portable manifest.
+_SECRET_FLAGS = {
+    "--token",
+    "--api-key",
+    "--apikey",
+    "--key",
+    "--password",
+    "--secret",
+    "--hf-token",
+    "--hugging-face-token",
+    "--venv-python",
+}
+
+MANIFEST_SCHEMA_VERSION = 2
+# Readers accept both v1 (legacy: top-level ``extra`` keys, no ``interrupted``)
+# and v2 (current: ``extensions`` namespace, ``run_counts.interrupted``). Writers
+# always emit v2. ``interrupted`` defaults to 0 when absent (v1 manifests), so
+# the conservation law ``attempted == succeeded + failed + interrupted`` holds
+# for both versions.
+SUPPORTED_SCHEMA_VERSIONS = (1, 2)
+KNOWN_RUN_STATUSES = ("ok", "failed", "crashed", "interrupted")
+REQUIRED_RUN_COUNTS = ("attempted", "succeeded", "failed", "skipped")
+REQUIRED_FINAL_STATE = ("expected", "complete", "failed", "pending")
+# Top-level manifest keys owned by write_run_manifest. ``extra`` passed to
+# write_run_manifest is nested under ``extensions`` and may NOT collide with any
+# of these (prevents an extension from silently overwriting a core field such as
+# ``status`` or ``run_counts``).
+RESERVED_MANIFEST_KEYS = frozenset(
+    {
+        "schema_version",
+        "repo_commit",
+        "backend",
+        "backend_provenance",
+        "model",
+        "model_revision",
+        "command",
+        "timestamp",
+        "timestamp_iso",
+        "run_counts",
+        "final_state",
+        "ports",
+        "gpu_ids",
+        "pixel_cap",
+        "max_tokens",
+        "env",
+        "platform",
+        "status",
+        "extensions",
+    }
+)
+
+
+def _is_nonneg_int(val) -> bool:
+    """True only for a genuine non-negative int (booleans are rejected)."""
+    return isinstance(val, int) and not isinstance(val, bool) and val >= 0
+
+
+def _parse_iso(ts) -> bool:
+    """True if ``ts`` parses as ISO-8601 (best-effort; never raises)."""
+    if not isinstance(ts, str) or not ts.strip():
+        return False
+    import datetime
+
+    try:
+        datetime.datetime.fromisoformat(ts)
+        return True
+    except (ValueError, TypeError):
+        return False
+
+
+def safe_argv(argv=None) -> list[str]:
+    """Return argv with secret-bearing flag values redacted (exact flag match only)."""
+    argv = list(sys.argv[1:] if argv is None else argv)
+    out: list[str] = []
+    i = 0
+    while i < len(argv):
+        tok = argv[i]
+        if "=" in tok and tok.split("=", 1)[0] in _SECRET_FLAGS:
+            out.append(f"{tok.split('=', 1)[0]}=<redacted>")
+        elif tok in _SECRET_FLAGS and i + 1 < len(argv):
+            out.append(tok)
+            out.append("<redacted>")
+            i += 1
+        else:
+            out.append(tok)
+        i += 1
+    return out
+
+
+def _repo_root() -> Path:
+    """Resolve the repository root from this package's location, not the cwd.
+
+    Walks up from this file looking for a ``.git`` dir so the recorded commit is
+    stable regardless of where the driver is launched from. Falls back to the
+    conventional ``parents[2]`` (the dir above ``src/``) for editable installs.
+    """
+    here = Path(__file__).resolve()
+    for parent in here.parents:
+        if (parent / ".git").exists():
+            return parent
+    return here.parents[2]
+
+
+def _git_head(repo=None) -> str | None:
+    """Current HEAD of the repo containing this package (None if not a git repo)."""
+    repo = Path(repo) if repo else _repo_root()
+    try:
+        cp = subprocess.run(["git", "-C", str(repo), "rev-parse", "HEAD"], capture_output=True, text=True, timeout=10)
+        if cp.returncode == 0:
+            return cp.stdout.strip() or None
+    except (OSError, subprocess.SubprocessError):
+        pass
+    return None
+
+
+def iso_utc(epoch=None) -> str:
+    """ISO-8601 UTC timestamp for an epoch (default: now)."""
+    import datetime
+
+    epoch = time.time() if epoch is None else epoch
+    return datetime.datetime.fromtimestamp(epoch, tz=datetime.timezone.utc).isoformat()
+
+
+def _platform_info() -> dict:
+    import platform
+
+    return {
+        "python": platform.python_version(),
+        "system": platform.system(),
+        "machine": platform.machine(),
+    }
+
+
+def _env_versions() -> dict:
+    """Best-effort versions of optional ML deps. Missing packages are simply
+    omitted — never raise — so manifest generation works in a torch-free env."""
+    v: dict[str, str] = {}
+    try:
+        import torch  # type: ignore
+
+        v["torch"] = getattr(torch, "__version__", None)
+        hip = getattr(getattr(torch, "version", None), "hip", None)
+        if hip:
+            v["hip"] = hip
+    except Exception:
+        pass
+    try:
+        import transformers  # type: ignore
+
+        v["transformers"] = getattr(transformers, "__version__", None)
+    except Exception:
+        pass
+    try:
+        import vllm  # type: ignore
+
+        v["vllm"] = getattr(vllm, "__version__", None)
+    except Exception:
+        pass
+    return {k: val for k, val in v.items() if val}
+
+
+def validate_manifest(m: dict) -> list[str]:
+    """Return a list of structural + conservation violations (empty == valid).
+
+    Never raises on bad input — corrupt JSON, missing fields, wrong types, and
+    unknown schema versions all become structured error strings so callers (the
+    CLI, reproduce scripts) can present a friendly message instead of a traceback.
+
+    Checks:
+      * schema_version in SUPPORTED_SCHEMA_VERSIONS.
+      * backend / model are non-empty strings; status is a known value.
+      * repo_commit + timestamp_iso present; timestamp_iso parses as ISO-8601.
+      * run_counts.{attempted,succeeded,failed,skipped} and
+        final_state.{expected,complete,failed,pending} are non-negative ints
+        (booleans are rejected as ints).
+      * conservation: attempted == succeeded + failed + interrupted;
+        expected == attempted + skipped; expected == complete + failed + pending.
+      * status == "ok" implies final_state.failed == 0 and pending == 0.
+    """
+    errs: list[str] = []
+    if not isinstance(m, dict):
+        return ["manifest is not a JSON object"]
+    sv = m.get("schema_version")
+    if sv not in SUPPORTED_SCHEMA_VERSIONS:
+        errs.append(f"schema_version must be one of {list(SUPPORTED_SCHEMA_VERSIONS)} (got {sv!r})")
+    backend = m.get("backend")
+    if not isinstance(backend, str) or not backend.strip():
+        errs.append(f"backend must be a non-empty string (got {backend!r})")
+    model = m.get("model")
+    if not isinstance(model, str) or not model.strip():
+        errs.append(f"model must be a non-empty string (got {model!r})")
+    if "repo_commit" not in m:
+        errs.append("repo_commit is missing")
+    ts = m.get("timestamp_iso")
+    if not isinstance(ts, str) or not ts.strip():
+        errs.append(f"timestamp_iso must be a non-empty string (got {ts!r})")
+    elif not _parse_iso(ts):
+        errs.append(f"timestamp_iso is not a parseable ISO-8601 timestamp (got {ts!r})")
+    status = m.get("status")
+    if status not in KNOWN_RUN_STATUSES:
+        errs.append(f"status must be one of {list(KNOWN_RUN_STATUSES)} (got {status!r})")
+
+    rc = m.get("run_counts")
+    if not isinstance(rc, dict):
+        errs.append("run_counts is missing or not an object")
+        rc = {}
+    fs = m.get("final_state")
+    if not isinstance(fs, dict):
+        errs.append("final_state is missing or not an object")
+        fs = {}
+
+    rc_bad = False
+    for k in REQUIRED_RUN_COUNTS:
+        if k not in rc:
+            errs.append(f"run_counts.{k} is missing")
+            rc_bad = True
+        elif not _is_nonneg_int(rc[k]):
+            errs.append(f"run_counts.{k} must be a non-negative integer (got {rc[k]!r})")
+            rc_bad = True
+    interrupted = rc.get("interrupted", 0)
+    if "interrupted" in rc and not _is_nonneg_int(interrupted):
+        errs.append(f"run_counts.interrupted must be a non-negative integer (got {interrupted!r})")
+        rc_bad = True
+    elif not _is_nonneg_int(interrupted):
+        rc_bad = True
+
+    fs_bad = False
+    for k in REQUIRED_FINAL_STATE:
+        if k not in fs:
+            errs.append(f"final_state.{k} is missing")
+            fs_bad = True
+        elif not _is_nonneg_int(fs[k]):
+            errs.append(f"final_state.{k} must be a non-negative integer (got {fs[k]!r})")
+            fs_bad = True
+
+    # Conservation laws only when every count is a valid int (else the arithmetic
+    # would be meaningless and the type errors above already explain the problem).
+    if not rc_bad and not fs_bad:
+        a, s, f, sk = rc["attempted"], rc["succeeded"], rc["failed"], rc["skipped"]
+        exp, c, ff, p = fs["expected"], fs["complete"], fs["failed"], fs["pending"]
+        if a != s + f + interrupted:
+            errs.append(f"run_counts: attempted({a}) != succeeded({s}) + failed({f}) + interrupted({interrupted})")
+        if exp != a + sk:
+            errs.append(f"cross: expected({exp}) != attempted({a}) + skipped({sk})")
+        if exp != c + ff + p:
+            errs.append(f"final_state: expected({exp}) != complete({c}) + failed({ff}) + pending({p})")
+        if status == "ok":
+            if ff != 0:
+                errs.append(f"status is 'ok' but final_state.failed = {ff} (must be 0)")
+            if p != 0:
+                errs.append(f"status is 'ok' but final_state.pending = {p} (must be 0)")
+    return errs
+
+
+def write_run_manifest(
+    pred_dir,
+    *,
+    backend: str,
+    model: str,
+    run_counts: dict,
+    final_state: dict,
+    model_revision: str | None = None,
+    backend_provenance: dict | None = None,
+    command: list[str] | None = None,
+    ports=None,
+    gpu_ids=None,
+    max_pixels=None,
+    max_tokens=None,
+    status: str = "ok",
+    extra: dict | None = None,
+) -> Path:
+    """Write ``run_manifest.json`` (atomic) with a conservation-checked schema.
+
+    ``run_counts`` describes THIS run (attempted/succeeded/failed/skipped);
+    ``final_state`` describes the directory AFTER this run
+    (expected/complete/failed/pending). Invariants are enforced by
+    :func:`validate_manifest`. No secrets are recorded (command via safe_argv).
+    """
+    rc = run_counts or {}
+    fs = final_state or {}
+    manifest = {
+        "schema_version": MANIFEST_SCHEMA_VERSION,
+        "repo_commit": _git_head(),
+        "backend": backend,
+        "backend_provenance": backend_provenance or {},
+        "model": model,
+        "model_revision": model_revision,
+        "command": safe_argv() if command is None else command,
+        "timestamp": time.time(),
+        "timestamp_iso": iso_utc(),
+        "run_counts": {
+            "attempted": rc.get("attempted"),
+            "succeeded": rc.get("succeeded"),
+            "failed": rc.get("failed"),
+            "skipped": rc.get("skipped"),
+            # pages dispatched this run whose outcome is unresolved (only > 0 on
+            # a crash/interrupt). Kept in run_counts so the conservation law
+            # attempted == succeeded + failed + interrupted always holds.
+            "interrupted": rc.get("interrupted", 0),
+        },
+        "final_state": {
+            "expected": fs.get("expected"),
+            "complete": fs.get("complete"),
+            "failed": fs.get("failed"),
+            "pending": fs.get("pending"),
+        },
+        "ports": ports,
+        "gpu_ids": gpu_ids,
+        "pixel_cap": max_pixels,
+        "max_tokens": max_tokens,
+        "env": _env_versions(),
+        "platform": _platform_info(),
+        "status": status,
+    }
+    # Extensions are namespaced — they may NOT silently overwrite a core field.
+    extensions: dict = {}
+    if extra:
+        for key, val in extra.items():
+            if key in RESERVED_MANIFEST_KEYS:
+                raise ValueError(
+                    f"manifest extra key {key!r} collides with a reserved core field; "
+                    "nest it under a non-reserved name (it will land under 'extensions')."
+                )
+            extensions[key] = val
+    manifest["extensions"] = extensions
+    out = Path(pred_dir) / "run_manifest.json"
+    write_atomic(out, json.dumps(manifest, ensure_ascii=False, indent=2))
     return out
