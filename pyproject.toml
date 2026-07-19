@@ -43,3 +43,6 @@ Upstream = "https://github.com/opendatalab/MinerU"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+mineru_rocm = ["data/*.yaml"]
