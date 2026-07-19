@@ -24,7 +24,6 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
-  "License :: OSI Approved :: Apache Software License",
 ]
 # Core package is GPU-free and has NO platform dependency. The omnidocbench-amd
 # engine integration is OPTIONAL (install [platform]); the standalone CLI lands in P1.
