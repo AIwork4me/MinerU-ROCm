@@ -1,4 +1,5 @@
 import json
+import sys
 from pathlib import Path
 from types import SimpleNamespace
 import pytest
@@ -163,7 +164,7 @@ def test_module_is_runnable_help():
     """`python -m mineru_rocm.driver --help` exits 0 and shows the flags."""
     import subprocess
     res = subprocess.run(
-        ["/opt/venv/bin/python", "-m", "mineru_rocm.driver", "--help"],
+        [sys.executable, "-m", "mineru_rocm.driver", "--help"],
         capture_output=True, text=True,
     )
     assert res.returncode == 0
