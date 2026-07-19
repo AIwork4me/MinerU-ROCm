@@ -18,6 +18,7 @@ import os
 import subprocess
 import sys
 import time
+from dataclasses import asdict, dataclass
 from pathlib import Path
 
 from mineru_rocm.validation import ERROR_PREFIX  # localized in P1b; runner uses it in is_complete()
@@ -533,3 +534,139 @@ def write_run_manifest(
     out = Path(pred_dir) / "run_manifest.json"
     write_atomic(out, json.dumps(manifest, ensure_ascii=False, indent=2))
     return out
+
+
+# --- writer mutual-exclusion lock for a prediction directory -----------------
+# POSIX (Linux/ROCm) only: uses fcntl.flock. On a platform without fcntl,
+# acquire() raises a clear error rather than silently allowing concurrent writes.
+
+
+class RunLockHeld(RuntimeError):
+    """Another live writer holds the prediction-directory lock."""
+
+
+@dataclass
+class LockInfo:
+    pid: int
+    host: str
+    started_iso: str
+    command: str
+
+    def is_alive(self) -> bool:
+        try:
+            os.kill(self.pid, 0)
+        except ProcessLookupError:
+            return False
+        except PermissionError:
+            return True  # process exists but is not owned by us
+        except OSError:
+            return False
+        return True
+
+
+class RunLock:
+    """Exclusive writer lock on a prediction directory.
+
+    The authority is ``fcntl.flock(LOCK_EX | LOCK_NB)``: if the holder process
+    dies, the kernel releases the flock automatically, so the next acquire
+    succeeds and overwrites the stale PID record — no manual cleanup needed for a
+    crashed holder. The ``.run.lock`` file records PID/host/start/command for
+    human inspection and is removed on graceful release. A still-running holder is
+    never silently displaced (flock refuses the second acquire -> RunLockHeld).
+    """
+
+    LOCK_NAME = ".run.lock"
+
+    def __init__(self, pred_dir, command=None) -> None:
+        self.pred_dir = Path(pred_dir)
+        self.command = " ".join(str(x) for x in command) if isinstance(command, (list, tuple)) else (command or "")
+        self.path = self.pred_dir / self.LOCK_NAME
+        self._fd: int | None = None
+
+    def _read_holder(self) -> LockInfo | None:
+        try:
+            data = json.loads(self.path.read_text(encoding="utf-8"))
+            return LockInfo(**data)
+        except (OSError, ValueError, TypeError, json.JSONDecodeError):
+            return None
+
+    def acquire(self) -> "RunLock":
+        import fcntl  # POSIX only
+
+        self.pred_dir.mkdir(parents=True, exist_ok=True)
+        fd = os.open(str(self.path), os.O_CREAT | os.O_RDWR, 0o644)
+        try:
+            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError as exc:
+            os.close(fd)
+            holder = self._read_holder()
+            if holder is not None:
+                detail = f" (held by pid={holder.pid} host={holder.host} started={holder.started_iso})"
+                alive = "alive" if holder.is_alive() else "apparently dead"
+                advice = (
+                    f"flock auto-releases when the holder process exits, and it is {alive}; "
+                    f"if pid {holder.pid} is genuinely gone but the lock file remains, only then "
+                    f"remove '{self.path}'."
+                )
+            else:
+                detail = ""
+                advice = (
+                    "flock auto-releases when the holder process exits; wait for the other writer "
+                    f"to finish, and only remove '{self.path}' if you have confirmed its process is dead."
+                )
+            raise RunLockHeld(
+                f"prediction directory '{self.pred_dir}' is locked by another live writer{detail}; "
+                f"refusing to write concurrently. {advice}"
+            ) from exc
+        self._fd = fd
+        info = LockInfo(pid=os.getpid(), host=_hostname(), started_iso=iso_utc(), command=self.command)
+        payload = json.dumps(asdict(info), ensure_ascii=False).encode("utf-8")
+        # The lock file may still hold a *longer* stale JSON body from a previous
+        # (dead) holder whose flock has been released. Overwriting from offset 0
+        # without truncating would leave the old tail appended after the new
+        # payload, producing invalid JSON. Seek to 0, write, then ftruncate to the
+        # exact new length so no stale tail can survive.
+        os.lseek(fd, 0, os.SEEK_SET)
+        written = os.write(fd, payload)
+        os.ftruncate(fd, written)
+        os.fsync(fd)
+        return self
+
+    def release(self) -> None:
+        if self._fd is None:
+            return
+        import fcntl
+
+        try:
+            fcntl.flock(self._fd, fcntl.LOCK_UN)
+        finally:
+            os.close(self._fd)
+            self._fd = None
+            try:
+                self.path.unlink()
+            except FileNotFoundError:
+                pass
+
+    def __enter__(self) -> "RunLock":
+        return self.acquire()
+
+    def __exit__(self, *exc) -> None:
+        self.release()
+
+
+def _hostname() -> str:
+    import socket
+
+    try:
+        return socket.gethostname() or "unknown"
+    except OSError:
+        return "unknown"
+
+
+def acquire_run_lock(pred_dir, command=None) -> RunLock:
+    """Context manager: acquire the exclusive writer lock for ``pred_dir``.
+
+    Use as ``with acquire_run_lock(pred_dir, command=[...]): ...``. Raises
+    :class:`RunLockHeld` immediately if another live writer holds it.
+    """
+    return RunLock(pred_dir, command=command)
