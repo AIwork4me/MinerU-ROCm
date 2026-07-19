@@ -24,11 +24,11 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
-  "License :: OSI Approved :: Apache Software License",
 ]
-# Core package is GPU-free and has NO platform dependency. The omnidocbench-amd
-# engine integration is OPTIONAL (install [platform]); the standalone CLI lands in P1.
-dependencies = []
+# Core package is GPU-free and platform-free. The single core dep is PyYAML
+# (scoring writes/parses OmniDocBench eval configs). GPU/platform deps stay
+# optional: omnidocbench-amd engine integration is [platform]; the CLI lands in P1.
+dependencies = ["PyYAML>=6.0"]
 
 [project.optional-dependencies]
 # Optional: omnidocbench-amd platform integration. The current adapter/run_adapter.py
@@ -41,3 +41,9 @@ Homepage = "https://github.com/AIwork4me/MinerU-ROCm"
 Repository = "https://github.com/AIwork4me/MinerU-ROCm"
 Issues = "https://github.com/AIwork4me/MinerU-ROCm/issues"
 Upstream = "https://github.com/opendatalab/MinerU"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mineru_rocm = ["data/*.yaml"]
