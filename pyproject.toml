@@ -41,3 +41,6 @@ Homepage = "https://github.com/AIwork4me/MinerU-ROCm"
 Repository = "https://github.com/AIwork4me/MinerU-ROCm"
 Issues = "https://github.com/AIwork4me/MinerU-ROCm/issues"
 Upstream = "https://github.com/opendatalab/MinerU"
+
+[tool.setuptools.packages.find]
+where = ["src"]
