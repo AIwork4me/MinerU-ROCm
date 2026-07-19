@@ -131,7 +131,7 @@ def score_directory(
                 f"{len(report.warnings())} warning(s)); refusing to score:\n" + "\n".join(lines)
             )
     save_name = f"{Path(pred_dir).name}_quick_match"
-    with tempfile.TemporaryDirectory(prefix="hunyuanocr_eval_") as tmpd:
+    with tempfile.TemporaryDirectory(prefix="mineru_rocm_eval_") as tmpd:
         cfg_path = Path(tmpd) / "_eval_config.yaml"
         write_eval_config(gt_json=gt_json, pred_dir=pred_dir, out_yaml=cfg_path)
         res = run_scorer(omnidocbench_repo=repo, config_yaml=str(cfg_path), venv_python=venv)
