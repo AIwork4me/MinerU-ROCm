@@ -18,12 +18,12 @@ mineru_rocm:
 
 mineru:
   repo: https://github.com/opendatalab/MinerU
-  commit: not_recorded                                # (not_recorded) installed via pip; upstream commit not in dist-info
+  commit: 0dfc9460cd9ab693b9af60ae3fbffd7bc111b062   # (verified) git ls-remote --tags … refs/tags/mineru-3.4.4-released
   version: "3.4.4"                                    # (verified) pip show mineru (reuse venv)
 
 mineru_vl_utils:
   repo: https://github.com/opendatalab/mineru-vl-utils
-  commit: not_recorded                                # (not_recorded) installed via pip; upstream commit not in dist-info
+  commit: cc467faaddb53d8b276cedf88f09302f540a7b83   # (verified) git ls-remote --tags … refs/tags/mineru_vl_utils-1.0.5-released
   version: "1.0.5"                                    # (verified) both venvs
 
 model:
@@ -45,29 +45,40 @@ model:
 omnidocbench:
   version: v1.6
   scorer_repo_url: https://github.com/opendatalab/OmniDocBench
-  scorer_commit: 2b161d010d2e3aff77a0edef359ea3a6411d23cd            # (verified) git -C /root/ocr-eval/OmniDocBench rev-parse HEAD
+  scorer_commit: 2b161d010d2e3aff77a0edef359ea3a6411d23cd            # (verified) git rev-parse HEAD (OmniDocBench checkout)
   gt_json_full_sha256: a45cd84b04ad8b793e775089640e6b681209abea33ead54c1828ddca35fae496   # (verified) sha256sum OmniDocBench.json (1651 pages)
-  gt_json_canary_sha256: not_recorded                                # (not_recorded) populated when the canary subset lands (P3 canary step)
+  gt_json_canary_sha256: not_recorded                                # (deferred → docs/known-gaps.md) populated when the canary subset lands (P3 canary step)
   eval_config_sha256: a65a5b39df0e36a42ee940f9ef78cc71d793e7fb5885bc89004194515f3cc264   # (verified) sha256sum src/mineru_rocm/data/eval_config.yaml
-  canary_manifest_sha256: not_recorded                               # (not_recorded) P3 canary step
+  canary_manifest_sha256: not_recorded                               # (deferred → docs/known-gaps.md) P3 canary step
   metric:
     overall_formula: "((1 - text_EditDist) * 100 + formula_CDM * 100 + table_TEDS * 100) / 3"   # (corrected P2/P3) matches scoring.overall_score; reading_order EditDist is separate, NOT in Overall
     aggregation: page.ALL                # OmniDocBench page_avg convention (NOT sample-weighted .all)
     match_method: quick_match
     note: "reading_order EditDist is reported separately and is NOT part of Overall"
 
+rocm_recipe:                             # (verified) the canonical gfx1100/RDNA3 recipe (mirrors the upstream doc)
+  gpu_arch: gfx1100                      # RDNA3 — Radeon PRO W7900 (also gfx1101/1102: 7900 XTX/XT/GRE, 7800 XT, 7700 XT, 7600)
+  hsa_override:
+    pipeline: none                       # in-process PyTorch auto-detects gfx1100
+    vlm_vllm: "11.0.0"                   # vLLM AoT-compiled kernels require it
+  install: |
+    pip install -U "mineru[all]"         # + ROCm torch wheel; VLM additionally needs vLLM-on-ROCm
+  cli: |
+    mineru-rocm predict --backend {pipeline|vlm-vllm} --gt-json <gt> --images-dir <imgs> --pred-dir <out> --platform linux-rocm
+    mineru-rocm score --gt-json <gt> --pred-dir <out> --label {pipeline|vlm-vllm}
+
 environment:
   gpu_arch: gfx1100                      # (verified) RDNA3 — Radeon PRO W7900
   rocm_smi_device_id: "Card Model 0x744b, SKU D7070910 (AMD Radeon Graphics)"   # (verified) rocm-smi --showproductname
   rocm_hip: "7.2"                        # (verified) torch.version.hip 7.2.53211 (both venvs)
   venvs:                                 # the two models ran in DIFFERENT venvs (different torch/vllm)
-    pipeline:                            # /root/ocr-eval/mineru-rocm-venv (Py3.11) — has mineru
+    pipeline:                            # mineru infer venv (Py3.11) — has mineru
       python: "3.11.15"
       torch: "2.14.0.dev20260717+rocm7.2"
       mineru: "3.4.4"
       mineru_vl_utils: "1.0.5"
       vllm: "0.19.1"                     # installed but UNUSED by the pipeline path
-    vlm_vllm:                            # /opt/venv (Py3.12) — has vllm 0.16.1 + mineru_vl_utils
+    vlm_vllm:                            # vLLM VLM venv (Py3.12) — has vllm 0.16.1 + mineru_vl_utils
       python: "3.12.3"
       torch: "2.9.1+gitff65f5b"
       vllm: "0.16.1.dev0+g89a77b108.d20260317"
@@ -78,10 +89,10 @@ environment:
 benchmark:
   date: "2026-07-19"                     # (verified) the P2/P3 re-run date
   hardware: "AMD gfx1100 (Radeon PRO W7900, 48 GB), ROCm 7.2"
-  canary_N:                              # (not_recorded) canary subset not materialized yet (P3 canary step)
-    pipeline_overall: not_recorded
-    vlm_vllm_overall: not_recorded
-    vlm_transformers_overall: not_recorded
+  canary_N:                              # (deferred → docs/known-gaps.md) canary subset not materialized yet (P3 canary step)
+    pipeline_overall: not_recorded       # (deferred → docs/known-gaps.md)
+    vlm_vllm_overall: not_recorded       # (deferred → docs/known-gaps.md)
+    vlm_transformers_overall: not_recorded   # (deferred → docs/known-gaps.md)
   full_1651:                             # (verified) fresh re-run via mineru-rocm predict | score (pdf_validation.py scorer)
     pipeline:                            # (verified) Overall 86.48 (anchor 86.48, Δ0.00)
       overall: 86.48
@@ -98,9 +109,11 @@ benchmark:
       reading_order_edit_dist: 0.1236
       empty_pages: 2                     # 0.12% (matches Plan 2 baseline)
     vlm_transformers: not_run            # sample-only; ~44h full impractical (diagnostic; Plan 2 deferred)
-  official_reference:                    # NOT re-verified in P2/P3 — flagged, not guessed
-    source: not_verified                 # (not_verified) needs upstream check: OmniDocBench leaderboard + MinerU README/arXiv
-    vlm_overall: not_verified            # (not_verified) upstream shows ~95.69 (NOT 95.75 — the README's old "official 95.75" is unverified; see spec finding)
-    pipeline_overall: not_verified       # (not_verified) upstream ~86.47; submetrics not published
-    inference_engine: not_verified       # (not_verified) upstream engine if stated (else "unspecified")
-    provenance_note: "Third-party figures not in an official source are treated as not_verified. The README's prior 'official 95.75' anchor is unverified (upstream points to ~95.69)."
+  official_reference:                    # (verified 2026-07-20) upstream README "Local Deployment" table
+    source: verified
+    source_url: https://github.com/opendatalab/MinerU/blob/master/README.md
+    pipeline_overall: 86.47              # (verified) README table, pipeline row
+    vlm_overall: 95.30                   # (verified) README table, vlm-engine row (closest match to our vlm-vllm path)
+    hybrid_engine_high: 95.39            # (verified) README table, for reference
+    inference_engine: vlm-engine         # (verified) upstream label for the vLLM-served VLM path we mirror
+    provenance_note: "Official anchors are OmniDocBench v1.6 Overall from the upstream README 'Local Deployment' table. The prior 'official 95.75' was unverified and is withdrawn."

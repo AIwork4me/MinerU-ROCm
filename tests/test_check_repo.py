@@ -65,3 +65,22 @@ def test_check_repo_clean_on_repo(capsys):
     findings += cr.check_readme_scripts_exist(readme)
     findings += cr.check_readme_lock_values(readme, cr._load_lock())
     assert findings == [], findings
+
+
+def test_upstream_commits_pinned_in_lock():
+    """mineru + mineru_vl_utils carry real git commit SHAs (not 'not_recorded')."""
+    import scripts.check_repo as cr
+    lock = cr._load_lock()
+    for dep in ("mineru", "mineru_vl_utils"):
+        commit = (lock.get(dep) or {}).get("commit", "")
+        assert commit != "not_recorded" and len(commit) == 40, f"{dep}.commit not pinned: {commit!r}"
+
+
+def test_official_reference_verified():
+    """The official anchor is sourced from the upstream README (not not_verified)."""
+    import scripts.check_repo as cr
+    lock = cr._load_lock()
+    ref = (lock.get("benchmark") or {}).get("official_reference") or {}
+    assert ref.get("source") == "verified", f"official_reference.source not verified: {ref.get('source')!r}"
+    assert ref.get("pipeline_overall") == 86.47
+    assert ref.get("vlm_overall") == 95.30
