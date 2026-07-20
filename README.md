@@ -16,7 +16,7 @@
 ## At a glance
 
 - **What it is.** Tooling to run opendatalab MinerU (3.4 pipeline + 2.5-Pro VLM) on AMD ROCm and score it on OmniDocBench v1.6.
-- **Where verified.** AMD **gfx1100 (RDNA3, 48 GB ×4), ROCm 7.2**, bf16.
+- **Where verified.** AMD **gfx1100 (RDNA3), Radeon PRO W7900 (48 GB), ROCm 7.2**, bf16. Host has 4× W7900; **each benchmark used 1 GPU (no tensor parallel).**
 - **Most reliable results.** **MinerU2.5-Pro VLM (vLLM-on-ROCm) full 1651 = 95.46 Overall**; **MinerU 3.4 pipeline full 1651 = 86.48 Overall**.
 - **Most important limitation.** **Not precision-aligned.** No same-engine CUDA control exists; the upstream headline may be measured with a different engine. The official anchor (vlm-engine 95.30) is aligned to the upstream README "Local Deployment" table and is **community-verified, not official support** — see `reproducibility.lock.yaml` (`benchmark.official_reference`).
 - **Upstream.** This is a port OF [opendatalab/MinerU](https://github.com/opendatalab/MinerU); the [omnidocbench-amd](https://github.com/AIwork4me/OmniDocBench-AMD) engine is one *optional* consumer (install the `[platform]` extra), not the definition of this repo.

@@ -176,6 +176,56 @@ def check_no_withdrawn_anchor_claims(repo=REPO) -> list[str]:
     return errs
 
 
+# Key-version consistency + ROCm-overclaim guardrail. The lock is the source of
+# truth for ROCm version + GPU arch; README.md and the upstream issue draft must
+# state the same values (catches 'ROCm 7.2' in the lock drifting to 'ROCm 7.2+'
+# in a doc). Assertion-form overclaims are forbidden; honest negations use
+# different phrasing ('not an official-support claim', 'other RDNA3 variants
+# untested') and are not matched, so they pass.
+_OVERCLAIM_PATTERNS = ("ROCm 7.2+", "ROCm 7.x", "officially support", "all RDNA3", "full AMD ROCm support")
+
+
+def check_version_consistency(lock, repo=REPO) -> list[str]:
+    """README, the upstream issue draft, and the lock agree on the key versions,
+    and no user-facing surface carries an assertion-form ROCm/version overclaim.
+
+    Consistency: the lock's ``environment.rocm_hip`` and ``environment.gpu_arch``
+    must each appear in README.md and ``docs/upstream/mineru-issue-5288.md``.
+    Overclaim guard: forbids ``ROCm 7.2+`` / ``ROCm 7.x`` / ``officially support``
+    / ``all RDNA3`` / ``full AMD ROCm support`` in README + README.zh-CN + docs/**
+    (excl. ``docs/superpowers/``). Only what was actually tested (ROCm 7.2,
+    gfx1100/W7900) may be claimed.
+    """
+    findings: list[str] = []
+    # 1. consistency: README + issue draft state the lock's ROCm version + GPU arch
+    if lock is not None:
+        env = lock.get("environment") or {}
+        rocm = env.get("rocm_hip")
+        gpu = env.get("gpu_arch") or ((lock.get("rocm_recipe") or {}).get("gpu_arch"))
+        for fname in ("README.md", "docs/upstream/mineru-issue-5288.md"):
+            p = repo / fname
+            if not p.is_file():
+                continue
+            txt = p.read_text(encoding="utf-8")
+            if rocm and f"ROCm {rocm}" not in txt:
+                findings.append(f"{fname}: does not state the lock's ROCm version (expected 'ROCm {rocm}')")
+            if gpu and gpu not in txt:
+                findings.append(f"{fname}: does not state the lock's GPU arch {gpu}")
+    # 2. overclaim guard: assertion-form overclaims in README + README.zh-CN + docs/*.md (excl superpowers)
+    targets: list[Path] = [repo / n for n in ("README.md", "README.zh-CN.md") if (repo / n).is_file()]
+    for md in (repo / "docs").rglob("*.md"):
+        if "superpowers" not in md.parts:
+            targets.append(md)
+    for p in targets:
+        if not p.is_file():
+            continue
+        txt = p.read_text(encoding="utf-8", errors="ignore")
+        for pat in _OVERCLAIM_PATTERNS:
+            if pat in txt:
+                findings.append(f"{p.relative_to(repo)}: overclaim pattern {pat!r} (scope claims to what was tested)")
+    return findings
+
+
 _LEAK_PATTERNS = ("134.199.133.77", "/root/ocr-eval", "/opt/venv", "u-20-8d823edc", "/workspace/")
 # Whole-repo text scan: covers source code, configs, scripts, and public docs
 # alike (the original results/+docs.+lock scope missed src/ and examples/).
@@ -265,6 +315,7 @@ def main(argv=None) -> int:
     findings += check_modelcard_lock_agreement(lock)
     findings += check_no_stale_overall()
     findings += check_no_withdrawn_anchor_claims()
+    findings += check_version_consistency(lock)
     findings += check_no_internal_infra()
     findings += check_install_smoke()
     if findings:

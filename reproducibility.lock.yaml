@@ -56,7 +56,7 @@ omnidocbench:
     note: "reading_order EditDist is reported separately and is NOT part of Overall"
 
 rocm_recipe:                             # (verified) the canonical gfx1100/RDNA3 recipe (mirrors the upstream doc)
-  gpu_arch: gfx1100                      # RDNA3 — Radeon PRO W7900 (also gfx1101/1102: 7900 XTX/XT/GRE, 7800 XT, 7700 XT, 7600)
+  gpu_arch: gfx1100                      # RDNA3 — Radeon PRO W7900 (only gfx1100 tested here; other RDNA3 variants e.g. gfx1101/1102 untested)
   hsa_override:
     pipeline: none                       # in-process PyTorch auto-detects gfx1100
     vlm_vllm: "11.0.0"                   # vLLM AoT-compiled kernels require it

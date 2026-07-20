@@ -67,6 +67,7 @@ def test_check_repo_clean_on_repo(capsys):
     findings += cr.check_modelcard_lock_agreement(cr._load_lock())
     findings += cr.check_no_stale_overall()
     findings += cr.check_no_withdrawn_anchor_claims()
+    findings += cr.check_version_consistency(cr._load_lock())
     findings += cr.check_no_internal_infra()
     assert findings == [], findings
 
@@ -180,4 +181,30 @@ def test_check_no_withdrawn_anchor_claims_flags_tokens(tmp_path):
     flagged_files = {f.split(" re-cites ")[0] for f in findings}
     assert "docs/a.md" in flagged_files and "docs/b.md" in flagged_files
     assert "README.md" in flagged_files and "CHANGELOG.md" in flagged_files
+    assert not any("superpowers" in f for f in findings), findings
+
+
+def test_version_consistency_clean_on_repo():
+    """README + the issue draft state the lock's ROCm version + GPU arch, and no
+    user-facing surface carries a ROCm/version overclaim."""
+    import scripts.check_repo as cr
+    findings = cr.check_version_consistency(cr._load_lock())
+    assert findings == [], findings
+
+
+def test_version_consistency_flags_overclaim(tmp_path, monkeypatch):
+    """An assertion-form overclaim is flagged; docs/superpowers/ is exempt; the
+    consistency check passes when README states the lock's versions."""
+    import scripts.check_repo as cr
+    (tmp_path / "README.md").write_text("tested on ROCm 7.2 + gfx1100\n", encoding="utf-8")
+    (tmp_path / "docs").mkdir()
+    (tmp_path / "docs" / "a.md").write_text("we officially support all RDNA3 GPUs\n", encoding="utf-8")
+    (tmp_path / "docs" / "superpowers").mkdir()
+    (tmp_path / "docs" / "superpowers" / "s.md").write_text("ROCm 7.2+ design note\n", encoding="utf-8")
+    monkeypatch.setattr(cr, "REPO", tmp_path)
+    lock = {"environment": {"rocm_hip": "7.2", "gpu_arch": "gfx1100"}}
+    findings = cr.check_version_consistency(lock, tmp_path)
+    joined = "\n".join(findings)
+    # docs/a.md overclaim flagged (officially support + all RDNA3); superpowers exempt
+    assert "docs/a.md" in joined and ("officially support" in joined or "all RDNA3" in joined), findings
     assert not any("superpowers" in f for f in findings), findings

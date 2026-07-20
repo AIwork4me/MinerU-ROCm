@@ -13,7 +13,7 @@
 | MinerU 3.4 pipeline | in-process (MinerUPipelineRunner on ROCm) | **86.48** | 0.0566 | 83.07 | 82.04 |
 | MinerU2.5-Pro VLM | vLLM-on-ROCm 0.16.1 (http-client) | **95.46** | 0.0360 | 96.46 | 93.54 |
 
-Both: OmniDocBench v1.6, 1651 pages, AMD gfx1100 (Radeon PRO W7900, 48 GB ×4),
+Both: OmniDocBench v1.6, 1651 pages, AMD gfx1100 (Radeon PRO W7900, 48 GB; 1 GPU per benchmark, host has 4×),
 ROCm 7.2, bf16. Scored via OmniDocBench's `pdf_validation.py` (quick_match).
 
 ## "Evaluation-backed" — what it means

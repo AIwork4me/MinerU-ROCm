@@ -16,7 +16,7 @@
 ## 概览（At a glance）
 
 - **是什么。** 在 AMD ROCm 上运行 opendatalab MinerU（3.4 pipeline + 2.5-Pro VLM）并在 OmniDocBench v1.6 上评分的工具。
-- **在哪验证。** AMD **gfx1100 (RDNA3, 48 GB ×4)，ROCm 7.2**，bf16。
+- **在哪验证。** AMD **gfx1100 (RDNA3)，Radeon PRO W7900 (48 GB)，ROCm 7.2**，bf16。主机共 4× W7900；**每个 benchmark 仅用 1 卡（无 tensor 并行）。**
 - **最可靠结果。** **MinerU2.5-Pro VLM (vLLM-on-ROCm) 全量 1651 = 95.46 Overall**；**MinerU 3.4 pipeline 全量 1651 = 86.48 Overall**。
 - **最重要限制。** **非精度对齐。** 无同引擎 CUDA 对照；上游 headline 可能用不同引擎测量。官方锚点（vlm-engine 95.30）对齐上游 README "Local Deployment" 表，属**社区验证、非官方支持** —— 见 `reproducibility.lock.yaml`（`benchmark.official_reference`）。
 - **上游。** 本仓是 [opendatalab/MinerU](https://github.com/opendatalab/MinerU) 的移植；[omnidocbench-amd](https://github.com/AIwork4me/OmniDocBench-AMD) 引擎只是**可选**消费者（装 `[platform]` extra），不是本仓的定义。
