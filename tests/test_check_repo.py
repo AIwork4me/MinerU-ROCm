@@ -110,6 +110,35 @@ def test_modelcard_lock_agreement():
         assert "omnidocbench/v1.6/" in arts and "omnidocbench/v16/" not in arts, f"{fname} still points at v16/"
 
 
+def test_modelcard_dangling_artefref_flagged(tmp_path, monkeypatch):
+    """check_modelcard_lock_agreement flags an artefact path that does not resolve
+    under the repo (e.g. predict.log when only predict.log.tail is tracked), while
+    leaving URLs + <placeholder> values alone."""
+    import json
+    import scripts.check_repo as cr
+    # Build a minimal repo tree: model_card.json with one good ref, one dangling
+    # repo-relative path, one URL, and one <placeholder>.
+    (tmp_path / "model_card.json").write_text(json.dumps({
+        "overall": 95.46,
+        "artifacts": {
+            "metric_result": "results/omnidocbench/v1.6/vlm-vllm/metric_result.json",  # will NOT exist here
+            "predict_log": "results/omnidocbench/v1.6/vlm-vllm/predict.log",            # dangling
+            "sample_predictions": "results/omnidocbench/v1.6/vlm-vllm/sample_predictions/",
+            "upstream_url": "https://example.com/x.json",                                # URL — skip
+            "pred_dir": "<your-pred-dir>",                                               # placeholder — skip
+        },
+    }), encoding="utf-8")
+    # Create only sample_predictions/ so exactly one ref resolves; the other two
+    # repo-relative paths (metric_result.json, predict.log) dangle.
+    (tmp_path / "results" / "omnidocbench" / "v1.6" / "vlm-vllm" / "sample_predictions").mkdir(parents=True)
+    monkeypatch.setattr(cr, "REPO", tmp_path)
+    lock = {"benchmark": {"full_1651": {"vlm_vllm": {"overall": 95.46}}}}
+    findings = cr.check_modelcard_lock_agreement(lock)
+    joined = "\n".join(findings)
+    assert "predict_log" in joined and "metric_result" in joined, findings
+    assert "upstream_url" not in joined and "pred_dir" not in joined, findings
+
+
 def test_no_stale_vlm_overall_in_docs():
     """No user-facing doc under docs/ (excl. superpowers/) still quotes the stale 95.56."""
     import scripts.check_repo as cr

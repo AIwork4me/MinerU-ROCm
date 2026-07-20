@@ -29,7 +29,7 @@
   "artifacts": {
     "run_manifest": "results/omnidocbench/v1.6/vlm-vllm/run_manifest.json",
     "metric_result": "results/omnidocbench/v1.6/vlm-vllm/metric_result.json",
-    "predict_log": "results/omnidocbench/v1.6/vlm-vllm/predict.log",
+    "predict_log": "results/omnidocbench/v1.6/vlm-vllm/predict.log.tail",
     "sample_predictions": "results/omnidocbench/v1.6/vlm-vllm/sample_predictions/"
   }
 }

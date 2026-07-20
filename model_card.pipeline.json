@@ -23,7 +23,7 @@
   "artifacts": {
     "run_manifest": "results/omnidocbench/v1.6/pipeline/run_manifest.json",
     "metric_result": "results/omnidocbench/v1.6/pipeline/metric_result.json",
-    "predict_log": "results/omnidocbench/v1.6/pipeline/predict.log",
+    "predict_log": "results/omnidocbench/v1.6/pipeline/predict.log.tail",
     "sample_predictions": "results/omnidocbench/v1.6/pipeline/sample_predictions/"
   }
 }

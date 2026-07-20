@@ -90,7 +90,8 @@ def check_readme_lock_values(readme: str, lock) -> list[str]:
 
 def check_modelcard_lock_agreement(lock) -> list[str]:
     """model_card.json (VLM) + model_card.pipeline.json Overall match the lock, and
-    artefacts point at the authoritative v1.6 tree (not the superseded v16 engine tree)."""
+    artefacts point at the authoritative v1.6 tree (not the superseded v16 engine tree),
+    and every repo-relative artefact path resolves under the repo (no dangling refs)."""
     if lock is None:
         return []
     full = (lock.get("benchmark") or {}).get("full_1651") or {}
@@ -108,9 +109,21 @@ def check_modelcard_lock_agreement(lock) -> list[str]:
         card = json.loads(path.read_text(encoding="utf-8"))
         if card.get("overall") != exp:
             findings.append(f"{fname}.overall {card.get('overall')} != lock full_1651.{key}.overall {exp}")
-        arts = json.dumps(card.get("artifacts", {}))
-        if "omnidocbench/v1.6/" not in arts or "omnidocbench/v16/" in arts:
+        arts = card.get("artifacts", {}) or {}
+        arts_blob = json.dumps(arts)
+        if "omnidocbench/v1.6/" not in arts_blob or "omnidocbench/v16/" in arts_blob:
             findings.append(f"{fname} artefacts do not point at the authoritative results/omnidocbench/v1.6/ tree")
+        # Every artefact value that looks like a repo-relative path (not a URL or a
+        # <placeholder>) must resolve under the repo — catches dangling refs such as a
+        # predict.log path when only predict.log.tail is tracked.
+        for art_name, art_val in arts.items():
+            if not isinstance(art_val, str):
+                continue
+            if "://" in art_val or art_val.startswith("<") or "(" in art_val:
+                continue  # URL, <placeholder>, or "<x> (note)" — not a literal path
+            ap = REPO / art_val
+            if not ap.exists():
+                findings.append(f"{fname} artefact {art_name!r} -> {art_val!r} does not resolve under the repo (dangling ref)")
     return findings
 
 
