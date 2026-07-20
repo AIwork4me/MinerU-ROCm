@@ -131,13 +131,18 @@ rocm_recipe:                             # (verified) the canonical gfx1100/RDNA
 Annotate the deferred fields — change the trailing comments on these four lines from `# (not_recorded) …` to `# (deferred → docs/known-gaps.md)`:
 - `gt_json_canary_sha256`
 - `canary_manifest_sha256`
-- `pipeline_weights.table_sha256`
 - the three lines under `benchmark.canary_N:` (`pipeline_overall`, `vlm_vllm_overall`, `vlm_transformers_overall`)
 
-- [ ] **Step 4: Run test to verify it passes**
+**OPSEC (pre-flight amendment):** redact host-specific venv paths from the lock's `environment.venvs` comments — the lock is a public artefact linked from issue #5288. Change:
+- the `pipeline:` comment from `# /root/ocr-eval/mineru-rocm-venv (Py3.11) — has mineru` to `# mineru infer venv (Py3.11) — has mineru`
+- the `vlm_vllm:` comment from `# /opt/venv (Py3.12) — has vllm 0.16.1 + mineru_vl_utils` to `# vLLM VLM venv (Py3.12) — has vllm 0.16.1 + mineru_vl_utils`
+- any other `/root/ocr-eval` / `/opt/venv` literal under `cross_check_source` (e.g. the vlm `cross_check_source: "local HF cache (/root/.cache/huggingface)…"` is fine — standard HF cache, keep).
+
+- [ ] **Step 4: Run test to verify it passes + OPSEC grep**
 
 Run: `python -m pytest tests/test_check_repo.py::test_upstream_commits_pinned_in_lock tests/test_check_repo.py::test_official_reference_verified -q`
 Expected: PASS.
+Run: `grep -nE "/root/ocr-eval|/opt/venv" reproducibility.lock.yaml` → expect **no matches**.
 
 - [ ] **Step 5: Commit**
 
@@ -794,19 +799,22 @@ Add after `check_no_stale_overall`:
 _LEAK_PATTERNS = ("134.199.133.77", "/root/ocr-eval", "/opt/venv")
 def check_no_internal_infra(repo=REPO) -> list[str]:
     """No public-facing file under results/ or docs/ (excluding docs/superpowers/
-    design records) contains internal infra (HF mirror IP, host eval root, host venv)."""
+    design records), nor the root reproducibility.lock.yaml, contains internal infra
+    (HF mirror IP, host eval root, host venv)."""
     errs = []
+    targets = []
     for sub in ("results", "docs"):
-        base = repo / sub
-        for p in base.rglob("*"):
-            if not p.is_file() or p.suffix not in (".json", ".md", ".yaml", ".yml", ".log"):
-                continue
-            if "superpowers" in p.parts:  # design records may name the redaction targets
-                continue
-            txt = p.read_text(encoding="utf-8", errors="ignore")
-            for pat in _LEAK_PATTERNS:
-                if pat in txt:
-                    errs.append(f"{p.relative_to(repo)} leaks internal infra pattern {pat!r}")
+        for p in (repo / sub).rglob("*"):
+            if p.is_file() and p.suffix in (".json", ".md", ".yaml", ".yml", ".log") and "superpowers" not in p.parts:
+                targets.append(p)
+    lock = repo / "reproducibility.lock.yaml"          # public; linked from issue #5288
+    if lock.is_file():
+        targets.append(lock)
+    for p in targets:
+        txt = p.read_text(encoding="utf-8", errors="ignore")
+        for pat in _LEAK_PATTERNS:
+            if pat in txt:
+                errs.append(f"{p.relative_to(repo)} leaks internal infra pattern {pat!r}")
     return errs
 ```
 
