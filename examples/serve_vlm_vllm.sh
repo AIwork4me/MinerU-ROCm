@@ -4,7 +4,7 @@ set -euo pipefail
 export HIP_VISIBLE_DEVICES="${HIP_VISIBLE_DEVICES:-0}"
 export HSA_OVERRIDE_GFX_VERSION=11.0.0          # gfx1100 / W7900 RDNA3
 export VLLM_USE_V1=1                             # MANDATORY: v1 logits-processor API
-export HF_ENDPOINT="${HF_ENDPOINT:-http://134.199.133.77}"
+export HF_ENDPOINT="${HF_ENDPOINT:-https://huggingface.co}"
 export LD_LIBRARY_PATH="/opt/rocm/lib:${LD_LIBRARY_PATH:-}"
 
 MODEL_DIR="$(ls -d /root/.cache/huggingface/models--opendatalab--MinerU2.5-Pro-2605-1.2B/snapshots/* | head -1)"
@@ -12,7 +12,9 @@ REPO="$(cd "$(dirname "$0")/.." && pwd)"
 PORT="${PORT:-8265}"
 LOG="${LOG:-/tmp/vlm-vllm.log}"
 
-nohup /opt/venv/bin/python -m vllm.entrypoints.openai.api_server \
+# VLM scorer/python lives in a separate venv; supply its interpreter.
+VLM_PY="${VLM_VENV_BIN:?set VLM_VENV_BIN to the VLM venv python (e.g. /path/to/venv/bin/python)}"
+nohup "$VLM_PY" -m vllm.entrypoints.openai.api_server \
   --model "$MODEL_DIR" \
   --served-model-name mineru-pro \
   --trust-remote-code \

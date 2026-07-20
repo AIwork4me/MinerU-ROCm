@@ -18,11 +18,13 @@ from pathlib import Path
 
 import yaml
 
-# Machine-local defaults from the benchmark environment. Override per-host via the
-# OMNIDOCBENCH_VENV / OMNIDOCBENCH_REPO env vars (or --venv-python /
-# --omnidocbench-repo) so `mineru-rocm score` works from a wheel install anywhere.
-DEFAULT_VENV_PYTHON = os.environ.get("OMNIDOCBENCH_VENV", "/root/ocr-eval/OmniDocBench/.venv/bin/python")
-DEFAULT_OMNIDOCBENCH_REPO = os.environ.get("OMNIDOCBENCH_REPO", "/root/ocr-eval/OmniDocBench")
+# No host-path defaults: the OmniDocBench scorer venv/repo live at machine-local
+# paths that must NOT leak into the public source tree. Set OMNIDOCBENCH_VENV /
+# OMNIDOCBENCH_REPO (or pass --venv-python / --omnidocbench-repo) so `mineru-rocm
+# score` works from a wheel install anywhere. score_directory() raises a clean
+# ScoringError if neither is provided.
+DEFAULT_VENV_PYTHON = os.environ.get("OMNIDOCBENCH_VENV")        # e.g. /path/to/OmniDocBench/.venv/bin/python
+DEFAULT_OMNIDOCBENCH_REPO = os.environ.get("OMNIDOCBENCH_REPO")  # e.g. /path/to/OmniDocBench
 
 
 class ScoringError(RuntimeError):
@@ -124,6 +126,17 @@ def score_directory(
 
     repo = omnidocbench_repo or DEFAULT_OMNIDOCBENCH_REPO
     venv = venv_python or DEFAULT_VENV_PYTHON
+    # Fail fast with a user-facing error (not an opaque TypeError from
+    # subprocess.run([None, ...])) when neither env var nor CLI arg supplied the
+    # scorer venv / repo. The defaults were removed for OPSEC (host paths leaked).
+    if not repo:
+        raise ScoringError(
+            "OmniDocBench repo not configured: set OMNIDOCBENCH_REPO or pass --omnidocbench-repo"
+        )
+    if not venv:
+        raise ScoringError(
+            "scorer venv python not configured: set OMNIDOCBENCH_VENV or pass --venv-python"
+        )
     report = None
     if not skip_validation:
         report = validate_predictions(gt_json, pred_dir, strict=strict)

@@ -7,8 +7,8 @@
 # 4x gfx1100 host (override with HIP_VISIBLE_DEVICES).
 #
 # Requirements (Task 4 provisioning):
-#   - venv: /root/ocr-eval/mineru-rocm-venv  (torch 2.14.0.dev+rocm7.2, mineru 3.4.4)
-#   - weights: /root/.cache/huggingface/models--opendatalab--PDF-Extract-Kit-1.0/
+#   - venv: set MINERU_ROCM_VENV (torch 2.14.0.dev+rocm7.2, mineru 3.4.4)
+#   - weights: a HF cache holding opendatalab/PDF-Extract-Kit-1.0
 #   - see docs/spike-mineru-api.md for the full env contract
 set -euo pipefail
 
@@ -20,7 +20,7 @@ SAMPLE="${HERE}/sample.png"
 # the same vars inside the process for belt-and-braces) ---
 export HIP_VISIBLE_DEVICES="${HIP_VISIBLE_DEVICES:-3}"
 export MINERU_DEVICE_MODE=cuda
-export HF_ENDPOINT="${HF_ENDPOINT:-http://134.199.133.77}"
+export HF_ENDPOINT="${HF_ENDPOINT:-https://huggingface.co}"
 # The dispatcher (run_adapter.py) imports the omnidocbench_amd contract types;
 # that package lives in the OmniDocBench-AMD engine repo, not in the mineru
 # venv. Put it on PYTHONPATH so the mineru venv can see it.
@@ -28,7 +28,7 @@ export PYTHONPATH="${PYTHONPATH:+$PYTHONPATH:}/workspace/omnidocbench-amd/engine
 
 # Activate the mineru venv (overlay ROCm torch already applied).
 # shellcheck disable=SC1091
-source "${MINERU_ROCM_VENV:-/root/ocr-eval/mineru-rocm-venv}/bin/activate"
+source "${MINERU_ROCM_VENV:?set MINERU_ROCM_VENV to the mineru-rocm venv path}/bin/activate"
 
 OUT_DIR="${MINERU_DEMO_OUT:-/tmp/mineru-demo-out}"
 mkdir -p "$OUT_DIR"

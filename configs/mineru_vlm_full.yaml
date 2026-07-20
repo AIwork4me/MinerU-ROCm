@@ -1,3 +1,7 @@
+# Template config for OmniDocBench v1.6 scoring of the VLM (vlm-vllm) backend.
+# The real prediction path is supplied at score time (mineru-rocm score
+# --pred-dir ...), which writes the live config into a private temp dir; this
+# file documents the metric layout only.
 end2end_eval:
   metrics:
     text_block:
@@ -21,7 +25,7 @@ end2end_eval:
     ground_truth:
       data_path: /workspace/OmniDocBench_data/OmniDocBench.json
     prediction:
-      data_path: /root/ocr-eval/mineru-vlm-vllm-preds
+      data_path: <your-pred-dir>
     match_method: quick_match
     match_workers: 13
     quick_match_truncated_timeout_sec: 300

@@ -24,7 +24,11 @@ from pathlib import Path
 # adapter import time, which precedes the lazy mineru imports inside the
 # methods — exactly the order the spike requires.
 os.environ.setdefault("MINERU_DEVICE_MODE", "cuda")  # HIP_VISIBLE_DEVICES scoped by the launcher
-os.environ.setdefault("HF_ENDPOINT", "http://134.199.133.77")
+# Public HF endpoint by default. `setdefault` still respects an already-exported
+# HF_ENDPOINT (e.g. an eval host exporting the internal mirror), so this is both
+# an OPSEC fix (no internal IP in source) and a correctness fix (public users
+# reach huggingface.co, not an unreachable private mirror).
+os.environ.setdefault("HF_ENDPOINT", "https://huggingface.co")
 
 _runner = None  # lazy singleton, created on first infer_page call
 

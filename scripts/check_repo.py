@@ -132,24 +132,70 @@ def check_no_stale_overall(repo=REPO) -> list[str]:
 
 
 _LEAK_PATTERNS = ("134.199.133.77", "/root/ocr-eval", "/opt/venv")
+# Whole-repo text scan: covers source code, configs, scripts, and public docs
+# alike (the original results/+docs.+lock scope missed src/ and examples/).
+_LEAK_SUFFIXES = (".sh", ".py", ".yaml", ".yml", ".json", ".md", ".log", ".txt", ".cfg", ".ini", ".toml", ".jinja", ".j2")
+# This very gate and scripts/redact_internal.py define the leak patterns (and
+# the placeholder mapping) by name; they MUST contain the literal strings to
+# function, so they are excluded from the scan.
+_LEAK_SELF_EXEMPT = ("scripts/check_repo.py", "scripts/redact_internal.py")
+
+
+def _git_ls_text_files(repo: Path, suffixes: tuple[str, ...]) -> list[Path]:
+    """Return tracked text files (by suffix). Falls back to an rglob walk if git
+    is unavailable, skipping nothing here (exclusions applied by the caller)."""
+    try:
+        cp = subprocess.run(
+            ["git", "-C", str(repo), "ls-files"],
+            capture_output=True, text=True, check=False,
+        )
+        if cp.returncode == 0:
+            files = []
+            for line in cp.stdout.splitlines():
+                if not line:
+                    continue
+                p = repo / line
+                if p.is_file() and p.suffix in suffixes:
+                    files.append(p)
+            return files
+    except FileNotFoundError:
+        pass
+    # Fallback: walk the tree (skips .git via the caller's exclusion check).
+    files = []
+    for p in repo.rglob("*"):
+        if p.is_file() and p.suffix in suffixes:
+            files.append(p)
+    return files
+
+
 def check_no_internal_infra(repo=REPO) -> list[str]:
-    """No public-facing file under results/ or docs/ (excluding docs/superpowers/
-    design records), nor the root reproducibility.lock.yaml, contains internal infra
-    (HF mirror IP, host eval root, host venv)."""
+    """No tracked text file in the repo leaks internal infra (HF mirror IP, host
+    eval-root, host venv). Scans the WHOLE repo so source code, configs, and
+    shell scripts are covered (the original results/+docs.+lock scope missed
+    src/examples/adapter/configs).
+
+    Exclusions:
+      - ``.git/`` — VCS internals, not authored content.
+      - ``docs/superpowers/**`` — design records that legitimately reference the
+        patterns (specs, plans, this task's brief).
+      - the gate + redactor themselves (``scripts/check_repo.py``,
+        ``scripts/redact_internal.py``) — they define the patterns as the
+        scan-targets / replacement keys and must contain the literals to work.
+    """
     errs = []
-    targets = []
-    for sub in ("results", "docs"):
-        for p in (repo / sub).rglob("*"):
-            if p.is_file() and p.suffix in (".json", ".md", ".yaml", ".yml", ".log") and "superpowers" not in p.parts:
-                targets.append(p)
-    lock = repo / "reproducibility.lock.yaml"          # public; linked from issue #5288
-    if lock.is_file():
-        targets.append(lock)
+    targets = _git_ls_text_files(repo, _LEAK_SUFFIXES)
     for p in targets:
+        try:
+            rel = p.relative_to(repo).as_posix()
+        except ValueError:
+            continue
+        # Exclude .git/, docs/superpowers/, and the defining scripts.
+        if rel.startswith(".git/") or rel in _LEAK_SELF_EXEMPT or rel.startswith("docs/superpowers/"):
+            continue
         txt = p.read_text(encoding="utf-8", errors="ignore")
         for pat in _LEAK_PATTERNS:
             if pat in txt:
-                errs.append(f"{p.relative_to(repo)} leaks internal infra pattern {pat!r}")
+                errs.append(f"{rel} leaks internal infra pattern {pat!r}")
     return errs
 
 

@@ -64,7 +64,14 @@ def test_score_directory_success(monkeypatch, tmp_path):
         return subprocess.CompletedProcess(args=[], returncode=0, stdout="", stderr="")
 
     monkeypatch.setattr(scoring, "run_scorer", fake_run)
-    out = score_directory(gt_json=str(gt), pred_dir=str(pred), omnidocbench_repo=str(tmp_path / "repo"))
+    # venv_python passed explicitly: the OPSEC-safe defaults are None (the old
+    # host-path default was removed), so callers must supply a path. The test
+    # monkeypatches run_scorer, so the value never actually runs.
+    out = score_directory(
+        gt_json=str(gt), pred_dir=str(pred),
+        omnidocbench_repo=str(tmp_path / "repo"),
+        venv_python="/sentinel/venv/bin/python",
+    )
     assert out["validation_report"].ok
     assert out["metrics"]["overall"] is not None
 
@@ -83,6 +90,24 @@ def test_score_directory_scorer_nonzero(monkeypatch, tmp_path):
                         lambda **kw: subprocess.CompletedProcess(args=[], returncode=2, stdout="", stderr="boom"))
     with pytest.raises(ScoringError):
         score_directory(gt_json=str(gt), pred_dir=str(pred), omnidocbench_repo=str(tmp_path))
+
+
+def test_score_directory_missing_venv_and_repo_clean_error(tmp_path, monkeypatch):
+    """With the OPSEC-safe None defaults (no host paths), score_directory must
+    raise a clean ScoringError (not an opaque TypeError from
+    subprocess.run([None, ...])) when OMNIDOCBENCH_VENV / OMNIDOCBENCH_REPO are
+    unset and no CLI arg is provided."""
+    pred = tmp_path / "mypred"; pred.mkdir(); (pred / "a.md").write_text("# a")
+    gt = tmp_path / "gt.json"; gt.write_text(json.dumps([{"page_info": {"image_path": "a.png"}}]), encoding="utf-8")
+    # Force the module defaults to None (no host env in CI).
+    monkeypatch.setattr(scoring, "DEFAULT_VENV_PYTHON", None)
+    monkeypatch.setattr(scoring, "DEFAULT_OMNIDOCBENCH_REPO", None)
+    # repo is set but venv is not -> venv error
+    with pytest.raises(ScoringError, match="OMNIDOCBENCH_VENV"):
+        score_directory(gt_json=str(gt), pred_dir=str(pred), omnidocbench_repo=str(tmp_path))
+    # venv is set but repo is not -> repo error
+    with pytest.raises(ScoringError, match="OMNIDOCBENCH_REPO"):
+        score_directory(gt_json=str(gt), pred_dir=str(pred), venv_python="/x/bin/python")
 
 
 def test_format_score_table_renders_overall():

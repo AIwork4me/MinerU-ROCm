@@ -9,12 +9,14 @@ if ! curl -sf http://127.0.0.1:8265/v1/models >/dev/null 2>&1; then
 fi
 # 2) a tiny img-dir of 3 real pages
 SMALL=/tmp/vlm-smoke-imgs; rm -rf "$SMALL"; mkdir -p "$SMALL"
-ls /root/ocr-eval/OmniDocBench_data/images/ | grep -E 'PPT|exam_paper|color_textbook' | head -3 \
-  | while read f; do ln -sf "/root/ocr-eval/OmniDocBench_data/images/$f" "$SMALL/$f"; done
+IMG_DIR="${OMNIDOCBENCH_IMG_DIR:?set OMNIDOCBENCH_IMG_DIR to the OmniDocBench images dir}"
+ls "$IMG_DIR" | grep -E 'PPT|exam_paper|color_textbook' | head -3 \
+  | while read f; do ln -sf "$IMG_DIR/$f" "$SMALL/$f"; done
 # 3) run the adapter (VLM env; MINERU_ROCM_BACKEND=vlm-vllm; server_url default)
 export MINERU_ROCM_BACKEND=vlm-vllm
 OUT=/tmp/vlm-smoke-out; rm -rf "$OUT"
-/opt/venv/bin/python "$REPO/adapter/run_adapter.py" \
+VLM_PY="${VLM_VENV_BIN:?set VLM_VENV_BIN to the VLM venv python (e.g. /path/to/venv/bin/python)}"
+"$VLM_PY" "$REPO/adapter/run_adapter.py" \
   --img-dir "$SMALL" --out-dir "$OUT" --platform linux-rocm \
   --server-url http://127.0.0.1:8265/v1 --api-model-name mineru-pro
 echo "--- smoke outputs ---"; for f in "$OUT"/*.md; do echo "== $f =="; head -8 "$f"; done
