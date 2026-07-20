@@ -24,12 +24,14 @@ The `config["backend"]` key selects the inference path inside `run_adapter`:
 
 | backend | what it does | GPU? |
 |---|---|---|
-| `pipeline` (default) | wraps upstream `mineru[all]` in-process on cuda → markdown | yes |
+| `pipeline` (default) | wraps upstream `mineru[all]` in-process on `cuda` (PyTorch-ROCm exposes the HIP device as `cuda`) → markdown | yes |
 | `smoke` | writes a placeholder `.md` per image | no |
 
 See [`backends.md`](backends.md) for the recommended backend per model type × platform.
 
 ## Stages (engine-side)
+
+> **Primary interface is the `mineru-rocm` CLI** (`predict` → `validate` → `score` → `manifest verify`). The `omnidocbench-amd` stages below apply only when using the optional `[platform]` engine extra.
 
 The `omnidocbench-amd` CLI (`make eval-linux`) runs:
 
@@ -46,9 +48,9 @@ This repo ships **two** model cards for one upstream model family (MinerU 2.5 / 
 
 | Card | File | What it is | Status |
 |---|---|---|---|
-| **primary** (registry row) | `model_card.json` + `hub/registry.yaml` `mineru2.5` | the **VLM** (MinerU 2.5 served via vLLM-on-ROCm) | reproduced, linux-rocm `community` (Overall **95.56**, 1651/1651, gate PASS) |
+| **primary** (registry row) | `model_card.json` + `hub/registry.yaml` `mineru2.5` | the **VLM** (MinerU 2.5 served via vLLM-on-ROCm) | reproduced, linux-rocm `community` (Overall **95.46**, 1651/1651, gate PASS) |
 | **secondary** (Plan 1 result) | `model_card.pipeline.json` + the README comparison table | the **MinerU 3.4 pipeline** (layout → OCR → table → formula, in-process) | reproduced, linux-rocm `community` (Overall **86.48**) |
 
-The platform's `hub/registry.yaml` carries **one row per `model_id`**, and that row is the VLM (`mineru2.5`). The pipeline (`mineru-pipeline`) is a secondary card inside this same repo, surfaced via `model_card.pipeline.json` + the README table — **so no new registry row is needed for the pipeline**. The VLM result now fills the primary `model_card.json` (Overall **95.56**, badge linux-rocm `community`); the pipeline card stays as the secondary entry.
+The platform's `hub/registry.yaml` carries **one row per `model_id`**, and that row is the VLM (`mineru2.5`). The pipeline (`mineru-pipeline`) is a secondary card inside this same repo, surfaced via `model_card.pipeline.json` + the README table — **so no new registry row is needed for the pipeline**. The VLM result now fills the primary `model_card.json` (Overall **95.46**, badge linux-rocm `community`); the pipeline card stays as the secondary entry.
 
-> **Registry update note (for the platform-repo maintainer):** the actual `hub/registry.yaml` lives in the **separate** platform repo [`OmniDocBench-AMD`](https://github.com/AIwork4me/OmniDocBench-AMD). The intended update there is: `mineru2.5` row → `badge.linux-rocm: community`, `overall: 95.56`, `eval_date: 2026-07-18`, `model_version: "2605"`. (`verified` still requires maintainer Docker reproduction; `windows-hip` stays `community-wanted`.) This repo does not edit that file — it only records the intended values here so the maintainer can apply them.
+> **Registry update note (for the platform-repo maintainer):** the actual `hub/registry.yaml` lives in the **separate** platform repo [`OmniDocBench-AMD`](https://github.com/AIwork4me/OmniDocBench-AMD). The intended update there is: `mineru2.5` row → `badge.linux-rocm: community`, `overall: 95.46`, `eval_date: 2026-07-18`, `model_version: "2605"`. (`verified` still requires maintainer Docker reproduction; `windows-hip` stays `community-wanted`.) This repo does not edit that file — it only records the intended values here so the maintainer can apply them.

@@ -114,6 +114,23 @@ def check_modelcard_lock_agreement(lock) -> list[str]:
     return findings
 
 
+_STALE_VLM_OVERALL = "95.56"
+_CURRENT_VLM_OVERALL = "95.46"
+def check_no_stale_overall(repo=REPO) -> list[str]:
+    """No user-facing doc under docs/ (excl docs/superpowers/ design records) presents
+    the stale VLM Overall (95.56) as the current value. A doc is flagged iff it contains
+    95.56 WITHOUT also containing 95.46 — legitimate comparative mentions (e.g. 'vs a
+    prior 95.56' alongside the current 95.46) are fine."""
+    errs = []
+    for md in (repo / "docs").rglob("*.md"):
+        if "superpowers" in md.parts:
+            continue
+        txt = md.read_text(encoding="utf-8")
+        if _STALE_VLM_OVERALL in txt and _CURRENT_VLM_OVERALL not in txt:
+            errs.append(f"{md.relative_to(repo)} quotes stale Overall {_STALE_VLM_OVERALL} without the current {_CURRENT_VLM_OVERALL}")
+    return errs
+
+
 def check_install_smoke() -> list[str]:
     """`pip install -e .` succeeds (the PEP 639 / build regression guard)."""
     cp = subprocess.run([sys.executable, "-m", "pip", "install", "-e", ".", "--quiet"],
@@ -133,6 +150,7 @@ def main(argv=None) -> int:
     findings += check_readme_scripts_exist(readme)
     findings += check_readme_lock_values(readme, lock)
     findings += check_modelcard_lock_agreement(lock)
+    findings += check_no_stale_overall()
     findings += check_install_smoke()
     if findings:
         print("check_repo: " + str(len(findings)) + " finding(s):", file=sys.stderr)

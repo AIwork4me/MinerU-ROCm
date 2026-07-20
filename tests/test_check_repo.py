@@ -65,6 +65,7 @@ def test_check_repo_clean_on_repo(capsys):
     findings += cr.check_readme_scripts_exist(readme)
     findings += cr.check_readme_lock_values(readme, cr._load_lock())
     findings += cr.check_modelcard_lock_agreement(cr._load_lock())
+    findings += cr.check_no_stale_overall()
     assert findings == [], findings
 
 
@@ -105,3 +106,10 @@ def test_modelcard_lock_agreement():
         # artefacts must point at the authoritative v1.6 tree, not the old v16 engine tree
         arts = json.dumps(card.get("artifacts", {}))
         assert "omnidocbench/v1.6/" in arts and "omnidocbench/v16/" not in arts, f"{fname} still points at v16/"
+
+
+def test_no_stale_vlm_overall_in_docs():
+    """No user-facing doc under docs/ (excl. superpowers/) still quotes the stale 95.56."""
+    import scripts.check_repo as cr
+    findings = cr.check_no_stale_overall()
+    assert findings == [], findings
