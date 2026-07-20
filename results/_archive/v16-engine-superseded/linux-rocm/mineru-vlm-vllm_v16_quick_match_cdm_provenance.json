@@ -17,10 +17,10 @@
   "failed_pages": 0,
   "fallback_pages": 0,
   "metric_result_paths": [
-    "/root/ocr-eval/OmniDocBench/result/mineru-vlm-vllm-preds_quick_match_metric_result.json"
+    "<eval-root>/OmniDocBench/result/mineru-vlm-vllm-preds_quick_match_metric_result.json"
   ],
   "run_summary_paths": [
     "results/omnidocbench/v16/linux-rocm/mineru-vlm-vllm_v16_quick_match_cdm_run_summary.json"
   ],
-  "run_stats_path": "/root/ocr-eval/mineru-vlm-vllm-preds/_run_stats.json"
+  "run_stats_path": "<eval-root>/mineru-vlm-vllm-preds/_run_stats.json"
 }

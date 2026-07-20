@@ -1,14 +1,14 @@
 # MinerU 3.4 in-process API spike (Task 4)
 
 Findings verified by running code in the provisioned venv
-(`/root/ocr-eval/mineru-rocm-venv`, mineru 3.4.4, torch 2.14.0.dev20260717+rocm7.2)
+(`<eval-root>/mineru-rocm-venv`, mineru 3.4.4, torch 2.14.0.dev20260717+rocm7.2)
 on GPU 3 of this 4× gfx1100 host. All signatures below are real (read from source
 and exercised), not assumed. This doc is the input to Task 5 — it tells
 `MineruPipelineRunner.load()`/`.extract()` exactly what to call.
 
 ## 0. Provisioning outcome (already run)
 
-- Venv: `/root/ocr-eval/mineru-rocm-venv` (Python **3.11.15**).
+- Venv: `<eval-root>/mineru-rocm-venv` (Python **3.11.15**).
 - `mineru` 3.4.4 (`Requires-Python: <3.14,>=3.10`). `[all]` on Linux pulls
   `[vllm]` → `vllm==0.19.1` → CUDA torch. After install, `torch.cuda.is_available()`
   was False (came up as `2.10.0+cu128`). The script then overlays the ROCm wheel
@@ -18,7 +18,7 @@ and exercised), not assumed. This doc is the input to Task 5 — it tells
   satisfied). Result: `torch 2.14.0.dev20260717+rocm7.2`, `cuda.is_available()==True`,
   `hip==7.2.53211`. **Use this exact flag set if re-running.**
 - Weights downloaded via `mineru-models-download -s huggingface -m pipeline` with
-  `HF_ENDPOINT=http://134.199.133.77`. Landed at
+  `HF_ENDPOINT=<hf-mirror>`. Landed at
   `/root/.cache/huggingface/models--opendatalab--PDF-Extract-Kit-1.0/snapshots/ed6b654c018d742e65a17671e379c5e6ecc87ec9/`.
   Config written to `/root/mineru.json` (points at that snapshot).
   Sub-models present: `Layout/PP-DocLayoutV2`, `MFR/unimernet_hf_small_2503`,
@@ -27,7 +27,7 @@ and exercised), not assumed. This doc is the input to Task 5 — it tells
   `TabCls/paddle_table_cls/PP-LCNet_x1_0_table_cls.onnx`,
   `MFR/pp_formulanet_plus_m` (formula fallback; not used when `formula_enable=true`
   with unimernet path).
-- Coexists with the platform eval-venv `/root/ocr-eval/omnidocbench-amd-venv`
+- Coexists with the platform eval-venv `<eval-root>/omnidocbench-amd-venv`
   (which is actually **Python 3.12.3**, not 3.11) — separate venvs, separate
   site-packages, no collision.
 
@@ -41,7 +41,7 @@ and exercised), not assumed. This doc is the input to Task 5 — it tells
 
 Invoked:
 ```
-HIP_VISIBLE_DEVICES=3 MINERU_DEVICE_MODE=cuda HF_ENDPOINT=http://134.199.133.77 \
+HIP_VISIBLE_DEVICES=3 MINERU_DEVICE_MODE=cuda HF_ENDPOINT=<hf-mirror> \
   mineru -p /tmp/mineru-spike-inputs -o /tmp/mineru-spike -b pipeline
 ```
 on a 3-image dir (`img3.jpg`, `newspaper_…_1.jpg`, `page-….png`).
@@ -76,7 +76,7 @@ Naming is 1:1 with the input stem (the CLI also runs `uniquify_task_stems` to
 dedupe collisions, suffixing `_2`, `_3`, …).
 
 `examples/demo.png` is a 1×1 px placeholder — do **not** use it for spikes; use
-real OmniDocBench images (e.g. `/root/ocr-eval/OmniDocBench_data/images/`).
+real OmniDocBench images (e.g. `<eval-root>/OmniDocBench_data/images/`).
 
 ## 3. In-process API (PREFERRED for 1651 pages)
 
@@ -192,7 +192,7 @@ from pathlib import Path
 
 # These must be set BEFORE mineru imports anything that reads device mode.
 os.environ.setdefault("MINERU_DEVICE_MODE", "cuda")  # HIP_VISIBLE_DEVICES set by the launcher
-os.environ.setdefault("HF_ENDPOINT", "http://134.199.133.77")
+os.environ.setdefault("HF_ENDPOINT", "<hf-mirror>")
 
 _runner = None
 
@@ -295,8 +295,8 @@ For any mineru run (CLI or in-process) on this host:
 ```bash
 export HIP_VISIBLE_DEVICES=3
 export MINERU_DEVICE_MODE=cuda
-export HF_ENDPOINT=http://134.199.133.77     # only needed for weight download
-source /root/ocr-eval/mineru-rocm-venv/bin/activate
+export HF_ENDPOINT=<hf-mirror>     # only needed for weight download
+source <eval-root>/mineru-rocm-venv/bin/activate
 ```
 The venv already has the ROCm torch overlay applied. `MINERU_FORMULA_CH_SUPPORT`
 must be left unset/false (it pulls in PaddlePaddle, which we do NOT want).

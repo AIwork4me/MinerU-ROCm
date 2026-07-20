@@ -9,16 +9,16 @@ Spike date: 2026-07-18. GPU 0 only (`HIP_VISIBLE_DEVICES=0`); GPU 3 untouched
 
 ## 0. Environment (one-time setup)
 
-- **Python / vLLM**: `/opt/venv/bin/python` (system venv).
+- **Python / vLLM**: `<host-venv>/bin/python` (system venv).
   - `vllm 0.16.1.dev0+g89a77b108.d20260317` (ROCm rocm721 nightly).
   - `torch 2.9.1+gitff65f5b` (rocm), `torch.cuda.is_available()==True`, device count 4.
   - `transformers 4.57.6`.
   - `is_torch_equal("2.9.1")` returns **True** for `2.9.1+gitff65f5b` (matters for Conv3d — see §4).
-- **mineru-vl-utils**: installed `mineru-vl-utils==1.0.5` into `/opt/venv` via
-  `HF_ENDPOINT=http://134.199.133.77 /opt/venv/bin/pip install mineru-vl-utils`.
+- **mineru-vl-utils**: installed `mineru-vl-utils==1.0.5` into `<host-venv>` via
+  `HF_ENDPOINT=<hf-mirror> <host-venv>/bin/pip install mineru-vl-utils`.
   Lightweight (aiofiles, httpx-retries). No `mineru` (full) needed for the VLM-only path.
 - **Weights**: `opendatalab/MinerU2.5-Pro-2605-1.2B`, downloaded via hf-mirror
-  (`HF_ENDPOINT=http://134.199.133.77`, `snapshot_download`). Landed at the
+  (`HF_ENDPOINT=<hf-mirror>`, `snapshot_download`). Landed at the
   default cache `/root/.cache/huggingface/models--opendatalab--MinerU2.5-Pro-2605-1.2B/`
   (NOT under `hub/` — this cache uses the flat layout). Snapshot:
   `bff20d4ae2bf202df9f45284b4d43681555a97ed`. Total ~2.31 GB (one BF16 safetensors blob).
@@ -32,11 +32,11 @@ Spike date: 2026-07-18. GPU 0 only (`HIP_VISIBLE_DEVICES=0`); GPU 3 untouched
 Script: `/tmp/vlm-spike/launch_vllm.sh`
 ```bash
 export HIP_VISIBLE_DEVICES=0          # GPU 0 ONLY
-export HF_ENDPOINT=http://134.199.133.77
+export HF_ENDPOINT=<hf-mirror>
 export VLLM_USE_V1=1                   # V1 engine required for v1 logits-processor API
 export HSA_OVERRIDE_GFX_VERSION=11.0.0 # gfx1100 / W7900 RDNA3
 MODEL=/root/.cache/huggingface/models--opendatalab--MinerU2.5-Pro-2605-1.2B/snapshots/bff20d4ae2bf202df9f45284b4d43681555a97ed
-exec /opt/venv/bin/python -m vllm.entrypoints.openai.api_server \
+exec <host-venv>/bin/python -m vllm.entrypoints.openai.api_server \
   --model "$MODEL" \
   --served-model-name mineru-pro \
   --trust-remote-code \
@@ -114,7 +114,7 @@ needed.**
 `model_name="mineru-pro"`. Calls `client.two_step_extract(PIL.Image)` (the full
 layout→per-block-extract chain), then `json2md(result)` to render Markdown.
 
-### 3 real OmniDocBench pages (from `/root/ocr-eval/OmniDocBench_data/images/`)
+### 3 real OmniDocBench pages (from `<eval-root>/OmniDocBench_data/images/`)
 
 **Page 1: `PPT_1001115_eng_page_003.png`** (English PPT, text-heavy) — 10.58s, 7 blocks:
 ```

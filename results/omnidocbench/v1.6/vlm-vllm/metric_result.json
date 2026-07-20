@@ -4,8 +4,8 @@
         "system": {
             "platform": "Linux-6.8.0-79-generic-x86_64-with-glibc2.39",
             "python_version": "3.11.15 (main, Mar  3 2026, 09:26:23) [GCC 13.3.0]",
-            "python_executable": "/root/ocr-eval/OmniDocBench/.venv/bin/python",
-            "python_prefix": "/root/ocr-eval/OmniDocBench/.venv",
+            "python_executable": "<eval-root>/OmniDocBench/.venv/bin/python",
+            "python_prefix": "<eval-root>/OmniDocBench/.venv",
             "conda_env": "",
             "conda_prefix": "",
             "libc": "glibc 2.39",

@@ -66,6 +66,7 @@ def test_check_repo_clean_on_repo(capsys):
     findings += cr.check_readme_lock_values(readme, cr._load_lock())
     findings += cr.check_modelcard_lock_agreement(cr._load_lock())
     findings += cr.check_no_stale_overall()
+    findings += cr.check_no_internal_infra()
     assert findings == [], findings
 
 
@@ -112,4 +113,12 @@ def test_no_stale_vlm_overall_in_docs():
     """No user-facing doc under docs/ (excl. superpowers/) still quotes the stale 95.56."""
     import scripts.check_repo as cr
     findings = cr.check_no_stale_overall()
+    assert findings == [], findings
+
+
+def test_no_internal_infra_in_public_files():
+    """No committed file under results/ or docs/ (excl. docs/superpowers/) leaks the
+    internal HF mirror IP or host eval-root path."""
+    import scripts.check_repo as cr
+    findings = cr.check_no_internal_infra()
     assert findings == [], findings

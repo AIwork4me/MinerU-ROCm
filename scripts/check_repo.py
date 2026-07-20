@@ -131,6 +131,28 @@ def check_no_stale_overall(repo=REPO) -> list[str]:
     return errs
 
 
+_LEAK_PATTERNS = ("134.199.133.77", "/root/ocr-eval", "/opt/venv")
+def check_no_internal_infra(repo=REPO) -> list[str]:
+    """No public-facing file under results/ or docs/ (excluding docs/superpowers/
+    design records), nor the root reproducibility.lock.yaml, contains internal infra
+    (HF mirror IP, host eval root, host venv)."""
+    errs = []
+    targets = []
+    for sub in ("results", "docs"):
+        for p in (repo / sub).rglob("*"):
+            if p.is_file() and p.suffix in (".json", ".md", ".yaml", ".yml", ".log") and "superpowers" not in p.parts:
+                targets.append(p)
+    lock = repo / "reproducibility.lock.yaml"          # public; linked from issue #5288
+    if lock.is_file():
+        targets.append(lock)
+    for p in targets:
+        txt = p.read_text(encoding="utf-8", errors="ignore")
+        for pat in _LEAK_PATTERNS:
+            if pat in txt:
+                errs.append(f"{p.relative_to(repo)} leaks internal infra pattern {pat!r}")
+    return errs
+
+
 def check_install_smoke() -> list[str]:
     """`pip install -e .` succeeds (the PEP 639 / build regression guard)."""
     cp = subprocess.run([sys.executable, "-m", "pip", "install", "-e", ".", "--quiet"],
@@ -151,6 +173,7 @@ def main(argv=None) -> int:
     findings += check_readme_lock_values(readme, lock)
     findings += check_modelcard_lock_agreement(lock)
     findings += check_no_stale_overall()
+    findings += check_no_internal_infra()
     findings += check_install_smoke()
     if findings:
         print("check_repo: " + str(len(findings)) + " finding(s):", file=sys.stderr)

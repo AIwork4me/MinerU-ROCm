@@ -9,7 +9,7 @@
   "failed_pages": 0,
   "fallback_pages": 0,
   "metric_result_path": "/workspace/OmniDocBench/result/mineru-pipeline-preds_quick_match_metric_result.json",
-  "run_stats_path": "/root/ocr-eval/mineru-pipeline-preds/_run_stats.json",
+  "run_stats_path": "<eval-root>/mineru-pipeline-preds/_run_stats.json",
   "readme_metrics": {
     "text_edit_dist": 0.056576564006556355,
     "reading_order_edit_dist": 0.15340695746208646,

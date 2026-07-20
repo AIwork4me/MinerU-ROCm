@@ -42,7 +42,7 @@ empty-out pages, and (2) transformers being ~2× slower per page.
   gave a clean fallback + confirmed vLLM's quality before the long full run.)
 
 ## Reproduction
-- vLLM sample preds: `/root/ocr-eval/vlm-vllm-sample-preds` (100 pages); scored against the
-  100-page GT subset `/root/ocr-eval/OmniDocBench_data/OmniDocBench_vlm_sample100.json`.
-- transformers sample preds: `/root/ocr-eval/vlm-transformers-sample-preds` (25 pages).
+- vLLM sample preds: `<eval-root>/vlm-vllm-sample-preds` (100 pages); scored against the
+  100-page GT subset `<eval-root>/OmniDocBench_data/OmniDocBench_vlm_sample100.json`.
+- transformers sample preds: `<eval-root>/vlm-transformers-sample-preds` (25 pages).
 - Scoring via `pdf_validation.py` (the engine's linux-rocm `score()` is a stub — Plan 1).
