@@ -131,6 +131,38 @@ def check_no_stale_overall(repo=REPO) -> list[str]:
     return errs
 
 
+# The withdrawn unofficial-anchor story (95.75 / ~95.69 / not_verified / "anchor is
+# unverified") was superseded by the verified upstream-README anchors (vlm-engine
+# 95.30, pipeline 86.47). These tokens MUST NOT recur in any user-facing surface.
+# (The lock is NOT scanned — it legitimately carries verified/not_recorded.)
+_WITHDRAWN_ANCHOR_TOKENS = ("95.75", "~95.69", "not_verified", "anchor is unverified")
+_WITHDRAWN_ANCHOR_FILES = ("README.md", "README.zh-CN.md", "CHANGELOG.md")
+def check_no_withdrawn_anchor_claims(repo=REPO) -> list[str]:
+    """No user-facing surface re-cites the withdrawn unofficial-anchor story.
+
+    Scans docs/*.md (excl docs/superpowers/ design records) + the top-level
+    README.md / README.zh-CN.md / CHANGELOG.md for the withdrawn tokens
+    (`95.75`, `~95.69`, `not_verified`, `anchor is unverified`). The
+    reproducibility lock is deliberately NOT scanned — it legitimately carries
+    `verified` / `not_recorded` as field values."""
+    errs = []
+    targets: list[Path] = []
+    for md in (repo / "docs").rglob("*.md"):
+        if "superpowers" in md.parts:
+            continue
+        targets.append(md)
+    for name in _WITHDRAWN_ANCHOR_FILES:
+        p = repo / name
+        if p.is_file():
+            targets.append(p)
+    for p in targets:
+        txt = p.read_text(encoding="utf-8", errors="ignore")
+        for tok in _WITHDRAWN_ANCHOR_TOKENS:
+            if tok in txt:
+                errs.append(f"{p.relative_to(repo)} re-cites withdrawn-anchor token {tok!r} (use the verified upstream-README anchors: vlm-engine 95.30, pipeline 86.47)")
+    return errs
+
+
 _LEAK_PATTERNS = ("134.199.133.77", "/root/ocr-eval", "/opt/venv")
 # Whole-repo text scan: covers source code, configs, scripts, and public docs
 # alike (the original results/+docs.+lock scope missed src/ and examples/).
@@ -219,6 +251,7 @@ def main(argv=None) -> int:
     findings += check_readme_lock_values(readme, lock)
     findings += check_modelcard_lock_agreement(lock)
     findings += check_no_stale_overall()
+    findings += check_no_withdrawn_anchor_claims()
     findings += check_no_internal_infra()
     findings += check_install_smoke()
     if findings:

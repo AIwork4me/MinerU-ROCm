@@ -36,9 +36,11 @@ platform that runs the same model + same dataset + same scorer.
 - **Empty pages.** The VLM produces ~0.12% empty-output pages (2/1651) — pages
   where the model returned no content. These score 0 for that page; the Overall
   (averaged over 1651) absorbs the impact (~0.01pp).
-- **The official upstream anchor is unverified.** The README's prior "official
-  95.75" was unconfirmed; upstream sources point to ~95.69. We record this
-  honestly as `not_verified` in the lock rather than guessing.
+- **The official anchor is community-verified.** The upstream README "Local
+  Deployment" table records vlm-engine 95.30 / pipeline 86.47; we cite these
+  as the comparison anchors (aligned to that table, not as official support).
+  See `reproducibility.lock.yaml` (`benchmark.official_reference: source:
+  verified`). The prior withdrawn unofficial anchor is no longer cited.
 
 ## The Overall formula
 

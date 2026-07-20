@@ -27,9 +27,13 @@ Hardening for upstream MinerU PR #5288 (ROCm docs contribution) — evidence-bas
 - Redacted the internal HF-mirror IP and host eval-root/venv paths from all public artefacts under `results/` + `docs/`; added a `check_repo.py` no-leak gate.
 
 ### Added
-- `scripts/check_repo.py` gates: modelcard↔lock tri-source agreement; no-stale-95.56; no-internal-infra leak (+ tests).
+- `scripts/check_repo.py` gates: modelcard↔lock tri-source agreement; no-stale-95.56; no-internal-infra leak (+ tests); no-withdrawn-anchor-claims (flags the withdrawn unofficial-anchor tokens across user-facing surfaces) across user-facing surfaces.
 - `scripts/sample_predictions.py`, `scripts/redact_internal.py`.
 - `docs/upstream-pr/` — staged docs-only contribution to `opendatalab/MinerU` (zh AMD.md section + README GPU row + #5288 process-gate comment).
+
+### Resolved (previously open in [0.1.0])
+- The **official upstream anchor** is now verified and sourced from the upstream README "Local Deployment" table (vlm-engine 95.30, pipeline 86.47) — see `reproducibility.lock.yaml` → `benchmark.official_reference: source: verified`. The prior withdrawn unofficial anchor is no longer cited anywhere in user-facing surfaces.
+- `mineru`/`mineru_vl_utils` upstream commits are now pinned in the lock (resolved via `git ls-remote`).
 
 ## [0.1.0] — 2026-07-19
 
@@ -69,12 +73,7 @@ scoring, and reproducibility lock.
 
 ### Known limitations (alpha)
 
-- The **official upstream anchor is unverified** (~95.69, NOT the prior
-  unverified "95.75") — see `reproducibility.lock.yaml` →
-  `benchmark.official_reference: not_verified`.
 - Canary subset not yet materialized.
-- `mineru`/`mineru_vl_utils` upstream commits not in the lock (pip-installed;
-  commit not in dist-info).
 
 ## [pre-rewrite] — prior to 2026-07-19
 

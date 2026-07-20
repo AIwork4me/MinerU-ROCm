@@ -20,7 +20,7 @@ empty-out pages, and (2) transformers being ~2× slower per page.
 - **0 empty pages** out of 100 (the EOS-first-token concern did **not** materialize on this
   sample — unlike the Unlimited-OCR finding in memory; appears model/page-specific here).
 - Speed: ~10–30 s/page → full 1651-page eval feasible in hours.
-- vs official MinerU2.5-Pro (text 0.036 / CDM 97.45 / TEDS 93.42 / Overall 95.75): the
+- vs official MinerU2.5-Pro (upstream README vlm-engine anchor, Overall 95.30 — community-verified, not official support): the
   sample is at/above official (the 100-page sample skews easier than the full set incl. hard
   subsets; the full eval gives the real number).
 

@@ -183,7 +183,8 @@ window_model_list = predictor.batch_two_step_extract(
     images=images_pil_list, image_analysis=effective_image_analysis, ...)
 ```
 where `predictor` is a `MinerUClient`. **So `effort=high` IS the VLM two-step
-path** validated in §2 — the same path that produced the 95.75 reference score.
+path** validated in §2 — the same path the upstream README vlm-engine row
+reports (Overall 95.30, community-verified).
 Plan 2 wires `MinerUClient(backend="http-client", server_url=<our vLLM>)` into
 the Hybrid backend's `predictor` slot; effort=high then runs against our ROCm
 vLLM server unchanged.

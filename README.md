@@ -18,7 +18,7 @@
 - **What it is.** Tooling to run opendatalab MinerU (3.4 pipeline + 2.5-Pro VLM) on AMD ROCm and score it on OmniDocBench v1.6.
 - **Where verified.** AMD **gfx1100 (RDNA3, 48 GB ×4), ROCm 7.2**, bf16.
 - **Most reliable results.** **MinerU2.5-Pro VLM (vLLM-on-ROCm) full 1651 = 95.46 Overall**; **MinerU 3.4 pipeline full 1651 = 86.48 Overall**.
-- **Most important limitation.** **Not precision-aligned.** No same-engine CUDA control exists; the upstream headline may be measured with a different engine. The "official 95.75" anchor is being re-verified (upstream points to ~95.69) — see `reproducibility.lock.yaml` once populated.
+- **Most important limitation.** **Not precision-aligned.** No same-engine CUDA control exists; the upstream headline may be measured with a different engine. The official anchor (vlm-engine 95.30) is aligned to the upstream README "Local Deployment" table and is **community-verified, not official support** — see `reproducibility.lock.yaml` (`benchmark.official_reference`).
 - **Upstream.** This is a port OF [opendatalab/MinerU](https://github.com/opendatalab/MinerU); the [omnidocbench-amd](https://github.com/AIwork4me/OmniDocBench-AMD) engine is one *optional* consumer (install the `[platform]` extra), not the definition of this repo.
 
 ## Install
@@ -71,11 +71,11 @@ See [`docs/reproducibility.md`](docs/reproducibility.md) for the full recipe and
 
 | Model / Backend | Overall ↑ | Text Edit ↓ | Formula CDM ↑ | Table TEDS ↑ |
 |---|---:|---:|---:|---:|
-| _official_ MinerU2.5-Pro _(unverified; upstream ~95.69, NOT 95.75)_ | ~95.69 | — | — | — |
+| _official_ MinerU2.5-Pro _(upstream README vlm-engine row; community-verified, not official support)_ | 95.30 | — | — | — |
 | **ours MinerU2.5-Pro (vlm-vllm, ROCm)** | **95.46** | 0.0360 | 96.46 | 93.54 |
 | ours MinerU2.5-Pro (vlm-transformers, ROCm) | _sample-only (clean; ~44 h full)_ | | | |
 
-The `vlm-vllm` row is **reproduced** on linux-rocm (self-attested, `badge: community`, conformance-passing): 1651/1651 pages, 0 fail, ~7 h on GPU 0 (gfx1100), empty-rate 0.12%, read-order EditDist 0.1236. Overall 95.46 is within ±0.5 pp of the prior 95.56 run (Δ−0.10 pp — vLLM non-determinism). The **official upstream anchor is unverified** (the README's old "official 95.75" was unconfirmed; upstream points to ~95.69) — see `reproducibility.lock.yaml` (`benchmark.official_reference: not_verified`). The `vlm-transformers` backend is a clean but slow fallback (~100–150 s/page; full-set ≈44 h not run), so it carries no full Overall. `windows-hip` is `community-wanted`.
+The `vlm-vllm` row is **reproduced** on linux-rocm (self-attested, `badge: community`, conformance-passing): 1651/1651 pages, 0 fail, ~7 h on GPU 0 (gfx1100), empty-rate 0.12%, read-order EditDist 0.1236. Overall 95.46 is **parity** with the upstream README vlm-engine anchor 95.30 (Δ+0.16 pp — within vLLM non-determinism; not a superiority claim) and within ±0.5 pp of our prior 95.56 run (Δ−0.10 pp). The official anchor is aligned to the upstream README "Local Deployment" table and is **community-verified, not official support** — see `reproducibility.lock.yaml` (`benchmark.official_reference: source: verified`). The `vlm-transformers` backend is a clean but slow fallback (~100–150 s/page; full-set ≈44 h not run), so it carries no full Overall. `windows-hip` is `community-wanted`.
 
 ### Results — MinerU 3.4 pipeline (secondary model card, `mineru-pipeline`)
 

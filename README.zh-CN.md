@@ -6,7 +6,7 @@
 > 且上游 headline 可能用不同引擎。见基准方法学 *（P2 落地）*。
 
 [![OmniDocBench v1.6](https://img.shields.io/badge/OmniDocBench-v1.6-blue)](https://github.com/opendatalab/OmniDocBench)
-[![VLM full](https://img.shields.io/badge/MinerU2.5--Pro%20VLM%20(full)-95.56-green)](#结果--mineru25-pro-vlm主-model-cardmineru25)
+[![VLM full](https://img.shields.io/badge/MinerU2.5--Pro%20VLM%20(full)-95.46-green)](#结果--mineru25-pro-vlm主-model-cardmineru25)
 [![pipeline full](https://img.shields.io/badge/MinerU%203.4%20pipeline%20(full)-86.48-yellowgreen)](#结果--mineru-34-pipeline次要-model-cardmineru-pipeline)
 [![status: evaluation-backed](https://img.shields.io/badge/status-evaluation--backed-blue)](reproducibility.lock.yaml)
 [![license: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0%20(+MinerU%20terms)-blue)](NOTICE)
@@ -17,8 +17,8 @@
 
 - **是什么。** 在 AMD ROCm 上运行 opendatalab MinerU（3.4 pipeline + 2.5-Pro VLM）并在 OmniDocBench v1.6 上评分的工具。
 - **在哪验证。** AMD **gfx1100 (RDNA3, 48 GB ×4)，ROCm 7.2**，bf16。
-- **最可靠结果。** **MinerU2.5-Pro VLM (vLLM-on-ROCm) 全量 1651 = 95.56 Overall**；**MinerU 3.4 pipeline 全量 1651 = 86.48 Overall**。
-- **最重要限制。** **非精度对齐。** 无同引擎 CUDA 对照；上游 headline 可能用不同引擎测量。所谓"官方 95.75"锚点正在重新核实（上游指向 ~95.69）—— 见填充后的 `reproducibility.lock.yaml`。
+- **最可靠结果。** **MinerU2.5-Pro VLM (vLLM-on-ROCm) 全量 1651 = 95.46 Overall**；**MinerU 3.4 pipeline 全量 1651 = 86.48 Overall**。
+- **最重要限制。** **非精度对齐。** 无同引擎 CUDA 对照；上游 headline 可能用不同引擎测量。官方锚点（vlm-engine 95.30）对齐上游 README "Local Deployment" 表，属**社区验证、非官方支持** —— 见 `reproducibility.lock.yaml`（`benchmark.official_reference`）。
 - **上游。** 本仓是 [opendatalab/MinerU](https://github.com/opendatalab/MinerU) 的移植；[omnidocbench-amd](https://github.com/AIwork4me/OmniDocBench-AMD) 引擎只是**可选**消费者（装 `[platform]` extra），不是本仓的定义。
 
 ## Install（安装）
@@ -66,11 +66,11 @@ make eval-linux      # linux-rocm
 
 | Model / Backend | Overall ↑ | Text Edit ↓ | Formula CDM ↑ | Table TEDS ↑ |
 |---|---:|---:|---:|---:|
-| _official_ MinerU2.5-Pro | 95.75 | 0.036 | 97.45 | 93.42 |
-| **ours MinerU2.5-Pro（vlm-vllm，ROCm）** | **95.56** | 0.0359 | 96.73 | 93.54 |
+| _official_ MinerU2.5-Pro _(上游 README vlm-engine 行；社区验证，非官方支持)_ | 95.30 | — | — | — |
+| **ours MinerU2.5-Pro（vlm-vllm，ROCm）** | **95.46** | 0.0360 | 96.46 | 93.54 |
 | ours MinerU2.5-Pro（vlm-transformers，ROCm） | _仅采样（质量干净；全量约 44 h）_ | | | |
 
-`vlm-vllm` 行在 linux-rocm **已复现**（自证、conformance 通过，`badge: community`）：1651/1651 页、0 失败、GPU 0（gfx1100）约 7 小时、空页率 0.12%、阅读顺序 EditDist 0.1240。以 +0.31 pp 距官方 95.75 PASS（≤0.5 pp）。`vlm-transformers` 后端是干净但较慢的 fallback（约 100–150 s/页；全量约 44 h 未跑），因此无完整 Overall。`windows-hip` 仍为 `community-wanted`。
+`vlm-vllm` 行在 linux-rocm **已复现**（自证、conformance 通过，`badge: community`）：1651/1651 页、0 失败、GPU 0（gfx1100）约 7 小时、空页率 0.12%、阅读顺序 EditDist 0.1236。Overall 95.46 与上游 README vlm-engine 锚点 95.30 **持平**（Δ+0.16 pp —— 在 vLLM 非确定性范围内；非优越性声明），且与上一轮 95.56 相比在 ±0.5 pp 内（Δ−0.10 pp —— vLLM 非确定性）。官方锚点对齐上游 README "Local Deployment" 表，属**社区验证、非官方支持** —— 见 `reproducibility.lock.yaml`（`benchmark.official_reference: source: verified`）。`vlm-transformers` 后端是干净但较慢的 fallback（约 100–150 s/页；全量约 44 h 未跑），因此无完整 Overall。`windows-hip` 仍为 `community-wanted`。
 
 ### 结果 —— MinerU 3.4 pipeline（次要 model card，`mineru-pipeline`）
 

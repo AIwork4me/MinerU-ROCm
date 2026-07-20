@@ -66,6 +66,7 @@ def test_check_repo_clean_on_repo(capsys):
     findings += cr.check_readme_lock_values(readme, cr._load_lock())
     findings += cr.check_modelcard_lock_agreement(cr._load_lock())
     findings += cr.check_no_stale_overall()
+    findings += cr.check_no_withdrawn_anchor_claims()
     findings += cr.check_no_internal_infra()
     assert findings == [], findings
 
@@ -122,3 +123,32 @@ def test_no_internal_infra_in_public_files():
     import scripts.check_repo as cr
     findings = cr.check_no_internal_infra()
     assert findings == [], findings
+
+
+def test_no_withdrawn_anchor_claims_in_public_files():
+    """No user-facing surface re-cites the withdrawn unofficial-anchor story."""
+    import scripts.check_repo as cr
+    findings = cr.check_no_withdrawn_anchor_claims()
+    assert findings == [], findings
+
+
+def test_check_no_withdrawn_anchor_claims_flags_tokens(tmp_path):
+    """The gate flags each withdrawn token in docs/ (excl superpowers) + top-level
+    README/CHANGELOG, and leaves docs/superpowers/ + the lock alone."""
+    import scripts.check_repo as cr
+    # docs/*.md (not under superpowers/) — each token flagged once
+    (tmp_path / "docs").mkdir(parents=True)
+    (tmp_path / "docs" / "a.md").write_text("the old 95.75 was withdrawn\n", encoding="utf-8")
+    (tmp_path / "docs" / "b.md").write_text("upstream ~95.69 guess\n", encoding="utf-8")
+    # superpowers/ is exempt even if it contains the token
+    (tmp_path / "docs" / "superpowers").mkdir()
+    (tmp_path / "docs" / "superpowers" / "spec.md").write_text("95.75 design note\n", encoding="utf-8")
+    # top-level surfaces scanned
+    (tmp_path / "README.md").write_text("anchor is unverified\n", encoding="utf-8")
+    (tmp_path / "CHANGELOG.md").write_text("status: not_verified\n", encoding="utf-8")
+    findings = cr.check_no_withdrawn_anchor_claims(tmp_path)
+    # 4 distinct flagged files (a.md, b.md, README.md, CHANGELOG.md); superpowers exempt
+    flagged_files = {f.split(" re-cites ")[0] for f in findings}
+    assert "docs/a.md" in flagged_files and "docs/b.md" in flagged_files
+    assert "README.md" in flagged_files and "CHANGELOG.md" in flagged_files
+    assert not any("superpowers" in f for f in findings), findings
