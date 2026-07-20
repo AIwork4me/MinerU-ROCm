@@ -65,11 +65,12 @@ mineru-rocm predict --backend pipeline \
   --pred-dir <output/> \
   --platform linux-rocm
 
-# 3. Score
+# 3. Score (needs the OmniDocBench scorer repo + venv)
 mineru-rocm score \
   --gt-json <OmniDocBench.json> \
   --pred-dir <output/> \
-  --label pipeline
+  --label pipeline \
+  --omnidocbench-repo <OmniDocBench> --venv-python <scorer-venv>/bin/python
 
 # 4. Verify the manifest (conservation laws)
 mineru-rocm manifest verify --pred-dir <output/>
