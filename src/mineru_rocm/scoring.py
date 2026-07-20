@@ -51,10 +51,16 @@ def overall_score(metrics: dict) -> float | None:
 
 
 def write_eval_config(*, gt_json: str, pred_dir: str, out_yaml: Path) -> None:
-    """Materialize an eval config from the template, substituting GT + pred paths."""
+    """Materialize an eval config from the template, substituting GT + pred paths.
+
+    Paths are **absolutized** (``.resolve()``) so the scorer — which runs in its
+    own cwd (the OmniDocBench repo) — resolves them correctly regardless of where
+    the CLI was invoked. (This was the root cause of the P2/P3 0.00-score bug:
+    a relative ``--pred-dir`` resolved wrong in the scorer's cwd.)
+    """
     cfg = yaml.safe_load(_load_eval_template())
-    cfg["end2end_eval"]["dataset"]["ground_truth"]["data_path"] = str(gt_json)
-    cfg["end2end_eval"]["dataset"]["prediction"]["data_path"] = str(pred_dir)
+    cfg["end2end_eval"]["dataset"]["ground_truth"]["data_path"] = str(Path(gt_json).resolve())
+    cfg["end2end_eval"]["dataset"]["prediction"]["data_path"] = str(Path(pred_dir).resolve())
     out_yaml = Path(out_yaml)
     out_yaml.parent.mkdir(parents=True, exist_ok=True)
     out_yaml.write_text(yaml.safe_dump(cfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
