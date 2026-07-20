@@ -176,7 +176,7 @@ def check_no_withdrawn_anchor_claims(repo=REPO) -> list[str]:
     return errs
 
 
-_LEAK_PATTERNS = ("134.199.133.77", "/root/ocr-eval", "/opt/venv")
+_LEAK_PATTERNS = ("134.199.133.77", "/root/ocr-eval", "/opt/venv", "u-20-8d823edc", "/workspace/")
 # Whole-repo text scan: covers source code, configs, scripts, and public docs
 # alike (the original results/+docs.+lock scope missed src/ and examples/).
 _LEAK_SUFFIXES = (".sh", ".py", ".yaml", ".yml", ".json", ".md", ".log", ".txt", ".cfg", ".ini", ".toml", ".jinja", ".j2")

@@ -100,7 +100,7 @@ non-default args: {... 'logits_processors': ['mineru_vl_utils:MinerULogitsProces
 The brief's "platform detection" blocker (MinerU issue #4655,
 `UnspecifiedPlatform`/`Device string must not be empty`) **did not occur**. That
 class of issue was solved for Unlimited-OCR (see
-`/workspace/Unlimited-OCR-ROCm/patches/vllm/` — but those patches register a
+`<workspace>/Unlimited-OCR-ROCm/patches/vllm/` — but those patches register a
 brand-new model class absent from the old wheel; they are not platform patches).
 Qwen2-VL is natively supported in vLLM 0.16.1, and the installed ROCm wheel boots
 on gfx1100 with just `HSA_OVERRIDE_GFX_VERSION=11.0.0`. **No vLLM rebuild

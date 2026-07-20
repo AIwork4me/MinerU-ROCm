@@ -24,7 +24,7 @@ export HF_ENDPOINT="${HF_ENDPOINT:-https://huggingface.co}"
 # The dispatcher (run_adapter.py) imports the omnidocbench_amd contract types;
 # that package lives in the OmniDocBench-AMD engine repo, not in the mineru
 # venv. Put it on PYTHONPATH so the mineru venv can see it.
-export PYTHONPATH="${PYTHONPATH:+$PYTHONPATH:}/workspace/omnidocbench-amd/engine"
+export PYTHONPATH="${PYTHONPATH:+$PYTHONPATH:}<workspace>/omnidocbench-amd/engine"
 
 # Activate the mineru venv (overlay ROCm torch already applied).
 # shellcheck disable=SC1091

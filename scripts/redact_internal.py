@@ -16,15 +16,24 @@ REPLACEMENTS = {
     "134.199.133.77": "<hf-mirror>",
     "/root/ocr-eval": "<eval-root>",
     "/opt/venv": "<host-venv>",
+    "u-20-8d823edc": "<hostname>",
+    "/workspace/": "<workspace>/",
 }
 # Matches the file types scanned by check_repo.check_no_internal_infra (gate +
 # redactor must agree on scope, else a .log traceback frame would leak past the gate).
-SUFFIXES = (".json", ".md", ".yaml", ".yml", ".log")
+SUFFIXES = (".json", ".md", ".yaml", ".yml", ".log", ".sh")
+# Walk dirs: public artefact trees + the dirs that carry host-local paths in
+# scripts/configs (examples/, configs/, adapter/setup/). Aligns the redactor
+# with the whole-repo scan scope of check_repo.check_no_internal_infra.
+WALK_DIRS = ("results", "docs", "examples", "configs", "adapter")
 
 def main() -> int:
     changed = []
-    for sub in ("results", "docs"):
-        for p in (REPO / sub).rglob("*"):
+    for sub in WALK_DIRS:
+        root = REPO / sub
+        if not root.is_dir():
+            continue
+        for p in root.rglob("*"):
             if not p.is_file() or p.suffix not in SUFFIXES or "superpowers" in p.parts:
                 continue
             txt = p.read_text(encoding="utf-8")

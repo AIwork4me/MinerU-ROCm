@@ -16,7 +16,7 @@ htmlcov/
 # Local env / secrets
 adapter/setup/.env.local
 
-# Engine outputs (committed results live under results/omnidocbench/v16/<platform>/)
+# Engine outputs (committed results live under results/omnidocbench/v1.6/<platform>/)
 /tmp/
 out/
 *.tmp

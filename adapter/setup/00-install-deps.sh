@@ -64,7 +64,7 @@ echo "[00-install-deps] done. Activate: source $VENV/bin/activate"
 #
 #   VLM env   = a separate Py3.12 venv (e.g. created during a Plan-2 spike)
 #     - vllm 0.16.1.dev0+rocm (gfx1100), mineru_vl_utils==1.0.5
-#     - pip install -e /workspace/omnidocbench-amd   # so the engine-invoked
+#     - pip install -e <workspace>/omnidocbench-amd   # so the engine-invoked
 #       adapter subprocess resolves mineru_vl_utils AND omnidocbench_amd.types
 #     - GPU 0 only (ROCm single-card)
 #

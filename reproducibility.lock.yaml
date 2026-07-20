@@ -3,9 +3,8 @@
 #
 # STATUS: P2/P3 fill (2026-07-19). Both full-1651 re-runs completed via the new
 # `mineru-rocm predict | score` path; values below are recomputed from those runs.
-# Remaining unverified: the official upstream anchor (95.69 vs 95.75 — see
-# benchmark.official_reference) + the mineru/mineru_vl_utils upstream commits
-# (installed via pip; commit not in dist-info). See
+# All anchors + upstream commits are now verified (see benchmark.official_reference
+# and the mineru / mineru_vl_utils commit pins below). See
 # docs/superpowers/specs/2026-07-19-mineru-rocm-standalone-port-design.md §3.3.
 #
 # Verification status legend:
@@ -14,7 +13,7 @@
 
 mineru_rocm:
   repo: https://github.com/AIwork4me/MinerU-ROCm
-  commit: e664ecc6418178aa93daa43b694ac463c39c1ab1   # (verified) git rev-parse HEAD — the results-commit tree (code the runs used)
+  commit: dd591469d009cac246f5090daa7398623d2fd878   # (verified) git rev-parse v0.1.0 — the reachable tag carrying the src/mineru_rocm code tree the runs used (the prior e664ecc was an orphaned results commit, unreachable from any branch)
 
 mineru:
   repo: https://github.com/opendatalab/MinerU
@@ -40,7 +39,7 @@ model:
     layout_sha256: e60f3725aeedc88fd319416ef166bda79171a41516a301c27cab9132dc2739d2           # (verified) models/Layout/PP-DocLayoutV2/model.safetensors
     formula_sha256: 9244e2565585c0f89bc3a6eeeea080ef3c588375fc0d536074fe88e80b917cda          # (verified) models/MFR/unimernet_hf_small_2503/model.safetensors
     ocr_sha256: 4767ddc90c1532ec01d881a980dae0a0b92679f4f82f88c4e9f92563de69e740              # (verified) models/OCR/paddleocr_torch/ch_PP-OCRv5_rec_server_infer.pth (representative; OCR ships many language rec/det models, all pinned by hf_revision)
-    table_sha256: not_recorded                               # table sub-models live under models/TabCls/ (pinned by hf_revision ed6b654c); representative file varies by pipeline version
+    table_sha256: not_recorded                               # (deferred → docs/known-gaps.md) table sub-models live under models/TabCls/ (pinned by hf_revision ed6b654c); representative file varies by pipeline version
 
 omnidocbench:
   version: v1.6

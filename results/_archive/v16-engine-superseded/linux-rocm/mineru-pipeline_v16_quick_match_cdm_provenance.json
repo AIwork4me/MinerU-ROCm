@@ -8,8 +8,8 @@
   "vlm_server_url": "",
   "api_model_name": "",
   "adapter_command": "HIP_VISIBLE_DEVICES=3 MINERU_DEVICE_MODE=cuda HF_ENDPOINT=<hf-mirror> omnidocbench-amd infer --adapter adapter/run_adapter.py --img-dir <OmniDocBench v1.6 images> --out-dir <preds> --platform linux-rocm",
-  "scoring_config_path": "/workspace/OmniDocBench/configs/mineru_pipeline_full.yaml",
-  "dataset_manifest_path": "/workspace/OmniDocBench_data/OmniDocBench.json",
+  "scoring_config_path": "<workspace>/OmniDocBench/configs/mineru_pipeline_full.yaml",
+  "dataset_manifest_path": "<workspace>/OmniDocBench_data/OmniDocBench.json",
   "dataset_revision": "v1.6",
   "prediction_dir": "results/omnidocbench/v16",
   "page_count": 1742,
@@ -17,7 +17,7 @@
   "failed_pages": 0,
   "fallback_pages": 0,
   "metric_result_paths": [
-    "/workspace/OmniDocBench/result/mineru-pipeline-preds_quick_match_metric_result.json"
+    "<workspace>/OmniDocBench/result/mineru-pipeline-preds_quick_match_metric_result.json"
   ],
   "run_summary_paths": [
     "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_cdm_run_summary.json"
