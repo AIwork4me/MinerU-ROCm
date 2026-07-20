@@ -8,7 +8,28 @@ behind each phase and `reproducibility.lock.yaml` for the exact provenance.
 
 ## [Unreleased]
 
-No changes since v0.1.0.
+Hardening for upstream MinerU PR #5288 (ROCm docs contribution) — evidence-base consistency + OPSEC + falsifiability.
+
+### Fixed
+- `model_card.json` VLM Overall 95.56 → **95.46**; both model cards repointed from the superseded `v16/` engine artefacts to the authoritative `results/omnidocbench/v1.6/` set (`run_manifest` + `metric_result` + `sample_predictions`).
+- `docs/reproducibility.md` rewritten to the standalone `mineru-rocm predict|score` path (was the pre-rewrite `omnidocbench-amd` workflow); quotes 95.46/86.48; no machine-local paths/IPs; documents `HSA_OVERRIDE` for both paths (pipeline = none, VLM = `11.0.0`).
+- `docs/how-it-works.md` 95.56 → 95.46; standalone-CLI identity; `cuda`/HIP clarification.
+- `Makefile` + README `Evaluation` drive `mineru-rocm predict|score`; dropped the machine-local `OMNIDOCBENCH_IMG_DIR` default.
+- Pinned upstream commits in the lock: `mineru` @ `0dfc946`, `mineru_vl_utils` @ `cc467fa` (resolved via `git ls-remote`); recorded official anchors (pipeline 86.47, vlm-engine 95.30) from the upstream README.
+
+### Changed
+- Archived superseded `results/omnidocbench/v16/` under `results/_archive/v16-engine-superseded/` (provenance history; do not cite).
+- Added a committed 10-page stratified prediction sample per backend under `results/omnidocbench/v1.6/{pipeline,vlm-vllm}/sample_predictions/` (the full-set predictions were already gitignored, never committed); `.gitignore` rules now document the sample-vs-fullset policy.
+- `pipeline` backend's default `HF_ENDPOINT` is now the public `https://huggingface.co` (was an internal mirror unreachable by public users); `setdefault` still respects an exported `HF_ENDPOINT`.
+- `mineru-rocm score` now requires the scorer venv/repo via `OMNIDOCBENCH_VENV`/`OMNIDOCBENCH_REPO` env vars or `--venv-python`/`--omnidocbench-repo` (was a host-specific default); fails fast with a clear `ScoringError` if unset.
+
+### Security
+- Redacted the internal HF-mirror IP and host eval-root/venv paths from all public artefacts under `results/` + `docs/`; added a `check_repo.py` no-leak gate.
+
+### Added
+- `scripts/check_repo.py` gates: modelcard↔lock tri-source agreement; no-stale-95.56; no-internal-infra leak (+ tests).
+- `scripts/sample_predictions.py`, `scripts/redact_internal.py`.
+- `docs/upstream-pr/` — staged docs-only contribution to `opendatalab/MinerU` (zh AMD.md section + README GPU row + #5288 process-gate comment).
 
 ## [0.1.0] — 2026-07-19
 

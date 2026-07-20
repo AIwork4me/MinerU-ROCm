@@ -5,3 +5,14 @@ Track the open items for `MinerU-ROCm` here. A `verified` badge requires these t
 - **ONNX tables run on CPU on ROCm.** The RapidOCR / RapidTable ONNX models in the pipeline fall back to the CPU execution provider on ROCm builds. Output is correct but slow; an optional ROCm-EP patch (building `onnxruntime-rocm` and pointing the table OCR EP at it) is not wired up here.
 - **`MINERU_FORMULA_CH_SUPPORT` must stay off.** Setting it to `true` pulls native PaddlePaddle-GPU, which has no ROCm wheel for this stack. Keep it `false` (default) and use the fallback formula renderer.
 - **windows-hip unverified.** No results have been produced on a Windows + HIP/DirectML machine. The `windows-hip` platform is declared in `model_card.*.json` but its results dir is empty; validate end-to-end before claiming the badge.
+
+## Deferred — upstream-PR-readiness backlog (2026-07-20)
+
+Tracked here so they are not silently dropped (do not block the upstream PR):
+
+- **Canary subset** not materialized — `reproducibility.lock.yaml` fields `canary_N.*`, `gt_json_canary_sha256`, `canary_manifest_sha256` are annotated `# (deferred → docs/known-gaps.md)`. Build via `mineru-rocm canary materialize` + a stratified manifest when picked up.
+- **`pipeline_weights.table_sha256`** not recorded — table sub-models are pinned by the `PDF-Extract-Kit-1.0` `hf_revision ed6b654c`; record a representative file SHA when picked up.
+- **v1.0.0 release** not cut — needs tag + wheel + `SHA256SUMS` + `release-artifact.md`/`release-checklist.md`.
+- **`gpu-smoke.yml`** GPU-CI bridge not added (self-hosted gfx1100 runner topology TBD).
+- **Docs**: `architecture.md`, `hardware-matrix.md`, `release-artifact.md`, `release-checklist.md` still missing (spec §8).
+- **windows-hip** results still `community-wanted`.
