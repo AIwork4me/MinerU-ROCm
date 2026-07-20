@@ -24,3 +24,7 @@ out/
 # OS
 .DS_Store
 Thumbs.db
+
+# Full-set predictions are regenerable; only the 10-page sample is committed.
+results/omnidocbench/v1.6/*/page-*.md
+results/omnidocbench/v1.6/*/*.pdf_*.md

@@ -1,2 +1,4 @@
 *.md
 predict.log
+# Keep the committed 10-page stratified sample (see scripts/sample_predictions.py).
+!sample_predictions/*.md

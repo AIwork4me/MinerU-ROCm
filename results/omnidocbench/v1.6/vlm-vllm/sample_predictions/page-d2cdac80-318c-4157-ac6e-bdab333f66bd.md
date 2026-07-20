@@ -1,0 +1,17 @@
+Introduction
+
+Assessment of subfamily classification in the Lampyridae (and the Luciolinae in particular) has undergone a transformation from a purely morphology-based system to phylogenetically-based features of males, females and larvae. Some analyses incorporate mitochondrial RNA and can be compared with more conventional morphological analyses. While recent analyses support a definition of the Luciolinae indicated in Table 1, some are based on a highly reduced coverage in the Luciolinae and need review. Additionally, inadequate definition of the largest Luciolinae genus, Luciola, creates problems in identification and correct generic assignment. As these matters influenced our identification of a new Luciolinae species they are reviewed below.
+
+TABLE 1. Luciolinae classification systems.
+
+<table><tr><td>Olivier 1907</td><td>Crowson 1972</td><td>McDermott 1966</td><td>Ballantyne &amp; Lambkin 2000, 2001, 2006</td></tr><tr><td>LuciolinaeLuciola Castelnau (= LaPorte)Pteroptyx OlivierLampyroidea CostaColophotia MotschulskyPyrophanes OlivierOtotreta OlivierCurtos Motschulsky</td><td>LuciolinaeNo further subdivision, Luciolinae defined by severalLuciola species</td><td>LucioliniLuciola La PorteS. g. Luciola s. str. (includesAtyphella OlliffS. g. Hotaria YuasuS. g. Photuroluciola (Pic)S. g. Pygoluciola WittmerLampyroidea CostaColophotia DejeanPteroptyx OlivierPyrophanes OlivierBourgeoisia OlivierCurtosiniCurtos MotschulskyOtotretiniOtotreta OlivierBrachylampis Van Dyke</td><td>LuciolinaeLuciola s str. (Clade 1) includes:L. italica (type species)L. dejeaniLampyroidea sp.Bourgeoisia sp.L. (Hotaria) parvulaLuciola (Clade 2)Luciola sp. (Australian species)PteroptyxPyrophanesColophotiaLuciola (Photuroluciola) (Pic)*Atyphella OlliffPygoluciola WittmerCurtos Motschulsky* this species not included in any phylogenetic analysis to this time</td></tr></table>
+
+In Olivier (1907) the Lampyridae had nine subfamilies and the Luciolinae seven genera (Table 1), while McDermott (1966) adopted seven subfamilies and the Luciolinae were divided into three tribes with nine genera. Crowson (1972) proposed eight subfamilies, analysed male Luciolinae from only two species of Luciola, and did not suggest subdivisions. Luminous organs are present in all larvae and both sexes of most adults in Crowson's classification. Lawrence and Newton (1995) essentially followed Crowson. Suzuki et al. (1996) and Suzuki's (1997) Luciolinae clade (based on five Luciola, two Curtos Motschulsky, two Hotaria Yuasu, and Pristolycus sagulatus Gorham) was based on mitochondrial RNA and mating systems. The inclusion of Pristolycus Gorham within a Luciolinae clade by Suzuki (1997) [McDermott (1966) placed it in the Lampyrinae] led Jeng et al. (2002) to comment that it apparently possesses a mosaic of characters found in different subfamilies. Branham and Wenzel's (2001, 2003) analyses (including four Luciola, one Colophotia Dejean and three Pteroptyx Olivier) support the monophyly of the Luciolinae. Based on Ballantyne & Lambkin (2000, 2001, 2006) we consider the Luciolinae to include the genus Curtos (see Table 1).
+
+McDermott (1966) defined the largest Luciolinae genus, Luciola LaPorte with four subgenera, Luciola s. str. (279 species), and three monotypic Hotaria Yuasu, Photuroluciola (Pic) and Pygoluciola (Wittmer) (Table 1). The heterogeneous nature of Luciola s. str. is evident (e.g. Ballantyne 1987a, b; Ballantyne & Lambkin
+
+2
+
+Zootaxa 1733 © 2008 Magnolia Press
+
+FU & BALLANTYNE
