@@ -90,3 +90,16 @@ def test_format_score_table_renders_overall():
          "table_teds": 0.8204, "reading_order_edit": 0.1240}
     s = format_score_table("vlm-vllm", m)
     assert "95.56" in s and "OmniDocBench v1.6" in s
+
+
+def test_write_eval_config_absolutizes_relative_paths(tmp_path, monkeypatch):
+    """Relative gt_json/pred_dir are absolutized — the scorer runs in a different cwd."""
+    monkeypatch.chdir(tmp_path)
+    out = tmp_path / "cfg.yaml"
+    write_eval_config(gt_json="rel/gt.json", pred_dir="rel/pred", out_yaml=out)
+    import yaml
+    cfg = yaml.safe_load(out.read_text())
+    gt = cfg["end2end_eval"]["dataset"]["ground_truth"]["data_path"]
+    pred = cfg["end2end_eval"]["dataset"]["prediction"]["data_path"]
+    assert Path(gt).is_absolute() and gt.endswith("rel/gt.json")
+    assert Path(pred).is_absolute() and pred.endswith("rel/pred")
