@@ -70,7 +70,7 @@ make eval-linux      # linux-rocm
 | **ours MinerU2.5-Pro（vlm-vllm，ROCm）** | **95.46** | 0.0360 | 96.46 | 93.54 |
 | ours MinerU2.5-Pro（vlm-transformers，ROCm） | _仅采样（质量干净；全量约 44 h）_ | | | |
 
-`vlm-vllm` 行在 linux-rocm **已复现**（自证、conformance 通过，`badge: community`）：1651/1651 页、0 失败、GPU 0（gfx1100）约 7 小时、空页率 0.12%、阅读顺序 EditDist 0.1236。Overall 95.46 与上游 README vlm-engine 锚点 95.30 **持平**（Δ+0.16 pp —— 在 vLLM 非确定性范围内；非优越性声明），且与上一轮 95.56 相比在 ±0.5 pp 内（Δ−0.10 pp —— vLLM 非确定性）。官方锚点对齐上游 README "Local Deployment" 表，属**社区验证、非官方支持** —— 见 `reproducibility.lock.yaml`（`benchmark.official_reference: source: verified`）。`vlm-transformers` 后端是干净但较慢的 fallback（约 100–150 s/页；全量约 44 h 未跑），因此无完整 Overall。`windows-hip` 仍为 `community-wanted`。
+`vlm-vllm` 行在 linux-rocm **已复现**（自证、conformance 通过，`badge: community`）：1651/1651 请求已尝试，1649 个产生非空预测（2 个为空），无进程崩溃；单卡（gfx1100）约 7 小时；阅读顺序 EditDist 0.1236。Overall 95.46 与公开发布的上游参考区间**一致**（vlm-engine 95.30；Δ +0.16 pp —— **非**受控 CUDA-vs-ROCm 对照），与我们上一轮自测（95.56）相差约 0.1 pp（Δ−0.10 pp）。上游锚点取自上游 README "Local Deployment" 表，属**社区验证、非官方支持** —— 见 `reproducibility.lock.yaml`（`benchmark.official_reference`）。`vlm-transformers` 后端是干净但较慢的 fallback（约 100–150 s/页；全量约 44 h 未跑），因此无完整 Overall。`windows-hip` 仍为 `community-wanted`。
 
 ### 结果 —— MinerU 3.4 pipeline（次要 model card，`mineru-pipeline`）
 
@@ -88,7 +88,7 @@ make eval-linux      # linux-rocm
 
 ## Reproducibility（可复现性）
 
-[`reproducibility.lock.yaml`](reproducibility.lock.yaml) 是唯一事实来源 —— 锁定的 commit、与上游 HF 仓交叉校验的逐字节权重/GT SHA256、环境版本，以及指标公式。*（P0 仅交付骨架；P3 在全量重跑后填充已验证值。）* 详见 [docs/reproducibility.md](docs/reproducibility.md)。
+[`reproducibility.lock.yaml`](reproducibility.lock.yaml) 是唯一事实来源 —— 锁定的 commit、与上游 HF 仓交叉校验的逐字节权重/GT SHA256、环境版本，以及指标公式。*（已验证值来自 2026-07-19 完成的全量 1651 页重跑。）* 详见 [docs/reproducibility.md](docs/reproducibility.md)。
 
 ## Issues filed（已提交的 issue）
 

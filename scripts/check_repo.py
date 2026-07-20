@@ -182,7 +182,8 @@ def check_no_withdrawn_anchor_claims(repo=REPO) -> list[str]:
 # in a doc). Assertion-form overclaims are forbidden; honest negations use
 # different phrasing ('not an official-support claim', 'other RDNA3 variants
 # untested') and are not matched, so they pass.
-_OVERCLAIM_PATTERNS = ("ROCm 7.2+", "ROCm 7.x", "officially support", "all RDNA3", "full AMD ROCm support")
+_OVERCLAIM_PATTERNS = ("ROCm 7.2+", "ROCm 7.x", "officially support", "all RDNA3", "full AMD ROCm support",
+                       "is parity with", "within vLLM non-determinism")
 
 
 def check_version_consistency(lock, repo=REPO) -> list[str]:
