@@ -68,6 +68,8 @@ def test_check_repo_clean_on_repo(capsys):
     findings += cr.check_no_stale_overall()
     findings += cr.check_no_withdrawn_anchor_claims()
     findings += cr.check_version_consistency(cr._load_lock())
+    findings += cr.check_release_and_run_provenance(cr._load_lock())
+    findings += cr.check_score_commands_have_scorer_args()
     findings += cr.check_no_internal_infra()
     assert findings == [], findings
 
@@ -208,3 +210,63 @@ def test_version_consistency_flags_overclaim(tmp_path, monkeypatch):
     # docs/a.md overclaim flagged (officially support + all RDNA3); superpowers exempt
     assert "docs/a.md" in joined and ("officially support" in joined or "all RDNA3" in joined), findings
     assert not any("superpowers" in f for f in findings), findings
+
+
+def test_release_and_run_provenance_clean_on_repo():
+    """The lock's release tag/commit/tag-object SHA + both run commits match git
+    and the manifests on the real repo (Task 1 provenance gate)."""
+    import scripts.check_repo as cr
+    findings = cr.check_release_and_run_provenance(cr._load_lock())
+    assert findings == [], findings
+
+
+def test_release_and_run_provenance_flags_mismatched_lock():
+    """A lock whose release/run commits disagree with git + the manifests is flagged."""
+    import scripts.check_repo as cr
+    bad = {"mineru_rocm": {
+        "release": {"tag": "v0.1.0", "commit": "0" * 40, "tag_object_sha": "1" * 40},
+        "benchmark_run_commits": {"pipeline": "2" * 40, "vlm_vllm": "3" * 40},
+    }}
+    findings = cr.check_release_and_run_provenance(bad, cr.REPO)
+    joined = "\n".join(findings)
+    assert "release.commit" in joined, findings
+    assert "tag_object_sha" in joined, findings
+    assert "benchmark_run_commits.pipeline" in joined, findings
+    assert "benchmark_run_commits.vlm_vllm" in joined, findings
+
+
+def test_provenance_flags_tag_sha_cited_as_commit(tmp_path, monkeypatch):
+    """The annotated-tag object SHA must not appear in a user-facing doc as a commit."""
+    import scripts.check_repo as cr
+    tag_sha = "dd591469d009cac246f5090daa7398623d2fd878"
+    d = tmp_path / "docs" / "upstream"
+    d.mkdir(parents=True)
+    (d / "mineru-issue-5288.md").write_text(f"checkout v0.1.0 = {tag_sha}\n", encoding="utf-8")
+    monkeypatch.setattr(cr, "REPO", tmp_path)
+    lock = {"mineru_rocm": {"release": {"tag": "v0.1.0", "tag_object_sha": tag_sha}}}
+    findings = cr.check_release_and_run_provenance(lock, tmp_path)
+    assert any("tag object, not a commit" in f for f in findings), findings
+
+
+def test_score_commands_have_scorer_args_clean_on_repo():
+    """Every `mineru-rocm score` example carries the scorer repo on the real repo."""
+    import scripts.check_repo as cr
+    findings = cr.check_score_commands_have_scorer_args()
+    assert findings == [], findings
+
+
+def test_score_commands_flag_missing_scorer_arg(tmp_path, monkeypatch):
+    """A `mineru-rocm score` block without --omnidocbench-repo / OMNIDOCBENCH_REPO is
+    flagged; one with either passes."""
+    import scripts.check_repo as cr
+    (tmp_path / "README.md").write_text(
+        "```bash\nmineru-rocm score --gt-json g --pred-dir p --label x\n```\n", encoding="utf-8")
+    (tmp_path / "docs").mkdir()
+    (tmp_path / "docs" / "ok.md").write_text(
+        "```bash\nexport OMNIDOCBENCH_REPO=/x\nmineru-rocm score --gt-json g --pred-dir p --label x\n```\n",
+        encoding="utf-8")
+    monkeypatch.setattr(cr, "REPO", tmp_path)
+    findings = cr.check_score_commands_have_scorer_args(tmp_path)
+    joined = "\n".join(findings)
+    assert "README.md" in joined, findings          # the bad block is flagged
+    assert "docs/ok.md" not in joined, findings      # the OMNIDOCBENCH_REPO block passes

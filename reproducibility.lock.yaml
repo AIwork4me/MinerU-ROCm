@@ -13,7 +13,19 @@
 
 mineru_rocm:
   repo: https://github.com/AIwork4me/MinerU-ROCm
-  commit: dd591469d009cac246f5090daa7398623d2fd878   # (verified) git rev-parse v0.1.0 — the reachable tag carrying the src/mineru_rocm code tree the runs used (the prior e664ecc was an orphaned results commit, unreachable from any branch)
+  # Three DISTINCT commits — do not conflate (verified 2026-07-20 via git, not by comment):
+  #   release.commit        = the commit the v0.1.0 tag resolves to (install this for stable code).
+  #   release.tag_object_sha = the ANNOTATED TAG object SHA (cat-file -t = tag); NOT a commit.
+  #   benchmark_run_commits.* = the exact repo commit each published run executed at
+  #     (matches each run_manifest.json `repo_commit`). The two runs used DIFFERENT commits;
+  #     both are ancestors of the release commit. The release tag is NOT the run commit.
+  release:
+    tag: v0.1.0
+    commit: 839776e1774a1d85be8f9314a830e612d44a6926          # (verified) git rev-parse 'v0.1.0^{commit}' — "Merge pull request #7 from AIwork4me/feat/p2p3-results"
+    tag_object_sha: dd591469d009cac246f5090daa7398623d2fd878  # (verified) git rev-parse v0.1.0 — ANNOTATED TAG object (NOT a commit); git cat-file -t v0.1.0 = tag
+  benchmark_run_commits:
+    pipeline: e05eec322dd8bf45447c3dec53349454f0424e61        # (verified) results/omnidocbench/v1.6/pipeline/run_manifest.json repo_commit
+    vlm_vllm: b75f788419d35a4210c201159a6c67923d60d65c        # (verified) results/omnidocbench/v1.6/vlm-vllm/run_manifest.json repo_commit
 
 mineru:
   repo: https://github.com/opendatalab/MinerU
@@ -60,11 +72,23 @@ rocm_recipe:                             # (verified) the canonical gfx1100/RDNA
   hsa_override:
     pipeline: none                       # in-process PyTorch auto-detects gfx1100
     vlm_vllm: "11.0.0"                   # required by the tested vLLM-on-ROCm build (observed; gfx1100 only — not a MinerU source requirement)
+  vlm_server:                            # (verified) key flags of the tested VLM server (canonical source: examples/serve_vlm_vllm.sh)
+    source_script: examples/serve_vlm_vllm.sh   # the tracked, authoritative launch script — flags summarized here
+    served_model_name: mineru-pro
+    dtype: bfloat16
+    tensor_parallel_size: 1              # no --tensor-parallel-size flag (vLLM default tp=1)
+    max_model_len: 8192
+    gpu_memory_utilization: 0.70
+    limit_mm_per_prompt: '{"image": 1}'
+    enforce_eager: true
+    logits_processors: "mineru_vl_utils:MinerULogitsProcessor"
+    vllm_use_v1: "1"                     # MANDATORY (v1 logits-processor API)
+    port: 8265
   install: |
     pip install -U "mineru[all]"         # + ROCm torch wheel; VLM additionally needs vLLM-on-ROCm
   cli: |
     mineru-rocm predict --backend {pipeline|vlm-vllm} --gt-json <gt> --images-dir <imgs> --pred-dir <out> --platform linux-rocm
-    mineru-rocm score --gt-json <gt> --pred-dir <out> --label {pipeline|vlm-vllm}
+    mineru-rocm score --gt-json <gt> --pred-dir <out> --label {pipeline|vlm-vllm} --omnidocbench-repo <OmniDocBench> --venv-python <scorer-venv>/bin/python
 
 environment:
   os:
@@ -120,7 +144,7 @@ benchmark:
       table_teds: 0.8204
       reading_order_edit_dist: 0.1534
       empty_pages: 1                     # 1 page produced empty output (status 'failed' in run_manifest = the strict pending>0 gate, not a crash)
-    vlm_vllm:                            # (verified) Overall 95.46 (anchor 95.56, Δ-0.10pp — within ±0.5pp gate; vLLM non-determinism)
+    vlm_vllm:                            # (verified) Overall 95.46 (prior self-run 95.56, Δ-0.10pp run-to-run drift — source not isolated)
       overall: 95.46
       text_edit_dist: 0.0360
       formula_cdm: 0.9646

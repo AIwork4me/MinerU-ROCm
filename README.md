@@ -56,15 +56,15 @@ python adapter/run_adapter.py --img-dir examples --out-dir /tmp/out --platform l
 Run the full OmniDocBench v1.6 eval (infer + score for both backends) via the standalone CLI:
 
 ```bash
-# predict → score (set GT_JSON / IMAGES_DIR / PRED_DIR / SCORER_VENV to your paths)
+# predict → score (set GT_JSON / IMAGES_DIR / PRED_DIR / OMNIDOCBENCH_REPO / SCORER_VENV to your paths)
 mineru-rocm predict --backend pipeline \
   --gt-json OmniDocBench.json --images-dir images/ --pred-dir out/ --platform linux-rocm
 mineru-rocm score --gt-json OmniDocBench.json --pred-dir out/ --label pipeline \
-  --venv-python <scorer-venv>/bin/python
+  --omnidocbench-repo <OmniDocBench> --venv-python <scorer-venv>/bin/python
 # repeat with --backend vlm-vllm for the VLM
 ```
 
-Or via make (overrides via env): `make eval-linux GT_JSON=… IMAGES_DIR=… PRED_DIR=… SCORER_VENV=…`.
+Or via make (overrides via env; also `export OMNIDOCBENCH_REPO=…` — the score step needs it): `make eval-linux GT_JSON=… IMAGES_DIR=… PRED_DIR=… SCORER_VENV=…`.
 See [`docs/reproducibility.md`](docs/reproducibility.md) for the full recipe and [`docs/benchmark-methodology.md`](docs/benchmark-methodology.md) for the reproduce commands.
 
 ### Results — MinerU2.5-Pro VLM (primary model card, `mineru2.5`)

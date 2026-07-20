@@ -183,7 +183,13 @@ def check_no_withdrawn_anchor_claims(repo=REPO) -> list[str]:
 # different phrasing ('not an official-support claim', 'other RDNA3 variants
 # untested') and are not matched, so they pass.
 _OVERCLAIM_PATTERNS = ("ROCm 7.2+", "ROCm 7.x", "officially support", "all RDNA3", "full AMD ROCm support",
-                       "is parity with", "within vLLM non-determinism")
+                       "is parity with", "within vLLM non-determinism",
+                       # provenance / over-attribution anti-drift (issue #5288 round 3):
+                       "results-producing tree",             # annotated-tag object SHA mis-called a commit
+                       "only ROCm-specific configuration",   # understates the pinned ROCm dependency stack
+                       "bf16 matmul kernel non-determinism", # unproven run-to-run drift root cause
+                       "sparse pages",                       # unproven empty-output characterization
+                       "Server flags are recorded in the lock")  # the lock records a summary, not the raw flags
 
 
 def check_version_consistency(lock, repo=REPO) -> list[str]:
@@ -224,6 +230,98 @@ def check_version_consistency(lock, repo=REPO) -> list[str]:
         for pat in _OVERCLAIM_PATTERNS:
             if pat in txt:
                 findings.append(f"{p.relative_to(repo)}: overclaim pattern {pat!r} (scope claims to what was tested)")
+    return findings
+
+
+def _git(repo: Path, *args: str):
+    """Run a git command in `repo`; return (rc, stdout-strip). Never raises."""
+    try:
+        cp = subprocess.run(["git", "-C", str(repo), *args],
+                            capture_output=True, text=True, check=False)
+    except FileNotFoundError:
+        return 1, ""
+    return cp.returncode, (cp.stdout or "").strip()
+
+
+def check_release_and_run_provenance(lock, repo=REPO) -> list[str]:
+    """The lock's tag / release / run-commit provenance matches git AND the run
+    manifests, and no user-facing doc calls the annotated-tag object SHA a commit.
+
+    Three DISTINCT commits are enforced:
+      release.commit         = `git rev-parse '<tag>^{commit}'` (install this for stable code)
+      release.tag_object_sha = `git rev-parse <tag>` (the ANNOTATED TAG object; NOT a commit)
+      benchmark_run_commits.* = each run_manifest.json `repo_commit` (the two runs differ)
+    """
+    findings: list[str] = []
+    if lock is None:
+        return findings
+    import json
+    mr = lock.get("mineru_rocm") or {}
+    release = mr.get("release") or {}
+    run_commits = mr.get("benchmark_run_commits") or {}
+    tag = release.get("tag")
+    if tag:
+        # 1. release.commit == peeled tag commit
+        rc, peeled = _git(repo, "rev-parse", f"{tag}^{{commit}}")
+        if rc == 0 and release.get("commit") and peeled != release["commit"]:
+            findings.append(f"lock mineru_rocm.release.commit {release['commit']} != git rev-parse '{tag}^{{commit}}' = {peeled}")
+        # 2. annotated tag: tag_object_sha == git rev-parse <tag>; cat-file -t must be 'tag'
+        rc2, obj = _git(repo, "rev-parse", tag)
+        rc3, typ = _git(repo, "cat-file", "-t", tag)
+        if rc3 == 0:  # only judge the tag type when git actually ran
+            if typ == "tag":
+                if release.get("tag_object_sha") and obj != release["tag_object_sha"]:
+                    findings.append(f"lock mineru_rocm.release.tag_object_sha {release['tag_object_sha']} != git rev-parse {tag} = {obj}")
+            elif release.get("tag_object_sha"):
+                findings.append(f"{tag} is not an annotated tag (cat-file -t = {typ!r}) but lock records tag_object_sha {release['tag_object_sha']}")
+    # 3-4. each benchmark run commit matches its run_manifest.json repo_commit
+    for backend, key in (("pipeline", "pipeline"), ("vlm-vllm", "vlm_vllm")):
+        mp = repo / "results" / "omnidocbench" / "v1.6" / backend / "run_manifest.json"
+        locked = run_commits.get(key)
+        if not mp.is_file() or not locked:
+            continue
+        try:
+            manifest_commit = json.loads(mp.read_text(encoding="utf-8")).get("repo_commit")
+        except (OSError, ValueError):
+            continue
+        if manifest_commit != locked:
+            findings.append(f"lock mineru_rocm.benchmark_run_commits.{key} {locked} != {backend} run_manifest.repo_commit {manifest_commit}")
+    # 5. the annotated-tag object SHA must not appear in user-facing docs as a commit
+    tag_sha = release.get("tag_object_sha")
+    if tag_sha:
+        toks = {tag_sha, tag_sha[:7]}
+        for name in ("README.md", "README.zh-CN.md", "docs/upstream/mineru-issue-5288.md", "docs/reproducibility.md"):
+            p = repo / name
+            if not p.is_file():
+                continue
+            txt = p.read_text(encoding="utf-8")
+            hit = next((t for t in toks if t in txt), None)
+            if hit:
+                findings.append(f"{name} cites annotated-tag object SHA {hit} (a tag object, not a commit — use release.commit)")
+    return findings
+
+
+def check_score_commands_have_scorer_args(repo=REPO) -> list[str]:
+    """Every `mineru-rocm score` example in the user-facing docs (and the lock's
+    rocm_recipe.cli) passes the OmniDocBench scorer repo. The score step has NO
+    machine-private default for the repo — it must be supplied via
+    `--omnidocbench-repo` or `OMNIDOCBENCH_REPO`."""
+    findings: list[str] = []
+    targets = [repo / n for n in ("README.md", "docs/upstream/mineru-issue-5288.md",
+                                  "docs/reproducibility.md", "docs/benchmark-methodology.md")
+               if (repo / n).is_file()]
+    for p in targets:
+        txt = p.read_text(encoding="utf-8")
+        for block in re.findall(r"```[a-zA-Z]*\n(.*?)```", txt, re.DOTALL):
+            if not re.search(r"mineru-rocm\s+score\b", block):
+                continue
+            if "--omnidocbench-repo" not in block and "OMNIDOCBENCH_REPO" not in block:
+                findings.append(f"{p.relative_to(repo)}: `mineru-rocm score` example lacks --omnidocbench-repo / OMNIDOCBENCH_REPO")
+    lockp = repo / "reproducibility.lock.yaml"
+    if lockp.is_file():
+        for line in lockp.read_text(encoding="utf-8").splitlines():
+            if "mineru-rocm score" in line and "--omnidocbench-repo" not in line:
+                findings.append("reproducibility.lock.yaml: rocm_recipe.cli score line lacks --omnidocbench-repo")
     return findings
 
 
@@ -317,6 +415,8 @@ def main(argv=None) -> int:
     findings += check_no_stale_overall()
     findings += check_no_withdrawn_anchor_claims()
     findings += check_version_consistency(lock)
+    findings += check_release_and_run_provenance(lock)
+    findings += check_score_commands_have_scorer_args()
     findings += check_no_internal_infra()
     findings += check_install_smoke()
     if findings:

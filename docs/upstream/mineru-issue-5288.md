@@ -61,28 +61,69 @@ Overall formula (OmniDocBench v1.6): `((1 − text_EditDist) × 100 + formula_CD
 - `mineru_vl_utils.MinerUClient` (http-client) — connects to a vLLM-on-ROCm server normally.
 - `mineru.cli.common.do_parse` — the standard pipeline CLI works.
 
-The only ROCm-specific configuration is an environment variable, **and it is path-dependent (not a MinerU patch)**:
-- **Pipeline backend** (in-process PyTorch): no override needed — PyTorch-ROCm detected gfx1100 without it.
-- **VLM backend via vLLM**: the tested vLLM-on-ROCm server required `export HSA_OVERRIDE_GFX_VERSION=11.0.0`. This is an environment requirement **observed** with the tested vLLM build, not a MinerU source-code requirement. We have only tested this on gfx1100 and are not claiming it applies to other RDNA3 variants or other architectures.
+**No MinerU source patch was required.** Beyond installing the pinned ROCm-specific dependency stack (ROCm 7.2 runtime, ROCm PyTorch wheels, `mineru[all]`, and — for the VLM — a vLLM-on-ROCm build), the only *additional runtime override* used by the tested VLM path was:
 
-## Reproduction
+```bash
+export HSA_OVERRIDE_GFX_VERSION=11.0.0
+```
+
+- **Pipeline backend** (in-process PyTorch): did **not** require this override — PyTorch-ROCm detected gfx1100 without it.
+- **VLM backend via vLLM**: the tested vLLM-on-ROCm build required the override. This was **observed** with the tested build on gfx1100, not a MinerU source-code requirement; the underlying reason was not independently isolated, and other GPU architectures were not evaluated.
+
+## CLI installation and benchmark outline
+
+### 1. CLI install (does NOT install the ROCm stack)
 
 The package is installed from source (it is **not** published on PyPI):
 
 ```bash
 git clone https://github.com/AIwork4me/MinerU-ROCm.git
 cd MinerU-ROCm
-git checkout v0.1.0            # = lock mineru_rocm.commit (dd591469); the results-producing tree
+git checkout v0.1.0            # resolves to release commit 839776e (see lock mineru_rocm.release)
 pip install -e .
-mineru-rocm --help             # sanity: prints subcommands
-
-mineru-rocm predict --backend pipeline \
-  --gt-json OmniDocBench.json --images-dir images/ --pred-dir out/ --platform linux-rocm
-mineru-rocm score --gt-json OmniDocBench.json --pred-dir out/ --label pipeline
-# repeat with --backend vlm-vllm for the VLM (the vLLM-on-ROCm server is started separately)
+mineru-rocm --help             # sanity: prints the 6 subcommands
 ```
 
-The lock pins: the MinerU-ROCm results commit, the upstream `mineru` / `mineru_vl_utils` git commits, model weight + ground-truth SHA256s, the OmniDocBench scorer commit, both venvs' full environment (Python / ROCm / PyTorch / vLLM / transformers), the CLI recipe, and the metric formula. Inference and scoring run in separate venvs.
+`pip install -e .` installs **only** the lightweight `mineru-rocm` CLI package (core dep: PyYAML). It does **not** install the ROCm runtime, ROCm PyTorch, MinerU models, vLLM-on-ROCm, or the OmniDocBench scorer — those are a separate, larger environment pinned in the lock (see [`docs/reproducibility.md`](https://github.com/AIwork4me/MinerU-ROCm/blob/main/docs/reproducibility.md) and [`reproducibility.lock.yaml`](https://github.com/AIwork4me/MinerU-ROCm/blob/main/reproducibility.lock.yaml)).
+
+### 2. Full benchmark dependencies (not provided by the CLI install)
+
+Reproducing the numbers additionally requires, at the versions pinned in the lock:
+
+- ROCm 7.2 runtime; ROCm PyTorch (`2.14.0.dev20260717+rocm7.2` pipeline / `2.9.1+gitff65f5b` VLM);
+- `mineru[all] == 3.4.4` and `mineru-vl-utils == 1.0.5`;
+- for the VLM: the exact vLLM-on-ROCm build `0.16.1.dev0+g89a77b108.d20260317`, plus `MinerU2.5-Pro-2605-1.2B` at HF revision `bff20d4`;
+- a separate OmniDocBench scorer venv (it pins its own deps and shells out to `pdflatex`/ImageMagick for CDM).
+
+### 3. Predict + score (substitute your own paths)
+
+```bash
+export GT_JSON=/path/to/OmniDocBench.json
+export IMAGES_DIR=/path/to/images
+export OMNIDOCBENCH_REPO=/path/to/OmniDocBench
+export SCORER_VENV=/path/to/OmniDocBench/.venv
+export PRED_DIR_PIPELINE=/path/to/out-pipeline
+export PRED_DIR_VLM=/path/to/out-vlm
+
+# pipeline
+mineru-rocm predict --backend pipeline \
+  --gt-json "$GT_JSON" --images-dir "$IMAGES_DIR" \
+  --pred-dir "$PRED_DIR_PIPELINE" --platform linux-rocm
+mineru-rocm score --gt-json "$GT_JSON" --pred-dir "$PRED_DIR_PIPELINE" \
+  --label pipeline \
+  --omnidocbench-repo "$OMNIDOCBENCH_REPO" --venv-python "$SCORER_VENV/bin/python"
+
+# VLM: first launch the vLLM-on-ROCm server (examples/serve_vlm_vllm.sh, with
+# HSA_OVERRIDE_GFX_VERSION=11.0.0 on gfx1100), then:
+mineru-rocm predict --backend vlm-vllm \
+  --gt-json "$GT_JSON" --images-dir "$IMAGES_DIR" \
+  --pred-dir "$PRED_DIR_VLM" --platform linux-rocm
+mineru-rocm score --gt-json "$GT_JSON" --pred-dir "$PRED_DIR_VLM" \
+  --label vlm-vllm \
+  --omnidocbench-repo "$OMNIDOCBENCH_REPO" --venv-python "$SCORER_VENV/bin/python"
+```
+
+The score step requires the OmniDocBench scorer repo + venv, passed explicitly (`--omnidocbench-repo` / `--venv-python`, or `OMNIDOCBENCH_REPO` / `OMNIDOCBENCH_VENV`); it errors clearly if either is missing. The exact code commits used by the two published benchmark runs are recorded separately under `mineru_rocm.benchmark_run_commits` in the lock (and in each `run_manifest.json`) — they are **not** the release commit.
 
 > **Reproducibility scope:** the environment is pinned and the headline was reproduced on our hardware (self-attested). Independent clean-environment reproduction has not been automated, so we do not claim "fully reproducible" beyond what the lock pins.
 
