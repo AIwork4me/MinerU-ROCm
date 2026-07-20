@@ -4,27 +4,32 @@
   "model_version": "2605",
   "platforms": ["linux-rocm", "windows-hip"],
   "badge": {"linux-rocm": "community", "windows-hip": "community-wanted"},
-  "eval_date": "2026-07-18",
+  "eval_date": "2026-07-19",
   "omnidocbench_version": "v1.6",
-  "overall": 95.56,
+  "overall": 95.46,
   "submetrics": {
-    "text_edit_dist": 0.035888687830646596,
-    "text_accuracy_percent": 96.41,
-    "table_teds_percent": 93.53911959929998,
-    "table_teds_structure_only_percent": 96.14,
-    "formula_cdm_percent": 96.73122987001096,
-    "reading_order_edit_dist": 0.12396497649452377
+    "text_edit_dist": 0.0360,
+    "text_accuracy_percent": 96.40,
+    "table_teds_percent": 93.54,
+    "table_teds_structure_only_percent": 96.09,
+    "formula_cdm_percent": 96.46,
+    "reading_order_edit_dist": 0.1236
   },
   "hardware": {
     "gpu": "AMD gfx1100 (Radeon PRO W7900)",
     "vram": "48 GB",
-    "rocm_driver": "7.2.1"
+    "rocm_driver": "7.2"
+  },
+  "official_reference": {
+    "source": "upstream README 'Local Deployment' table",
+    "source_url": "https://github.com/opendatalab/MinerU/blob/master/README.md",
+    "vlm_engine_overall": 95.30,
+    "delta_pp": 0.16
   },
   "artifacts": {
-    "run_summary": "results/omnidocbench/v16/linux-rocm/mineru-vlm-vllm_v16_quick_match_cdm_run_summary.json",
-    "provenance": "results/omnidocbench/v16/linux-rocm/mineru-vlm-vllm_v16_quick_match_cdm_provenance.json",
-    "metric_result": "results/omnidocbench/v16/linux-rocm/mineru-vlm-vllm-preds_quick_match_metric_result.json",
-    "run_stats": "results/omnidocbench/v16/linux-rocm/mineru-vlm-vllm_run_stats.json",
-    "sample_predictions": "results/omnidocbench/v16/linux-rocm/sample_predictions_vlm/"
+    "run_manifest": "results/omnidocbench/v1.6/vlm-vllm/run_manifest.json",
+    "metric_result": "results/omnidocbench/v1.6/vlm-vllm/metric_result.json",
+    "predict_log": "results/omnidocbench/v1.6/vlm-vllm/predict.log",
+    "sample_predictions": "results/omnidocbench/v1.6/vlm-vllm/sample_predictions/"
   }
 }

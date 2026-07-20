@@ -4,7 +4,7 @@
   "model_version": "3.4.4",
   "platforms": ["linux-rocm", "windows-hip"],
   "badge": {"linux-rocm": "community", "windows-hip": "community-wanted"},
-  "eval_date": "2026-07-18",
+  "eval_date": "2026-07-19",
   "omnidocbench_version": "v1.6",
   "overall": 86.48,
   "submetrics": {
@@ -21,10 +21,9 @@
     "rocm_driver": "ROCm 7.2.1"
   },
   "artifacts": {
-    "run_summary": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_cdm_run_summary.json",
-    "provenance": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_cdm_provenance.json",
-    "metric_result": "results/omnidocbench/v16/linux-rocm/mineru-pipeline-preds_quick_match_metric_result.json",
-    "run_stats": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_run_stats.json",
-    "sample_predictions": "results/omnidocbench/v16/linux-rocm/sample_predictions/"
+    "run_manifest": "results/omnidocbench/v1.6/pipeline/run_manifest.json",
+    "metric_result": "results/omnidocbench/v1.6/pipeline/metric_result.json",
+    "predict_log": "results/omnidocbench/v1.6/pipeline/predict.log",
+    "sample_predictions": "results/omnidocbench/v1.6/pipeline/sample_predictions/"
   }
 }

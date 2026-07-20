@@ -64,6 +64,7 @@ def test_check_repo_clean_on_repo(capsys):
     readme = (REPO / "README.md").read_text(encoding="utf-8") if (REPO / "README.md").is_file() else ""
     findings += cr.check_readme_scripts_exist(readme)
     findings += cr.check_readme_lock_values(readme, cr._load_lock())
+    findings += cr.check_modelcard_lock_agreement(cr._load_lock())
     assert findings == [], findings
 
 
@@ -84,3 +85,23 @@ def test_official_reference_verified():
     assert ref.get("source") == "verified", f"official_reference.source not verified: {ref.get('source')!r}"
     assert ref.get("pipeline_overall") == 86.47
     assert ref.get("vlm_overall") == 95.30
+
+
+def test_modelcard_lock_agreement():
+    """model_card.json (VLM) + model_card.pipeline.json Overall match the lock (tri-source)."""
+    import json
+    import scripts.check_repo as cr
+    lock = cr._load_lock()
+    full = (lock.get("benchmark") or {}).get("full_1651") or {}
+    expected = {
+        "model_card.json": (full.get("vlm_vllm") or {}).get("overall"),
+        "model_card.pipeline.json": (full.get("pipeline") or {}).get("overall"),
+    }
+    for fname, exp in expected.items():
+        if exp is None:
+            continue
+        card = json.loads((cr.REPO / fname).read_text(encoding="utf-8"))
+        assert card["overall"] == exp, f"{fname}.overall {card['overall']} != lock {exp}"
+        # artefacts must point at the authoritative v1.6 tree, not the old v16 engine tree
+        arts = json.dumps(card.get("artifacts", {}))
+        assert "omnidocbench/v1.6/" in arts and "omnidocbench/v16/" not in arts, f"{fname} still points at v16/"

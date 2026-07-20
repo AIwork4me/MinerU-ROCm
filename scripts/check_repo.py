@@ -88,6 +88,32 @@ def check_readme_lock_values(readme: str, lock) -> list[str]:
     return findings
 
 
+def check_modelcard_lock_agreement(lock) -> list[str]:
+    """model_card.json (VLM) + model_card.pipeline.json Overall match the lock, and
+    artefacts point at the authoritative v1.6 tree (not the superseded v16 engine tree)."""
+    if lock is None:
+        return []
+    full = (lock.get("benchmark") or {}).get("full_1651") or {}
+    findings = []
+    mapping = {"model_card.json": "vlm_vllm", "model_card.pipeline.json": "pipeline"}
+    for fname, key in mapping.items():
+        exp = (full.get(key) or {}).get("overall")
+        if exp is None:
+            continue
+        path = REPO / fname
+        if not path.is_file():
+            findings.append(f"{fname} missing")
+            continue
+        import json
+        card = json.loads(path.read_text(encoding="utf-8"))
+        if card.get("overall") != exp:
+            findings.append(f"{fname}.overall {card.get('overall')} != lock full_1651.{key}.overall {exp}")
+        arts = json.dumps(card.get("artifacts", {}))
+        if "omnidocbench/v1.6/" not in arts or "omnidocbench/v16/" in arts:
+            findings.append(f"{fname} artefacts do not point at the authoritative results/omnidocbench/v1.6/ tree")
+    return findings
+
+
 def check_install_smoke() -> list[str]:
     """`pip install -e .` succeeds (the PEP 639 / build regression guard)."""
     cp = subprocess.run([sys.executable, "-m", "pip", "install", "-e", ".", "--quiet"],
@@ -106,6 +132,7 @@ def main(argv=None) -> int:
     findings += check_spdx()
     findings += check_readme_scripts_exist(readme)
     findings += check_readme_lock_values(readme, lock)
+    findings += check_modelcard_lock_agreement(lock)
     findings += check_install_smoke()
     if findings:
         print("check_repo: " + str(len(findings)) + " finding(s):", file=sys.stderr)
