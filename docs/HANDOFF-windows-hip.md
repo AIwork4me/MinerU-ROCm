@@ -19,7 +19,7 @@
 You are reproducing OpenDataLab's MinerU 3.4 pipeline **OmniDocBench v1.6 Overall
 = 86.47** on AMD hardware (Strix Halo), producing real prediction artifacts +
 provenance that this repo can publish under
-`results/omnidocbench/v16/windows-hip/`.
+`results/omnidocbench/v1.6/windows-hip/`.
 
 **The bar is "evaluation-backed", not "bit-exact-CUDA".** MinerU's official 86.47
 is upstream's number; our claim is "we reproduce that number on AMD on the full
@@ -136,7 +136,7 @@ $env:MINERU_MODEL_SOURCE="modelscope"   # or huggingface + HF_ENDPOINT
 
 python adapter\run_adapter.py `
   --img-dir  <OmniDocBench v1.6 page images dir> `
-  --out-dir  results\omnidocbench\v16\windows-hip\pipeline `
+  --out-dir  results\omnidocbench\v1.6\windows-hip\pipeline `
   --platform windows-hip `
   --backend  pipeline
 ```
@@ -166,10 +166,10 @@ omnidocbench-amd cdm setup --platform windows-hip
 # Score
 omnidocbench-amd score `
   --platform windows-hip `
-  --predictions-dir results\omnidocbench\v16\windows-hip\pipeline `
+  --predictions-dir results\omnidocbench\v1.6\windows-hip\pipeline `
   --version v16 `
   --cdm `
-  --run-stats   results\omnidocbench\v16\windows-hip\pipeline\_run_stats.json
+  --run-stats   results\omnidocbench\v1.6\windows-hip\pipeline\_run_stats.json
 ```
 This produces `metric_result.json` with `Edit_dist` (text), `TEDS` (table),
 `CDM` (formula), and reading-order `Edit_dist`.
@@ -189,7 +189,7 @@ omnidocbench-amd publish `
   --cdm `
   --run-stats <..._run_stats.json> `
   --metric-result <...metric_result.json> `
-  --results-dir results\omnidocbench\v16\windows-hip `
+  --results-dir results\omnidocbench\v1.6\windows-hip `
   --git-commit <your commit sha> `
   --adapter-command "python adapter\run_adapter.py --backend pipeline --platform windows-hip" `
   --dataset-revision v1.6
@@ -197,7 +197,7 @@ omnidocbench-amd publish `
 
 Then:
 1. **Commit** the engine-assembled artifacts under
-   `results/omnidocbench/v16/windows-hip/` to the repo (provenance +
+   `results/omnidocbench/v1.6/windows-hip/` to the repo (provenance +
    `metric_result.json` + a prediction sample; follow the repo's `.gitignore` /
    LFS policy for bulk `.md`).
 2. **Update** `model_card.pipeline.json`: set
@@ -233,7 +233,7 @@ Then:
   culprits: table HTML scoring (check a few table pages' `.md`), formula CDM
   provisioning, or a page-set/manifest mismatch. Open an issue with your
   `metric_result.json` + the Linux `metric_result.json` (in
-  `results/omnidocbench/v16/linux-rocm/`) side by side.
+  `results/omnidocbench/v1.6/linux-rocm/`) side by side.
 
 ---
 

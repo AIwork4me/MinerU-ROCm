@@ -29,7 +29,7 @@ The `smoke` backend (no GPU) should always pass — keep it working.
 
 ## Reporting results
 
-Commit the engine-produced `run_summary.json` + `provenance.json` under `results/omnidocbench/v16/<platform>/` and update `model_card.json.artifacts` to point at them. A maintainer will review for the `verified` badge per the policy in `omnidocbench-amd/contracts/badge-policy.md`.
+Commit the engine-produced `run_summary.json` + `provenance.json` under `results/omnidocbench/v1.6/<platform>/` and update `model_card.json.artifacts` to point at them. A maintainer will review for the `verified` badge per the policy in `omnidocbench-amd/contracts/badge-policy.md`.
 
 ## Code of conduct
 
