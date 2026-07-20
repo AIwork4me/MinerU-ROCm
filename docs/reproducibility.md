@@ -9,7 +9,7 @@ A score is only meaningful if someone else can reproduce it from the committed r
 | MinerU 3.4 pipeline | **86.48** | 0.0566 | 83.07 | 82.04 | 0.1534 |
 | MinerU2.5-Pro VLM (vLLM-on-ROCm) | **95.46** | 0.0360 | 96.46 | 93.54 | 0.1236 |
 
-Official anchors (upstream README "Local Deployment" table): pipeline **86.47** (Δ +0.01 pp), vlm-engine **95.30** (Δ +0.16 pp — within vLLM non-determinism).
+Official anchors (upstream README "Local Deployment" table): pipeline **86.47** (Δ +0.01 pp), vlm-engine **95.30** (Δ +0.16 pp). These are contextual reference anchors, **not** a controlled CUDA-vs-ROCm comparison (the upstream table does not pin identical hardware, model revision, build, or decoding config).
 
 **Overall** = `((1 − text_EditDist) × 100 + formula_CDM × 100 + table_TEDS × 100) / 3`, OmniDocBench `page.ALL` aggregation; reading-order EditDist is reported separately and is **not** part of Overall.
 
@@ -18,7 +18,7 @@ Official anchors (upstream README "Local Deployment" table): pipeline **86.47** 
 - GPU: AMD gfx1100 (Radeon PRO W7900, 48 GB). ROCm 7.2, bf16.
 - `HSA_OVERRIDE_GFX_VERSION`:
   - **pipeline backend** (in-process PyTorch): **not required** — PyTorch-ROCm auto-detects gfx1100.
-  - **VLM backend via vLLM**: **required** — `export HSA_OVERRIDE_GFX_VERSION=11.0.0` (vLLM's AoT-compiled kernels need it; applies to gfx1100/1101/1102).
+  - **VLM backend via vLLM**: **required** — `export HSA_OVERRIDE_GFX_VERSION=11.0.0` (observed with the tested vLLM-on-ROCm build; tested on gfx1100 only — not claimed for other RDNA3 variants or architectures).
 - Performance: pipeline ~3–6 s/page (no patches). VLM via vLLM is **correct without patches but slow** (~15–16 s/page); for speed, community Triton patches for the `qwen2_vl.py` Conv3d exist upstream — see the upstream `docs/zh/usage/acceleration_cards/AMD.md`.
 
 ## The two venvs (reality)

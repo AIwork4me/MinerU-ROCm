@@ -11,7 +11,7 @@
 | Model | Backend | Overall | Text EditDist | Formula CDM | Table TEDS |
 |---|---|---:|---:|---:|---:|
 | MinerU 3.4 pipeline | in-process (MinerUPipelineRunner on ROCm) | **86.48** | 0.0566 | 83.07 | 82.04 |
-| MinerU2.5-Pro VLM | vLLM-on-ROCm 0.16.1 (http-client) | **95.46** | 0.0360 | 96.46 | 93.54 |
+| MinerU2.5-Pro VLM | vLLM-on-ROCm `0.16.1.dev0+g89a77b108.d20260317` (http-client) | **95.46** | 0.0360 | 96.46 | 93.54 |
 
 Both: OmniDocBench v1.6, 1651 pages, AMD gfx1100 (Radeon PRO W7900, 48 GB; 1 GPU per benchmark, host has 4×),
 ROCm 7.2, bf16. Scored via OmniDocBench's `pdf_validation.py` (quick_match).
@@ -21,8 +21,9 @@ ROCm 7.2, bf16. Scored via OmniDocBench's `pdf_validation.py` (quick_match).
 This repo takes the **upstream model** (the same MinerU 3.4 pipeline +
 MinerU2.5-Pro VLM from opendatalab/MinerU), runs it on **AMD ROCm** (not CUDA),
 and scores it on the **same OmniDocBench v1.6 benchmark** with the **same
-scorer** (`pdf_validation.py`). The scores are directly comparable to any other
-platform that runs the same model + same dataset + same scorer.
+scorer** (`pdf_validation.py`). The scores are methodologically comparable to any other
+platform that runs the same model + same dataset + same scorer — but this is **not**
+a controlled CUDA-vs-ROCm hardware-level comparison.
 
 ## "Not precision-aligned" — what it does NOT claim
 

@@ -75,7 +75,7 @@ See [`docs/reproducibility.md`](docs/reproducibility.md) for the full recipe and
 | **ours MinerU2.5-Pro (vlm-vllm, ROCm)** | **95.46** | 0.0360 | 96.46 | 93.54 |
 | ours MinerU2.5-Pro (vlm-transformers, ROCm) | _sample-only (clean; ~44 h full)_ | | | |
 
-The `vlm-vllm` row is **reproduced** on linux-rocm (self-attested, `badge: community`, conformance-passing): 1651/1651 pages, 0 fail, ~7 h on GPU 0 (gfx1100), empty-rate 0.12%, read-order EditDist 0.1236. Overall 95.46 is **parity** with the upstream README vlm-engine anchor 95.30 (Δ+0.16 pp — within vLLM non-determinism; not a superiority claim) and within ±0.5 pp of our prior 95.56 run (Δ−0.10 pp). The official anchor is aligned to the upstream README "Local Deployment" table and is **community-verified, not official support** — see `reproducibility.lock.yaml` (`benchmark.official_reference: source: verified`). The `vlm-transformers` backend is a clean but slow fallback (~100–150 s/page; full-set ≈44 h not run), so it carries no full Overall. `windows-hip` is `community-wanted`.
+The `vlm-vllm` row is **reproduced** on linux-rocm (self-attested, `badge: community`, conformance-passing): 1651/1651 requests attempted, 1649 non-empty predictions (2 empty), no process crashes; ~7 h on a single GPU (gfx1100); read-order EditDist 0.1236. Overall 95.46 is **consistent with the published upstream reference range** (vlm-engine 95.30; Δ +0.16 pp — **not** a controlled CUDA-vs-ROCm comparison) and within ~0.1 pp of our own prior run (95.56). The upstream anchor is from the upstream README "Local Deployment" table, recorded as **community-verified, not official support** — see `reproducibility.lock.yaml` (`benchmark.official_reference`). The `vlm-transformers` backend is a clean but slow fallback (~100–150 s/page; full-set ≈44 h not run), so it carries no full Overall. `windows-hip` is `community-wanted`.
 
 ### Results — MinerU 3.4 pipeline (secondary model card, `mineru-pipeline`)
 
@@ -102,8 +102,8 @@ MinerU Team / OpenDataLab.
 
 [`reproducibility.lock.yaml`](reproducibility.lock.yaml) is the single source of
 truth — pinned commits, byte-exact weight/GT SHA256 cross-checked against the
-upstream HF repos, environment versions, and the metric formula. *(P0 ships the
-skeleton; verified values are populated in P3 after the full-set re-run.)* See
+upstream HF repos, environment versions, and the metric formula. Verified values
+were populated from the full 1651-page reruns completed on 2026-07-19. See
 [docs/reproducibility.md](docs/reproducibility.md).
 
 ## Issues filed

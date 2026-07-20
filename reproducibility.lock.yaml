@@ -59,7 +59,7 @@ rocm_recipe:                             # (verified) the canonical gfx1100/RDNA
   gpu_arch: gfx1100                      # RDNA3 — Radeon PRO W7900 (only gfx1100 tested here; other RDNA3 variants e.g. gfx1101/1102 untested)
   hsa_override:
     pipeline: none                       # in-process PyTorch auto-detects gfx1100
-    vlm_vllm: "11.0.0"                   # vLLM AoT-compiled kernels require it
+    vlm_vllm: "11.0.0"                   # required by the tested vLLM-on-ROCm build (observed; gfx1100 only — not a MinerU source requirement)
   install: |
     pip install -U "mineru[all]"         # + ROCm torch wheel; VLM additionally needs vLLM-on-ROCm
   cli: |
@@ -67,7 +67,27 @@ rocm_recipe:                             # (verified) the canonical gfx1100/RDNA
     mineru-rocm score --gt-json <gt> --pred-dir <out> --label {pipeline|vlm-vllm}
 
 environment:
-  gpu_arch: gfx1100                      # (verified) RDNA3 — Radeon PRO W7900
+  os:
+    name: Linux
+    kernel: "6.8.0-79-generic"           # (verified) results/**/metric_result.json uname (hostname redacted)
+  gpu:
+    vendor: AMD
+    model: "Radeon PRO W7900"            # (verified) rocm-smi device id 0x744b
+    arch: gfx1100                        # (verified) RDNA3
+    vram_gb: 48                          # (verified) predict.log "GPU Memory: 48 GB"
+    host_gpu_count: 4                    # (verified) host has 4× W7900
+    gpu_count_per_benchmark: 1           # (verified) 1 GPU per worker (no tensor parallel)
+  inference:
+    dtype: bfloat16                      # (verified) examples/serve_vlm_vllm.sh --dtype bfloat16
+    tensor_parallel_size: 1              # (verified) no --tensor-parallel-size flag (vLLM default tp=1)
+    hip_visible_devices:                 # which physical GPU each run used (immaterial — any of the 4× is equivalent)
+      vlm_vllm: "0"                      # (verified) examples/serve_vlm_vllm.sh HIP_VISIBLE_DEVICES default
+      pipeline: not_recorded             # not captured in run_manifest env; original run docs recorded GPU 3
+  hsa_override:                          # mirrored in rocm_recipe (the actionable recipe)
+    pipeline: null                       # in-process PyTorch detected gfx1100 without it
+    vlm_vllm: "11.0.0"                   # observed with the tested vLLM-on-ROCm build (gfx1100 only)
+  # flat aliases kept for the check_repo gates (check_version_consistency reads gpu_arch + rocm_hip):
+  gpu_arch: gfx1100                      # (verified) alias of gpu.arch — only gfx1100 tested
   rocm_smi_device_id: "Card Model 0x744b, SKU D7070910 (AMD Radeon Graphics)"   # (verified) rocm-smi --showproductname
   rocm_hip: "7.2"                        # (verified) torch.version.hip 7.2.53211 (both venvs)
   venvs:                                 # the two models ran in DIFFERENT venvs (different torch/vllm)
@@ -93,7 +113,7 @@ benchmark:
     vlm_vllm_overall: not_recorded       # (deferred → docs/known-gaps.md)
     vlm_transformers_overall: not_recorded   # (deferred → docs/known-gaps.md)
   full_1651:                             # (verified) fresh re-run via mineru-rocm predict | score (pdf_validation.py scorer)
-    pipeline:                            # (verified) Overall 86.48 (anchor 86.48, Δ0.00)
+    pipeline:                            # (verified) Overall 86.48 (prior self-run 86.48, Δ0.00 — deterministic pipeline; upstream anchor is 86.47)
       overall: 86.48
       text_edit_dist: 0.0566
       formula_cdm: 0.8307

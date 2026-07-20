@@ -21,7 +21,7 @@ the repo files/logs/lock, not from the issue's prior wording.
 
 - **"48 GB ×4" (README ×2, benchmark-methodology):** read as 4-GPU inference. Risk: a maintainer/user assumes multi-GPU; overstates the tested config. Fix: states 1 GPU per benchmark + host has 4× (no tensor parallel) — matches the logs.
 - **`rocm_recipe` GPU generalization (lock):** listed untested RDNA3 parts as covered. Risk: extrapolates one GPU to a product line. Fix: scoped to "only gfx1100 tested".
-- **Version-consistency gate:** prevents future drift (ROCm 7.2 vs 7.2+, gfx1100 vs gfx1101) across README / issue draft / lock, and forbids assertion-form overclaims (`ROCm 7.2+`, `officially support`, `all RDNA3`, …). Low maintenance — pure string checks.
+- **Version-consistency gate:** prevents future drift (ROCm version, GPU arch) across README / issue draft / lock, and forbids assertion-form overclaims (the banned literal patterns are enumerated in `_OVERCLAIM_PATTERNS` in `scripts/check_repo.py` — e.g. version-range and whole-architecture claims). Low maintenance — pure string checks.
 - **Issue draft (Artifact 1):** restructured, overclaims removed (see §5), single concrete maintainer question.
 
 ## 3. Facts confirmed from logs / lock / scorer output
@@ -32,7 +32,7 @@ the repo files/logs/lock, not from the issue's prior wording.
 | mineru `3.4.4` / mineru_vl_utils `1.0.5` | lock + `git ls-remote` (commits `0dfc946`, `cc467fa`) |
 | ROCm/HIP `7.2` | lock `environment.rocm_hip` 7.2.53211 (both venvs) |
 | PyTorch `2.14.0.dev+rocm7.2` (pipeline) / `2.9.1+rocm7.2` (VLM) | lock + run_manifest `env` |
-| vLLM `0.16.1.dev0` (VLM) | lock + run_manifest `env` |
+| vLLM `0.16.1.dev0+g89a77b108.d20260317` (VLM) | lock + run_manifest `env` |
 | transformers `4.57.6`; Python 3.11.15 / 3.12.3; bf16 | lock |
 | OS Linux `6.8.0-79-generic` | `metric_result.json` `uname` (hostname redacted, kernel kept) |
 | Results pipeline **86.48** / VLM **95.46** + submetrics | lock + `metric_result.json` |

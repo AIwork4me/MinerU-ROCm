@@ -8,4 +8,4 @@ After:
 | GPU Acceleration | Volta+ / Apple Silicon / AMD ROCm (gfx1100/RDNA3; see [AMD guide](usage/acceleration_cards/AMD.md))¹ | … |
 
 Footnote (add near the table footnotes):
-¹ VLM/vLLM path requires `HSA_OVERRIDE_GFX_VERSION=11.0.0` on gfx1100/RDNA3; the pipeline backend does not. Community-verified (see AMD guide).
+¹ VLM/vLLM path requires `HSA_OVERRIDE_GFX_VERSION=11.0.0` on gfx1100 (only gfx1100 was tested); the pipeline backend does not. Community-verified (see AMD guide).
