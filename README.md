@@ -5,7 +5,7 @@
 > **gfx1100 (RDNA3)** and reports **OmniDocBench v1.6** results across multiple
 > inference backends. **Not** a precision-aligned port: no same-page-set CUDA
 > control exists, and the upstream headline may use a different engine. See
-> Benchmark methodology *(lands in P2)*.
+> [Benchmark methodology](docs/benchmark-methodology.md).
 
 [![OmniDocBench v1.6](https://img.shields.io/badge/OmniDocBench-v1.6-blue)](https://github.com/opendatalab/OmniDocBench)
 [![VLM full](https://img.shields.io/badge/MinerU2.5--Pro%20VLM%20(full)-95.46-green)](#results--mineru25-pro-vlm)
