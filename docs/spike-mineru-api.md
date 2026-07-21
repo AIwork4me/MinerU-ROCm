@@ -27,7 +27,7 @@ and exercised), not assumed. This doc is the input to Task 5 — it tells
   `TabCls/paddle_table_cls/PP-LCNet_x1_0_table_cls.onnx`,
   `MFR/pp_formulanet_plus_m` (formula fallback; not used when `formula_enable=true`
   with unimernet path).
-- Coexists with the platform eval-venv `<eval-root>/omnidocbench-amd-venv`
+- Coexists with the platform eval-venv `<eval-root>/omnidocbench-rocm-venv`
   (which is actually **Python 3.12.3**, not 3.11) — separate venvs, separate
   site-packages, no collision.
 

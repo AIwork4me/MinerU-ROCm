@@ -64,8 +64,8 @@ echo "[00-install-deps] done. Activate: source $VENV/bin/activate"
 #
 #   VLM env   = a separate Py3.12 venv (e.g. created during a Plan-2 spike)
 #     - vllm 0.16.1.dev0+rocm (gfx1100), mineru_vl_utils==1.0.5
-#     - pip install -e <workspace>/omnidocbench-amd   # so the engine-invoked
-#       adapter subprocess resolves mineru_vl_utils AND omnidocbench_amd.types
+#     - pip install -e <workspace>/omnidocbench-rocm   # so the engine-invoked
+#       adapter subprocess resolves mineru_vl_utils AND omnidocbench_rocm.types
 #     - GPU 0 only (ROCm single-card)
 #
 #   Scoring   = a separate Py3.11 venv with OmniDocBench v1.6
@@ -75,7 +75,7 @@ echo "[00-install-deps] done. Activate: source $VENV/bin/activate"
 #   venv python or vllm, so ROCm libs resolve on gfx1100.
 #
 # Verify (run by hand after provisioning, substituting your VLM venv python):
-#   <vlm-venv>/bin/python -c "import vllm, mineru_vl_utils, omnidocbench_amd; \
+#   <vlm-venv>/bin/python -c "import vllm, mineru_vl_utils, omnidocbench_rocm; \
 #       print('vlm env ok', vllm.__version__)"
 #   # -> vlm env ok 0.16.1.dev0+...
 # ---------------------------------------------------------------------------

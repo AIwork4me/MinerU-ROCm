@@ -1,6 +1,6 @@
 # Archived results — superseded
 
-These are the **pre-rewrite `omnidocbench-amd` engine artefacts** (the `run_summary.json` /
+These are the **pre-rewrite `omnidocbench-amd`** (historical name for omnidocbench-rocm) **engine artefacts** (the `run_summary.json` /
 `provenance.json` / `metric_result.json` / `run_stats.json` publish outputs, 95.56-era).
 
 **Superseded by** `results/omnidocbench/v1.6/{pipeline,vlm-vllm}/` — the `mineru-rocm

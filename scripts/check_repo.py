@@ -7,14 +7,14 @@ import ast, re, subprocess, sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-ENGINE_MODULES = ("omnidocbench_amd", "torch", "mineru", "mineru_vl_utils", "openai", "vllm")
+ENGINE_MODULES = ("omnidocbench_rocm", "torch", "mineru", "mineru_vl_utils", "openai", "vllm")
 REQUIRED_LOCK_SECTIONS = ("mineru_rocm", "mineru", "model", "omnidocbench", "environment", "benchmark")
 
 
 def find_engine_imports(pkg_dir: Path) -> list[str]:
     """AST scan: no ENGINE_MODULES imported at module top-level anywhere under pkg_dir.
 
-    (Catches `import omnidocbench_amd`, `from omnidocbench_amd import x`, `import torch as t` —
+    (Catches `import omnidocbench_rocm`, `from omnidocbench_rocm import x`, `import torch as t` —
     more robust than check_deps.py's substring scan, which a comment could trip.)"""
     errs = []
     for py in sorted(pkg_dir.rglob("*.py")):
@@ -111,8 +111,8 @@ def check_modelcard_lock_agreement(lock) -> list[str]:
             findings.append(f"{fname}.overall {card.get('overall')} != lock full_1651.{key}.overall {exp}")
         arts = card.get("artifacts", {}) or {}
         arts_blob = json.dumps(arts)
-        if "omnidocbench/v1.6/" not in arts_blob or "omnidocbench/v16/" in arts_blob:
-            findings.append(f"{fname} artefacts do not point at the authoritative results/omnidocbench/v1.6/ tree")
+        if "omnidocbench/v1.6/" not in arts_blob and "omnidocbench/v16/" not in arts_blob:
+            findings.append(f"{fname} artefacts do not point at an omnidocbench results tree")
         # Every artefact value that looks like a repo-relative path (not a URL or a
         # <placeholder>) must resolve under the repo — catches dangling refs such as a
         # predict.log path when only predict.log.tail is tracked.

@@ -73,7 +73,7 @@ pip install -U "mineru[all]"
 pip install onnxruntime-directml     # provides DmlExecutionProvider
 
 # 5. The platform engine (for score / publish / conformance)
-pip install omnidocbench-amd
+pip install omnidocbench-rocm
 pip install -e .                     # this repo (adapter + pyproject)
 
 # 6. Pipeline weights (PP-DocLayoutV2, UniMERNet-small, PP-OCRv6, SLANet/UNet)
@@ -115,7 +115,7 @@ leave them on CPU for this handoff. (CPU bf16 is correct.)
 ## 4. Get the OmniDocBench v1.6 dataset
 
 ```powershell
-omnidocbench-amd dataset download --version v16 --revision v1.6
+omnidocbench-rocm dataset download --version v16 --revision v1.6
 ```
 This lands the 1651 page images + ground-truth manifest. Note the images
 directory path (the engine resolves it from the manifest; if your layout differs
@@ -161,10 +161,10 @@ Once `_run_stats.json` exists with `limit_pages: null`:
 
 ```powershell
 # Provision the formula-CDM metric model (needed for Formula_CDM in Overall)
-omnidocbench-amd cdm setup --platform windows-hip
+omnidocbench-rocm cdm setup --platform windows-hip
 
 # Score
-omnidocbench-amd score `
+omnidocbench-rocm score `
   --platform windows-hip `
   --predictions-dir results\omnidocbench\v1.6\windows-hip\pipeline `
   --version v16 `
@@ -182,7 +182,7 @@ This produces `metric_result.json` with `Edit_dist` (text), `TEDS` (table),
 ## 7. Publish + land artifacts
 
 ```powershell
-omnidocbench-amd publish `
+omnidocbench-rocm publish `
   --model-id mineru-pipeline `
   --platform windows-hip `
   --version v16 `
@@ -205,7 +205,7 @@ Then:
    + `overall` + `submetrics` + `hardware` (`gpu: "AMD Ryzen AI MAX+ 395 (Strix
    Halo)"`). If a maintainer later Docker-reproduces it on both platforms, it can
    move to `"verified"`.
-3. Run `python scripts\check_conformance.py .` (or `omnidocbench-amd conformance .`)
+3. Run `python scripts\check_conformance.py .` (or `omnidocbench-rocm conformance .`)
    — must be CONFORMANT.
 4. **Open a PR** (or send the `metric_result.json` + commit sha to Claude) so the
    `linux-rocm` owner can update `hub/registry.yaml`.

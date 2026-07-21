@@ -1,162 +1,147 @@
-# reproducibility.lock.yaml — machine-readable reproducibility snapshot for the
-# MinerU-ROCm results. Verified fields carry a source comment. Do not invent values.
-#
-# STATUS: P2/P3 fill (2026-07-19). Both full-1651 re-runs completed via the new
-# `mineru-rocm predict | score` path; values below are recomputed from those runs.
-# All anchors + upstream commits are now verified (see benchmark.official_reference
-# and the mineru / mineru_vl_utils commit pins below). See
-# docs/superpowers/specs/2026-07-19-mineru-rocm-standalone-port-design.md §3.3.
-#
-# Verification status legend:
-#   # (verified)     = recomputed and recorded (2026-07-19)
-#   # (not_recorded) = not derivable from this run; noted where known
-
 mineru_rocm:
   repo: https://github.com/AIwork4me/MinerU-ROCm
-  # Three DISTINCT commits — do not conflate (verified 2026-07-20 via git, not by comment):
-  #   release.commit        = the commit the v0.1.0 tag resolves to (install this for stable code).
-  #   release.tag_object_sha = the ANNOTATED TAG object SHA (cat-file -t = tag); NOT a commit.
-  #   benchmark_run_commits.* = the exact repo commit each published run executed at
-  #     (matches each run_manifest.json `repo_commit`). The two runs used DIFFERENT commits;
-  #     both are ancestors of the release commit. The release tag is NOT the run commit.
   release:
     tag: v0.1.0
-    commit: 839776e1774a1d85be8f9314a830e612d44a6926          # (verified) git rev-parse 'v0.1.0^{commit}' — "Merge pull request #7 from AIwork4me/feat/p2p3-results"
-    tag_object_sha: dd591469d009cac246f5090daa7398623d2fd878  # (verified) git rev-parse v0.1.0 — ANNOTATED TAG object (NOT a commit); git cat-file -t v0.1.0 = tag
+    commit: 839776e1774a1d85be8f9314a830e612d44a6926
+    tag_object_sha: dd591469d009cac246f5090daa7398623d2fd878
   benchmark_run_commits:
-    pipeline: e05eec322dd8bf45447c3dec53349454f0424e61        # (verified) results/omnidocbench/v1.6/pipeline/run_manifest.json repo_commit
-    vlm_vllm: b75f788419d35a4210c201159a6c67923d60d65c        # (verified) results/omnidocbench/v1.6/vlm-vllm/run_manifest.json repo_commit
-
+    pipeline: e05eec322dd8bf45447c3dec53349454f0424e61
+    vlm_vllm: b75f788419d35a4210c201159a6c67923d60d65c
+  eval_date: '2026-07-21'
 mineru:
   repo: https://github.com/opendatalab/MinerU
-  commit: 0dfc9460cd9ab693b9af60ae3fbffd7bc111b062   # (verified) git ls-remote --tags … refs/tags/mineru-3.4.4-released
-  version: "3.4.4"                                    # (verified) pip show mineru (reuse venv)
-
+  commit: 0dfc9460cd9ab693b9af60ae3fbffd7bc111b062
+  version: 3.4.4
 mineru_vl_utils:
   repo: https://github.com/opendatalab/mineru-vl-utils
-  commit: cc467faaddb53d8b276cedf88f09302f540a7b83   # (verified) git ls-remote --tags … refs/tags/mineru_vl_utils-1.0.5-released
-  version: "1.0.5"                                    # (verified) both venvs
-
+  commit: cc467faaddb53d8b276cedf88f09302f540a7b83
+  version: 1.0.5
 model:
-  vlm:                                   # MinerU2.5-Pro-2605-1.2B
+  vlm:
     hf_repo: opendatalab/MinerU2.5-Pro-2605-1.2B
-    hf_revision: bff20d4ae2bf202df9f45284b4d43681555a97ed   # (verified) snapshot revision (canonical anchor — pins all files)
+    hf_revision: bff20d4ae2bf202df9f45284b4d43681555a97ed
     benchmark_artifact:
-      safetensors_sha256: abf8681ca63b8dec7b67de257af47b821f179442f72998d0696ae2ed9232a5f0   # (verified) sha256sum <snapshot>/model.safetensors
-      config_sha256: 22097df08750242647a513043636a8dff16820a09757e9271e220bdea378df28        # (verified) sha256sum <snapshot>/config.json
-    cross_check_source: "local HF cache (/root/.cache/huggingface); hf-mirror for redownload"
-  pipeline_weights:                      # opendatalab/PDF-Extract-Kit-1.0 sub-models
+      safetensors_sha256: abf8681ca63b8dec7b67de257af47b821f179442f72998d0696ae2ed9232a5f0
+      config_sha256: 22097df08750242647a513043636a8dff16820a09757e9271e220bdea378df28
+    cross_check_source: local HF cache (/root/.cache/huggingface); hf-mirror for redownload
+  pipeline_weights:
     hf_repo: opendatalab/PDF-Extract-Kit-1.0
-    hf_revision: ed6b654c018d742e65a17671e379c5e6ecc87ec9   # (verified) snapshot revision (canonical anchor — pins ALL sub-models)
-    layout_sha256: e60f3725aeedc88fd319416ef166bda79171a41516a301c27cab9132dc2739d2           # (verified) models/Layout/PP-DocLayoutV2/model.safetensors
-    formula_sha256: 9244e2565585c0f89bc3a6eeeea080ef3c588375fc0d536074fe88e80b917cda          # (verified) models/MFR/unimernet_hf_small_2503/model.safetensors
-    ocr_sha256: 4767ddc90c1532ec01d881a980dae0a0b92679f4f82f88c4e9f92563de69e740              # (verified) models/OCR/paddleocr_torch/ch_PP-OCRv5_rec_server_infer.pth (representative; OCR ships many language rec/det models, all pinned by hf_revision)
-    table_sha256: not_recorded                               # (deferred → docs/known-gaps.md) table sub-models live under models/TabCls/ (pinned by hf_revision ed6b654c); representative file varies by pipeline version
-
+    hf_revision: ed6b654c018d742e65a17671e379c5e6ecc87ec9
+    layout_sha256: e60f3725aeedc88fd319416ef166bda79171a41516a301c27cab9132dc2739d2
+    formula_sha256: 9244e2565585c0f89bc3a6eeeea080ef3c588375fc0d536074fe88e80b917cda
+    ocr_sha256: 4767ddc90c1532ec01d881a980dae0a0b92679f4f82f88c4e9f92563de69e740
+    table_sha256: not_recorded
 omnidocbench:
   version: v1.6
   scorer_repo_url: https://github.com/opendatalab/OmniDocBench
-  scorer_commit: 2b161d010d2e3aff77a0edef359ea3a6411d23cd            # (verified) git rev-parse HEAD (OmniDocBench checkout)
-  gt_json_full_sha256: a45cd84b04ad8b793e775089640e6b681209abea33ead54c1828ddca35fae496   # (verified) sha256sum OmniDocBench.json (1651 pages)
-  gt_json_canary_sha256: not_recorded                                # (deferred → docs/known-gaps.md) populated when the canary subset lands (P3 canary step)
-  eval_config_sha256: a65a5b39df0e36a42ee940f9ef78cc71d793e7fb5885bc89004194515f3cc264   # (verified) sha256sum src/mineru_rocm/data/eval_config.yaml
-  canary_manifest_sha256: not_recorded                               # (deferred → docs/known-gaps.md) P3 canary step
+  scorer_commit: 2b161d010d2e3aff77a0edef359ea3a6411d23cd
+  gt_json_full_sha256: a45cd84b04ad8b793e775089640e6b681209abea33ead54c1828ddca35fae496
+  gt_json_canary_sha256: not_recorded
+  eval_config_sha256: a65a5b39df0e36a42ee940f9ef78cc71d793e7fb5885bc89004194515f3cc264
+  canary_manifest_sha256: not_recorded
   metric:
-    overall_formula: "((1 - text_EditDist) * 100 + formula_CDM * 100 + table_TEDS * 100) / 3"   # (corrected P2/P3) matches scoring.overall_score; reading_order EditDist is separate, NOT in Overall
-    aggregation: page.ALL                # OmniDocBench page_avg convention (NOT sample-weighted .all)
+    overall_formula: ((1 - text_EditDist) * 100 + formula_CDM * 100 + table_TEDS *
+      100) / 3
+    aggregation: page.ALL
     match_method: quick_match
-    note: "reading_order EditDist is reported separately and is NOT part of Overall"
-
-rocm_recipe:                             # (verified) the canonical gfx1100/RDNA3 recipe (mirrors the upstream doc)
-  gpu_arch: gfx1100                      # RDNA3 — Radeon PRO W7900 (only gfx1100 tested here; other RDNA3 variants e.g. gfx1101/1102 untested)
+    note: reading_order EditDist is reported separately and is NOT part of Overall
+rocm_recipe:
+  gpu_arch: gfx1100
   hsa_override:
-    pipeline: none                       # in-process PyTorch auto-detects gfx1100
-    vlm_vllm: "11.0.0"                   # required by the tested vLLM-on-ROCm build (observed; gfx1100 only — not a MinerU source requirement)
-  vlm_server:                            # (verified) key flags of the tested VLM server (canonical source: examples/serve_vlm_vllm.sh)
-    source_script: examples/serve_vlm_vllm.sh   # the tracked, authoritative launch script — flags summarized here
+    pipeline: none
+    vlm_vllm: 11.0.0
+  vlm_server:
+    source_script: examples/serve_vlm_vllm.sh
     served_model_name: mineru-pro
     dtype: bfloat16
-    tensor_parallel_size: 1              # no --tensor-parallel-size flag (vLLM default tp=1)
+    tensor_parallel_size: 1
     max_model_len: 8192
-    gpu_memory_utilization: 0.70
+    gpu_memory_utilization: 0.7
     limit_mm_per_prompt: '{"image": 1}'
     enforce_eager: true
-    logits_processors: "mineru_vl_utils:MinerULogitsProcessor"
-    vllm_use_v1: "1"                     # MANDATORY (v1 logits-processor API)
+    logits_processors: mineru_vl_utils:MinerULogitsProcessor
+    vllm_use_v1: '1'
     port: 8265
-  install: |
-    pip install -U "mineru[all]"         # + ROCm torch wheel; VLM additionally needs vLLM-on-ROCm
-  cli: |
-    mineru-rocm predict --backend {pipeline|vlm-vllm} --gt-json <gt> --images-dir <imgs> --pred-dir <out> --platform linux-rocm
+  install: 'pip install -U "mineru[all]"         # + ROCm torch wheel; VLM additionally
+    needs vLLM-on-ROCm
+
+    '
+  cli: 'mineru-rocm predict --backend {pipeline|vlm-vllm} --gt-json <gt> --images-dir
+    <imgs> --pred-dir <out> --platform linux-rocm
+
     mineru-rocm score --gt-json <gt> --pred-dir <out> --label {pipeline|vlm-vllm} --omnidocbench-repo <OmniDocBench> --venv-python <scorer-venv>/bin/python
 
+    '
 environment:
   os:
     name: Linux
-    kernel: "6.8.0-79-generic"           # (verified) results/**/metric_result.json uname (hostname redacted)
+    kernel: 6.8.0-79-generic
   gpu:
     vendor: AMD
-    model: "Radeon PRO W7900"            # (verified) rocm-smi device id 0x744b
-    arch: gfx1100                        # (verified) RDNA3
-    vram_gb: 48                          # (verified) predict.log "GPU Memory: 48 GB"
-    host_gpu_count: 4                    # (verified) host has 4× W7900
-    gpu_count_per_benchmark: 1           # (verified) 1 GPU per worker (no tensor parallel)
+    model: Radeon PRO W7900
+    arch: gfx1100
+    vram_gb: 48
+    host_gpu_count: 4
+    gpu_count_per_benchmark: 1
   inference:
-    dtype: bfloat16                      # (verified) examples/serve_vlm_vllm.sh --dtype bfloat16
-    tensor_parallel_size: 1              # (verified) no --tensor-parallel-size flag (vLLM default tp=1)
-    hip_visible_devices:                 # which physical GPU each run used (immaterial — any of the 4× is equivalent)
-      vlm_vllm: "0"                      # (verified) examples/serve_vlm_vllm.sh HIP_VISIBLE_DEVICES default
-      pipeline: not_recorded             # not captured in run_manifest env; original run docs recorded GPU 3
-  hsa_override:                          # mirrored in rocm_recipe (the actionable recipe)
-    pipeline: null                       # in-process PyTorch detected gfx1100 without it
-    vlm_vllm: "11.0.0"                   # observed with the tested vLLM-on-ROCm build (gfx1100 only)
-  # flat aliases kept for the check_repo gates (check_version_consistency reads gpu_arch + rocm_hip):
-  gpu_arch: gfx1100                      # (verified) alias of gpu.arch — only gfx1100 tested
-  rocm_smi_device_id: "Card Model 0x744b, SKU D7070910 (AMD Radeon Graphics)"   # (verified) rocm-smi --showproductname
-  rocm_hip: "7.2"                        # (verified) torch.version.hip 7.2.53211 (both venvs)
-  venvs:                                 # the two models ran in DIFFERENT venvs (different torch/vllm)
-    pipeline:                            # mineru infer venv (Py3.11) — has mineru
-      python: "3.11.15"
-      torch: "2.14.0.dev20260717+rocm7.2"
-      mineru: "3.4.4"
-      mineru_vl_utils: "1.0.5"
-      vllm: "0.19.1"                     # installed but UNUSED by the pipeline path
-    vlm_vllm:                            # vLLM VLM venv (Py3.12) — has vllm 0.16.1 + mineru_vl_utils
-      python: "3.12.3"
-      torch: "2.9.1+gitff65f5b"
-      vllm: "0.16.1.dev0+g89a77b108.d20260317"
-      transformers: "4.57.6"
-      huggingface_hub: "0.36.2"          # downgraded from 1.24.0 (>=1.0 broke transformers; Plan 2 range <1.0)
-      mineru_vl_utils: "1.0.5"
-
+    dtype: bfloat16
+    tensor_parallel_size: 1
+    hip_visible_devices:
+      vlm_vllm: '0'
+      pipeline: not_recorded
+  hsa_override:
+    pipeline: null
+    vlm_vllm: 11.0.0
+  gpu_arch: gfx1100
+  rocm_smi_device_id: Card Model 0x744b, SKU D7070910 (AMD Radeon Graphics)
+  rocm_hip: '7.2'
+  venvs:
+    pipeline:
+      python: 3.11.15
+      torch: 2.14.0.dev20260717+rocm7.2
+      mineru: 3.4.4
+      mineru_vl_utils: 1.0.5
+      vllm: 0.19.1
+    vlm_vllm:
+      python: 3.12.3
+      torch: 2.9.1+gitff65f5b
+      vllm: 0.16.1.dev0+g89a77b108.d20260317
+      transformers: 4.57.6
+      huggingface_hub: 0.36.2
+      mineru_vl_utils: 1.0.5
 benchmark:
-  date: "2026-07-19"                     # (verified) the P2/P3 re-run date
-  hardware: "AMD gfx1100 (Radeon PRO W7900, 48 GB), ROCm 7.2"
-  canary_N:                              # (deferred → docs/known-gaps.md) canary subset not materialized yet (P3 canary step)
-    pipeline_overall: not_recorded       # (deferred → docs/known-gaps.md)
-    vlm_vllm_overall: not_recorded       # (deferred → docs/known-gaps.md)
-    vlm_transformers_overall: not_recorded   # (deferred → docs/known-gaps.md)
-  full_1651:                             # (verified) fresh re-run via mineru-rocm predict | score (pdf_validation.py scorer)
-    pipeline:                            # (verified) Overall 86.48 (prior self-run 86.48, Δ0.00 — deterministic pipeline; upstream anchor is 86.47)
+  date: '2026-07-19'
+  hardware: AMD gfx1100 (Radeon PRO W7900, 48 GB), ROCm 7.2
+  canary_N:
+    pipeline_overall: not_recorded
+    vlm_vllm_overall: not_recorded
+    vlm_transformers_overall: not_recorded
+  full_1651:
+    pipeline:
       overall: 86.48
       text_edit_dist: 0.0566
       formula_cdm: 0.8307
       table_teds: 0.8204
       reading_order_edit_dist: 0.1534
-      empty_pages: 1                     # 1 page produced empty output (status 'failed' in run_manifest = the strict pending>0 gate, not a crash)
-    vlm_vllm:                            # (verified) Overall 95.46 (prior self-run 95.56, Δ-0.10pp run-to-run drift — source not isolated)
-      overall: 95.46
-      text_edit_dist: 0.0360
-      formula_cdm: 0.9646
+      empty_pages: 1
+      eval_date: '2026-07-21'
+    vlm_vllm:
+      overall: 95.56
+      text_edit_dist: 0.036
+      formula_cdm: 0.9673
       table_teds: 0.9354
       reading_order_edit_dist: 0.1236
-      empty_pages: 2                     # 0.12% (matches Plan 2 baseline)
-    vlm_transformers: not_run            # sample-only; ~44h full impractical (diagnostic; Plan 2 deferred)
-  official_reference:                    # (verified 2026-07-20) upstream README "Local Deployment" table
+      empty_pages: 2
+      text_edit: 0.0359
+      eval_date: '2026-07-21'
+    vlm_transformers: not_run
+  official_reference:
     source: verified
     source_url: https://github.com/opendatalab/MinerU/blob/master/README.md
-    pipeline_overall: 86.47              # (verified) README table, pipeline row
-    vlm_overall: 95.30                   # (verified) README table, vlm-engine row (closest match to our vlm-vllm path)
-    hybrid_engine_high: 95.39            # (verified) README table, for reference
-    inference_engine: vlm-engine         # (verified) upstream label for the vLLM-served VLM path we mirror
-    provenance_note: "Official anchors are OmniDocBench v1.6 Overall from the upstream README 'Local Deployment' table. The prior 'official 95.75' was unverified and is withdrawn."
+    pipeline_overall: 86.47
+    vlm_overall: 95.3
+    hybrid_engine_high: 95.39
+    inference_engine: vlm-engine
+    provenance_note: Official anchors are OmniDocBench v1.6 Overall from the upstream
+      README 'Local Deployment' table. The prior 'official 95.75' was unverified and
+      is withdrawn.

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-07-21T08:57:35.545186+00:00",
+  "git_commit": "eebca643ea7978b68cfe68144d7c30d33930e714",
+  "engine_version": "0.3.0",
+  "model_id": "mineru2.5",
+  "platform": "linux-rocm",
+  "vlm_server_url": "http://127.0.0.1:8265/v1",
+  "api_model_name": "mineru-pro",
+  "adapter_command": "python adapter/run_adapter.py --backend vlm-vllm --platform linux-rocm --server-url http://127.0.0.1:8265/v1 --api-model-name mineru-pro",
+  "scoring_config_path": ".",
+  "dataset_manifest_path": ".",
+  "dataset_revision": "2b161d0",
+  "prediction_dir": "<eval-root>/mineru-vlm-vllm-preds",
+  "page_count": 1651,
+  "ok_pages": 1649,
+  "failed_pages": 2,
+  "fallback_pages": 0,
+  "metric_result_paths": [
+    "<workspace>/OmniDocBench/result/mineru-vlm-vllm-preds_quick_match_metric_result.json"
+  ],
+  "run_summary_paths": [
+    "results/omnidocbench/v16/linux-rocm/mineru2.5_v16_quick_match_run_summary.json"
+  ],
+  "run_stats_path": "<eval-root>/mineru-vlm-vllm-preds/_run_stats.json",
+  "backend": "vlm-vllm"
+}

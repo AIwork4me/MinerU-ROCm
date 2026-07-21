@@ -34,7 +34,7 @@ COMPONENT LICENSES
    redistribute these weights. Tracked in docs/known-gaps.md; an upstream
    clarification issue is planned.
 
-5. omnidocbench-amd engine (OPTIONAL, install via the [platform] extra) —
+5. omnidocbench-rocm engine (OPTIONAL, install via the [platform] extra) —
    Apache-2.0. Used only by the optional platform-integration shim, not by the
    standalone evaluation path.
 

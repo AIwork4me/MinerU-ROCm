@@ -9,6 +9,7 @@ behind each phase and `reproducibility.lock.yaml` for the exact provenance.
 ## [Unreleased]
 
 Hardening for upstream MinerU PR #5288 (ROCm docs contribution) — evidence-base consistency + OPSEC + falsifiability.
+- P1 platform migration: `omnidocbench-amd` → `omnidocbench-rocm` (historical name: pre-P1 used omnidocbench-amd; now migrated to OmniDocBench-ROCm).
 
 ### Fixed
 - `model_card.json` VLM Overall 95.56 → **95.46**; both model cards repointed from the superseded `v16/` engine artefacts to the authoritative `results/omnidocbench/v1.6/` set (`run_manifest` + `metric_result` + `sample_predictions`).

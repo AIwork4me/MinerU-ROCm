@@ -6,11 +6,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
-      # P1a decoupled the core (local types.py replaces omnidocbench_amd.types) and the
-      # core is GPU-free, so CI installs [dev] only. [platform] (omnidocbench-amd) is
-      # OPTIONAL and not published to PyPI, so it is NOT installed here; the
-      # omnidocbench_amd.conformance check_repo gate therefore runs in the local /
-      # platform env, not in CI.
+      # The core is GPU-free (local types.py, no engine import coupling), so CI
+      # installs [dev] only. [platform] (omnidocbench-rocm) is OPTIONAL; the
+      # conformance gate runs in the local / platform env, not in CI.
       - run: pip install -e ".[dev]"
       - run: python scripts/check_repo.py
       - run: python -c "from mineru_rocm.types import RunSummary, PageStatus; print('mineru_rocm.types ok')"

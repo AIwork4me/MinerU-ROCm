@@ -21,10 +21,9 @@ SAMPLE="${HERE}/sample.png"
 export HIP_VISIBLE_DEVICES="${HIP_VISIBLE_DEVICES:-3}"
 export MINERU_DEVICE_MODE=cuda
 export HF_ENDPOINT="${HF_ENDPOINT:-https://huggingface.co}"
-# The dispatcher (run_adapter.py) imports the omnidocbench_amd contract types;
-# that package lives in the OmniDocBench-AMD engine repo, not in the mineru
-# venv. Put it on PYTHONPATH so the mineru venv can see it.
-export PYTHONPATH="${PYTHONPATH:+$PYTHONPATH:}<workspace>/omnidocbench-amd/engine"
+# The dispatcher (run_adapter.py) uses local mineru_rocm.types — no engine import.
+# If optional omnidocbench-rocm platform integration is needed, put it on PYTHONPATH.
+export PYTHONPATH="${PYTHONPATH:+$PYTHONPATH:}<workspace>/omnidocbench-rocm/engine"
 
 # Activate the mineru venv (overlay ROCm torch already applied).
 # shellcheck disable=SC1091
