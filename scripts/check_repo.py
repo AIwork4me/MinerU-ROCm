@@ -138,14 +138,18 @@ def _current_vlm_overall(lock):
 
 def _prior_vlm_overall(repo=REPO):
     """The prior standalone VLM Overall, read from the legacy v1.6 metric_result
-    (overall_notebook). None when absent. Not hard-coded — derived from the
-    committed legacy metric so the gate has no baked-in score."""
+    (notebook_metric_summary.overall_notebook). None when absent. Not hard-coded
+    — derived from the committed legacy metric so the gate has no baked-in score."""
     import json
     p = repo / "results" / "omnidocbench" / "v1.6" / "vlm-vllm" / "metric_result.json"
     if not p.is_file():
         return None
     try:
-        return round(float(json.loads(p.read_text(encoding="utf-8")).get("overall_notebook")), 2)
+        data = json.loads(p.read_text(encoding="utf-8"))
+        val = (data.get("notebook_metric_summary") or {}).get("overall_notebook")
+        if val is None:
+            val = data.get("overall_notebook")  # fallback for a flat layout
+        return round(float(val), 2)
     except (ValueError, TypeError):
         return None
 
@@ -174,7 +178,14 @@ def check_prior_overall_contextual(lock, repo=REPO) -> list[str]:
     """The prior standalone VLM Overall (read from the legacy v1.6 metric) may
     appear in user-facing docs only alongside the current Overall. Catches a doc
     that quotes the prior as the sole/primary number. Data-driven — no
-    hard-coded scores."""
+    hard-coded scores.
+
+    ``docs/upstream/`` and ``docs/upstream-pr/`` are excluded: they are staging
+    drafts for an external contribution to opendatalab/MinerU that documents the
+    standalone ``mineru-rocm`` path (where the standalone 95.46 is the
+    contributed number) — not this repo's own current-result surface (which is
+    README / docs/reproducibility / how-it-works / benchmark-methodology, all
+    95.56-primary)."""
     current = _current_vlm_overall(lock)
     prior = _prior_vlm_overall(repo)
     if current is None or prior is None or current == prior:
@@ -184,8 +195,11 @@ def check_prior_overall_contextual(lock, repo=REPO) -> list[str]:
     targets: list[Path] = [repo / n for n in ("README.md", "README.zh-CN.md", "CHANGELOG.md")
                            if (repo / n).is_file()]
     for md in (repo / "docs").rglob("*.md"):
-        if "superpowers" not in md.parts:
-            targets.append(md)
+        if "superpowers" in md.parts:
+            continue
+        if any(part.startswith("upstream") for part in md.parts):  # external-contribution staging
+            continue
+        targets.append(md)
     for p in targets:
         txt = p.read_text(encoding="utf-8", errors="ignore")
         if pri in txt and cur not in txt:

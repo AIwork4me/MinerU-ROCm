@@ -3,7 +3,7 @@
   "save_name": "mineru-pipeline_v16_quick_match_cdm",
   "engine": "pipeline",
   "cdm": true,
-  "created_at_utc": "2026-07-21T14:14:55.235500+00:00",
+  "created_at_utc": "2026-07-21T14:43:59.012248+00:00",
   "prediction_count": 1651,
   "ok_pages": 1650,
   "failed_pages": 1,
