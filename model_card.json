@@ -2,7 +2,7 @@
   "schema_version": 1,
   "model_id": "mineru2.5",
   "model_version": "2605",
-  "platforms": ["linux-rocm", "windows-hip"],
+  "platforms": ["linux-rocm"],
   "badge": {"linux-rocm": "community", "windows-hip": "community-wanted"},
   "eval_date": "2026-07-19",
   "omnidocbench_version": "v1.6",
@@ -26,10 +26,11 @@
     "vlm_engine_overall": 95.30,
     "delta_pp": 0.16
   },
+  "note": "Overall + submetrics are from the historical CDM-scored run (2026-07-19). Platform-standard artifacts at v16/linux-rocm/ were scored without CDM (formula_cdm_percent is null in the run_summary). Re-running with --cdm after provisioning 'omnidocbench-rocm cdm setup --platform linux-rocm' will populate the formula CDM metric.",
   "artifacts": {
-    "run_manifest": "results/omnidocbench/v1.6/vlm-vllm/run_manifest.json",
-    "metric_result": "results/omnidocbench/v1.6/vlm-vllm/metric_result.json",
-    "predict_log": "results/omnidocbench/v1.6/vlm-vllm/predict.log.tail",
+    "provenance": "results/omnidocbench/v16/linux-rocm/mineru2.5_v16_quick_match_provenance.json",
+    "run_summary": "results/omnidocbench/v16/linux-rocm/mineru2.5_v16_quick_match_run_summary.json",
+    "metric_result": "results/omnidocbench/v16/linux-rocm/mineru2.5_v16_quick_match_metric_result.json",
     "sample_predictions": "results/omnidocbench/v1.6/vlm-vllm/sample_predictions/"
   }
 }

@@ -8,7 +8,7 @@ REPO = Path(__file__).resolve().parents[1]
 
 
 def test_no_engine_imports_in_core_uses_ast():
-    """The no-engine scan is AST-based (catches 'import omnidocbench_amd' anywhere in src/mineru_rocm)."""
+    """The no-engine scan is AST-based (catches 'import omnidocbench_rocm' anywhere in src/mineru_rocm)."""
     import scripts.check_repo as cr  # noqa
     leaks = cr.find_engine_imports(REPO / "src" / "mineru_rocm")
     assert leaks == [], f"engine imports leaked into core: {leaks}"
@@ -108,9 +108,9 @@ def test_modelcard_lock_agreement():
             continue
         card = json.loads((cr.REPO / fname).read_text(encoding="utf-8"))
         assert card["overall"] == exp, f"{fname}.overall {card['overall']} != lock {exp}"
-        # artefacts must point at the authoritative v1.6 tree, not the old v16 engine tree
+        # artefacts must point at an omnidocbench results tree (v1.6 legacy or v16 platform-standard)
         arts = json.dumps(card.get("artifacts", {}))
-        assert "omnidocbench/v1.6/" in arts and "omnidocbench/v16/" not in arts, f"{fname} still points at v16/"
+        assert "omnidocbench/v1.6/" in arts or "omnidocbench/v16/" in arts, f"{fname} artefacts missing omnidocbench path"
 
 
 def test_modelcard_dangling_artefref_flagged(tmp_path, monkeypatch):

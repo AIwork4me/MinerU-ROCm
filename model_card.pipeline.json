@@ -2,7 +2,7 @@
   "schema_version": 1,
   "model_id": "mineru-pipeline",
   "model_version": "3.4.4",
-  "platforms": ["linux-rocm", "windows-hip"],
+  "platforms": ["linux-rocm"],
   "badge": {"linux-rocm": "community", "windows-hip": "community-wanted"},
   "eval_date": "2026-07-19",
   "omnidocbench_version": "v1.6",
@@ -20,10 +20,11 @@
     "vram": "48 GB per GPU",
     "rocm_driver": "ROCm 7.2.1"
   },
+  "note": "Supplementary model card for the MinerU 3.4 pipeline. This is not the canonical OmniDocBench-ROCm registry card in the current single-primary-card integration — see model_card.json (mineru2.5) for the primary registry card. Overall + submetrics are from the historical CDM-scored run (2026-07-19).",
   "artifacts": {
-    "run_manifest": "results/omnidocbench/v1.6/pipeline/run_manifest.json",
-    "metric_result": "results/omnidocbench/v1.6/pipeline/metric_result.json",
-    "predict_log": "results/omnidocbench/v1.6/pipeline/predict.log.tail",
+    "provenance": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_provenance.json",
+    "run_summary": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_run_summary.json",
+    "metric_result": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_metric_result.json",
     "sample_predictions": "results/omnidocbench/v1.6/pipeline/sample_predictions/"
   }
 }

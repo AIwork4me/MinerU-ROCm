@@ -1,4 +1,4 @@
-"""omnidocbench-amd platform shim — the engine invokes this as a subprocess.
+"""omnidocbench-rocm platform shim — the engine invokes this as a subprocess.
 
 Thin entry that delegates to mineru_rocm.dispatcher, preserving the engine's
 adapter contract (runnable script, same CLI). The real logic lives in the

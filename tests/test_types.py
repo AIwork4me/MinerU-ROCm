@@ -38,7 +38,7 @@ def test_write_round_trips(tmp_path):
 
 
 def test_run_summary_stats_is_required_positional():
-    # Engine parity: omnidocbench_amd.types.RunSummary requires stats positionally
+    # Engine parity: omnidocbench_rocm.types.RunSummary requires stats positionally
     # (verified — engine raises TypeError). Our port must match.
     with pytest.raises(TypeError):
         RunSummary(1, 1, 0, 0, None)

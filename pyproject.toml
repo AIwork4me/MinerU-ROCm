@@ -27,13 +27,13 @@ classifiers = [
 ]
 # Core package is GPU-free and platform-free. The single core dep is PyYAML
 # (scoring writes/parses OmniDocBench eval configs). GPU/platform deps stay
-# optional: omnidocbench-amd engine integration is [platform]; the CLI lands in P1.
+# optional: omnidocbench-rocm engine integration is [platform].
 dependencies = ["PyYAML>=6.0"]
 
 [project.optional-dependencies]
-# Optional: omnidocbench-amd platform integration. The current adapter/run_adapter.py
-# imports omnidocbench_amd.types; this coupling is removed in P1 (local types.py).
-platform = ["omnidocbench-amd>=0.1.0"]
+# Optional: omnidocbench-rocm platform integration. The adapter uses local
+# mineru_rocm.types — no engine import coupling.
+platform = ["omnidocbench-rocm>=0.2.0"]
 dev = ["pytest>=8", "ruff>=0.6", "reuse>=1.3", "build"]
 
 [project.urls]

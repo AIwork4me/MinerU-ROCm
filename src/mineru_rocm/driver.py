@@ -7,7 +7,7 @@ in-process) over an OmniDocBench page set using the ``mineru_rocm.runner``
 primitives: atomic per-page writes, structured error records, resumability that
 skips only genuinely-complete pages, an exclusive writer lock, and a
 conservation-checked ``run_manifest.json``. This is a NEW path parallel to the
-omnidocbench-amd engine subprocess (``dispatcher.run_adapter`` writes
+omnidocbench-rocm engine subprocess (``dispatcher.run_adapter`` writes
 ``_run_stats.json``); it does not touch that contract.
 
 Heavy backend deps (mineru / mineru_vl_utils / torch) are imported lazily inside
