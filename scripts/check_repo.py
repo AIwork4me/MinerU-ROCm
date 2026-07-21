@@ -3,7 +3,10 @@
 # Copyright 2026 AIwork4me
 """Repo-consistency gate. Exits 0 clean, 1 on any finding. Run in CI + locally."""
 from __future__ import annotations
-import ast, re, subprocess, sys
+import ast
+import re
+import subprocess
+import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -127,20 +130,80 @@ def check_modelcard_lock_agreement(lock) -> list[str]:
     return findings
 
 
-_STALE_VLM_OVERALL = "95.56"
-_CURRENT_VLM_OVERALL = "95.46"
-def check_no_stale_overall(repo=REPO) -> list[str]:
-    """No user-facing doc under docs/ (excl docs/superpowers/ design records) presents
-    the stale VLM Overall (95.56) as the current value. A doc is flagged iff it contains
-    95.56 WITHOUT also containing 95.46 — legitimate comparative mentions (e.g. 'vs a
-    prior 95.56' alongside the current 95.46) are fine."""
-    errs = []
+def _current_vlm_overall(lock):
+    """The canonical current VLM Overall, sourced from the lock (single source
+    of truth). None when not filled."""
+    return (((lock.get("benchmark") or {}).get("full_1651") or {}).get("vlm_vllm") or {}).get("overall")
+
+
+def _prior_vlm_overall(repo=REPO):
+    """The prior standalone VLM Overall, read from the legacy v1.6 metric_result
+    (notebook_metric_summary.overall_notebook). None when absent. Not hard-coded
+    — derived from the committed legacy metric so the gate has no baked-in score."""
+    import json
+    p = repo / "results" / "omnidocbench" / "v1.6" / "vlm-vllm" / "metric_result.json"
+    if not p.is_file():
+        return None
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+        val = (data.get("notebook_metric_summary") or {}).get("overall_notebook")
+        if val is None:
+            val = data.get("overall_notebook")  # fallback for a flat layout
+        return round(float(val), 2)
+    except (ValueError, TypeError):
+        return None
+
+
+def check_current_overall_primary(lock, repo=REPO) -> list[str]:
+    """The lock's current VLM Overall is the primary headline number: the VLM
+    badge in README.md and README.zh-CN.md must state it. Data-driven — the
+    'current' value is whatever the lock records, never hard-coded."""
+    current = _current_vlm_overall(lock)
+    if current is None:
+        return []
+    errs: list[str] = []
+    cur = f"{current}"
+    for name in ("README.md", "README.zh-CN.md"):
+        p = repo / name
+        if not p.is_file():
+            continue
+        badge_lines = [line for line in p.read_text(encoding="utf-8").splitlines()
+                       if "img.shields.io" in line and "VLM" in line and "(full)" in line]
+        if badge_lines and not any(cur in line for line in badge_lines):
+            errs.append(f"{name}: VLM badge does not state the current Overall {cur} (lock value)")
+    return errs
+
+
+def check_prior_overall_contextual(lock, repo=REPO) -> list[str]:
+    """The prior standalone VLM Overall (read from the legacy v1.6 metric) may
+    appear in user-facing docs only alongside the current Overall. Catches a doc
+    that quotes the prior as the sole/primary number. Data-driven — no
+    hard-coded scores.
+
+    ``docs/upstream/`` and ``docs/upstream-pr/`` are excluded: they are staging
+    drafts for an external contribution to opendatalab/MinerU that documents the
+    standalone ``mineru-rocm`` path (where the standalone 95.46 is the
+    contributed number) — not this repo's own current-result surface (which is
+    README / docs/reproducibility / how-it-works / benchmark-methodology, all
+    95.56-primary)."""
+    current = _current_vlm_overall(lock)
+    prior = _prior_vlm_overall(repo)
+    if current is None or prior is None or current == prior:
+        return []
+    errs: list[str] = []
+    cur, pri = f"{current}", f"{prior}"
+    targets: list[Path] = [repo / n for n in ("README.md", "README.zh-CN.md", "CHANGELOG.md")
+                           if (repo / n).is_file()]
     for md in (repo / "docs").rglob("*.md"):
         if "superpowers" in md.parts:
             continue
-        txt = md.read_text(encoding="utf-8")
-        if _STALE_VLM_OVERALL in txt and _CURRENT_VLM_OVERALL not in txt:
-            errs.append(f"{md.relative_to(repo)} quotes stale Overall {_STALE_VLM_OVERALL} without the current {_CURRENT_VLM_OVERALL}")
+        if any(part.startswith("upstream") for part in md.parts):  # external-contribution staging
+            continue
+        targets.append(md)
+    for p in targets:
+        txt = p.read_text(encoding="utf-8", errors="ignore")
+        if pri in txt and cur not in txt:
+            errs.append(f"{p.relative_to(repo)} quotes prior VLM Overall {pri} without the current {cur}")
     return errs
 
 
@@ -412,7 +475,8 @@ def main(argv=None) -> int:
     findings += check_readme_scripts_exist(readme)
     findings += check_readme_lock_values(readme, lock)
     findings += check_modelcard_lock_agreement(lock)
-    findings += check_no_stale_overall()
+    findings += check_current_overall_primary(lock)
+    findings += check_prior_overall_contextual(lock)
     findings += check_no_withdrawn_anchor_claims()
     findings += check_version_consistency(lock)
     findings += check_release_and_run_provenance(lock)

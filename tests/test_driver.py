@@ -2,7 +2,6 @@ import json
 import sys
 from pathlib import Path
 from types import SimpleNamespace
-import pytest
 from mineru_rocm import driver, runner
 
 

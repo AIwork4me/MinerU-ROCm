@@ -38,3 +38,12 @@ path = ["examples/*.png", "docs/assets/*"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 AIwork4me"
 SPDX-License-Identifier = "Apache-2.0"
+
+# Generated data/log artifacts under the legacy v1.6 results trees (gitignore
+# rules, truncated predict-log tails). The bulk block above covers the root
+# .gitignore but not nested ones; this covers the rest.
+[[annotations]]
+path = ["**/.gitignore", "**/predict.log.tail"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 AIwork4me"
+SPDX-License-Identifier = "Apache-2.0"

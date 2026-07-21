@@ -6,7 +6,7 @@
 > 且上游 headline 可能用不同引擎。
 
 [![OmniDocBench v1.6](https://img.shields.io/badge/OmniDocBench-v1.6-blue)](https://github.com/opendatalab/OmniDocBench)
-[![VLM full](https://img.shields.io/badge/MinerU2.5--Pro%20VLM%20(full)-95.46-green)](#evaluation评测)
+[![VLM full](https://img.shields.io/badge/MinerU2.5--Pro%20VLM%20(full)-95.56-green)](#evaluation评测)
 [![pipeline full](https://img.shields.io/badge/MinerU%203.4%20pipeline%20(full)-86.48-yellowgreen)](#evaluation评测)
 [![status: evaluation-backed](https://img.shields.io/badge/status-evaluation--backed-blue)](reproducibility.lock.yaml)
 [![license: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0%20(+MinerU%20terms)-blue)](NOTICE)
@@ -111,6 +111,11 @@ omnidocbench-rocm publish --predictions-dir <真实预测目录> ...
 `reproducibility.lock.yaml`（`benchmark.official_reference`）。`windows-hip`
 仍为 `community-wanted`（暂无结果）。
 
+> **历史分数说明：** 此前独立 `mineru-rocm score` 路径在同一份 1651 页预测上得分为
+> **95.46**（Formula CDM 96.46）；当前平台 CDM 得分 **95.56**（Formula CDM 96.73）。
+> 两者使用同一预测集（commit `b75f788`）与同一评分器（revision `2b161d0`），Δ +0.10 pp
+> 完全来自 Formula-CDM 子指标（CDM 评分配置差异），并非重新推理。
+
 ### 结果 —— MinerU 3.4 pipeline（补充 model card，`mineru-pipeline`）
 
 | Model / Backend | Overall | Text Edit | Formula CDM | Table TEDS |
@@ -153,7 +158,7 @@ license —— 视为授权不明，请勿再分发。完整分解见 [NOTICE](N
 - `smoke` 后端输出的是占位文本，并非真实 OCR。CI/conformance 可通过 `--backend smoke` 验证适配器契约而无需 GPU。
 - **Windows-HIP** 为 `community-wanted` —— 尚无正式结果。两个 model card 的 `windows-hip` badge 均为 `community-wanted`。
 - **环境准备脚本**（`adapter/setup/`）为桩代码，仅记录手动步骤，未完全自动化环境安装。
-- **平台标准 artifacts**（run_summary.json、provenance.json）尚未在 `results/omnidocbench/v16/linux-rocm/` 生成。现有结果位于 `results/omnidocbench/v1.6/`，为真实的完整 1651 页预测，但格式为遗留格式。运行 `omnidocbench-rocm score` + `publish` 迁移至平台标准 schema。
+- **平台标准 artifacts** 已于 2026-07-21 在 `results/omnidocbench/v16/linux-rocm/` 生成（`mineru2.5` 与 `mineru-pipeline` 的自包含 CDM bundle：`run_summary` + `provenance` + `metric_result` + `run_stats` + SHA256 `prediction_manifest` + `dataset_identity`）。`results/omnidocbench/v1.6/` 下的遗留结果保留用于历史对比与预测来源 provenance。可用 `omnidocbench-rocm validate-bundle results/omnidocbench/v16/linux-rocm` 校验任意 bundle。
 - **VLM 空输出：** 1651 个 VLM 页面中 2 个产生空预测（已记录为失败）。
 - **Pipeline 空输出：** 1651 个 pipeline 页面中 1 个产生空预测。
 - **Conformance** 通过所有结构性检查；完整 `CONFORMANT` 状态需通过 `omnidocbench-rocm publish` 生成平台标准 artifacts。

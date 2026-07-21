@@ -1,8 +1,4 @@
-import ast
-import subprocess
-import sys
 from pathlib import Path
-import pytest
 
 REPO = Path(__file__).resolve().parents[1]
 
@@ -65,7 +61,8 @@ def test_check_repo_clean_on_repo(capsys):
     findings += cr.check_readme_scripts_exist(readme)
     findings += cr.check_readme_lock_values(readme, cr._load_lock())
     findings += cr.check_modelcard_lock_agreement(cr._load_lock())
-    findings += cr.check_no_stale_overall()
+    findings += cr.check_current_overall_primary(cr._load_lock())
+    findings += cr.check_prior_overall_contextual(cr._load_lock())
     findings += cr.check_no_withdrawn_anchor_claims()
     findings += cr.check_version_consistency(cr._load_lock())
     findings += cr.check_release_and_run_provenance(cr._load_lock())
@@ -142,11 +139,47 @@ def test_modelcard_dangling_artefref_flagged(tmp_path, monkeypatch):
     assert "upstream_url" not in joined and "pred_dir" not in joined, findings
 
 
-def test_no_stale_vlm_overall_in_docs():
-    """No user-facing doc under docs/ (excl. superpowers/) still quotes the stale 95.56."""
+def test_current_overall_primary_clean_on_repo():
+    """The README VLM badge states the lock's current VLM Overall (95.56)."""
     import scripts.check_repo as cr
-    findings = cr.check_no_stale_overall()
+    findings = cr.check_current_overall_primary(cr._load_lock())
     assert findings == [], findings
+
+
+def test_current_overall_primary_flags_drift(tmp_path, monkeypatch):
+    """A README whose VLM badge lags the lock's current Overall is flagged."""
+    import scripts.check_repo as cr
+    (tmp_path / "README.md").write_text(
+        "[![VLM full](https://img.shields.io/badge/VLM(full)-90.00-green)](#x)\n", encoding="utf-8")
+    monkeypatch.setattr(cr, "REPO", tmp_path)
+    lock = {"benchmark": {"full_1651": {"vlm_vllm": {"overall": 95.56}}}}
+    findings = cr.check_current_overall_primary(lock, tmp_path)
+    assert any("95.56" in f for f in findings), findings
+
+
+def test_prior_overall_contextual_clean_on_repo():
+    """Every user-facing doc that cites the prior (95.46) also cites the current (95.56)."""
+    import scripts.check_repo as cr
+    findings = cr.check_prior_overall_contextual(cr._load_lock())
+    assert findings == [], findings
+
+
+def test_prior_overall_contextual_flags_orphan(tmp_path, monkeypatch):
+    """A doc citing the prior without the current is flagged; one with both passes."""
+    import json
+    import scripts.check_repo as cr
+    # legacy v1.6 metric carries the prior Overall (overall_notebook)
+    legacy = tmp_path / "results" / "omnidocbench" / "v1.6" / "vlm-vllm" / "metric_result.json"
+    legacy.parent.mkdir(parents=True)
+    legacy.write_text(json.dumps({"overall_notebook": 95.4635996625401}), encoding="utf-8")
+    (tmp_path / "docs").mkdir()
+    (tmp_path / "docs" / "orphan.md").write_text("prior score was 95.46 here\n", encoding="utf-8")
+    (tmp_path / "docs" / "ok.md").write_text("prior 95.46, current 95.56\n", encoding="utf-8")
+    lock = {"benchmark": {"full_1651": {"vlm_vllm": {"overall": 95.56}}}}
+    findings = cr.check_prior_overall_contextual(lock, tmp_path)
+    flagged = {f.split(" quotes")[0] for f in findings}
+    assert "docs/orphan.md" in flagged, findings
+    assert "docs/ok.md" not in flagged, findings
 
 
 def test_no_internal_infra_in_public_files():

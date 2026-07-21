@@ -8,7 +8,7 @@
 > [Benchmark methodology](docs/benchmark-methodology.md).
 
 [![OmniDocBench v1.6](https://img.shields.io/badge/OmniDocBench-v1.6-blue)](https://github.com/opendatalab/OmniDocBench)
-[![VLM full](https://img.shields.io/badge/MinerU2.5--Pro%20VLM%20(full)-95.46-green)](#evaluation)
+[![VLM full](https://img.shields.io/badge/MinerU2.5--Pro%20VLM%20(full)-95.56-green)](#evaluation)
 [![pipeline full](https://img.shields.io/badge/MinerU%203.4%20pipeline%20(full)-86.48-yellowgreen)](#evaluation)
 [![status: evaluation-backed](https://img.shields.io/badge/status-evaluation--backed-blue)](reproducibility.lock.yaml)
 [![license: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0%20(+MinerU%20terms)-blue)](NOTICE)
@@ -17,7 +17,7 @@
 
 - **What it is.** Tooling to run opendatalab MinerU (3.4 pipeline + 2.5-Pro VLM) on AMD ROCm and score it on OmniDocBench v1.6.
 - **Where verified.** AMD **gfx1100 (RDNA3), Radeon PRO W7900 (48 GB), ROCm 7.2**, bf16. Host has 4x W7900; **each benchmark used 1 GPU (no tensor parallel).**
-- **Most reliable results.** **MinerU2.5-Pro VLM (vLLM-on-ROCm) full 1651 = 95.46 Overall**; **MinerU 3.4 pipeline full 1651 = 86.48 Overall**.
+- **Most reliable results.** **MinerU2.5-Pro VLM (vLLM-on-ROCm) full 1651 = 95.56 Overall** (platform CDM-scored; prior standalone score 95.46 from the same prediction set — Δ +0.10 pp, entirely the Formula-CDM submetric 96.46→96.73); **MinerU 3.4 pipeline full 1651 = 86.48 Overall**.
 - **Most important limitation.** **Not precision-aligned.** No same-engine CUDA control exists; the upstream headline may be measured with a different engine. The official anchor (vlm-engine 95.30) is aligned to the upstream README "Local Deployment" table and is **community-verified, not official support**.
 - **Upstream.** This is a port OF [opendatalab/MinerU](https://github.com/opendatalab/MinerU); the [omnidocbench-rocm](https://github.com/AIwork4me/OmniDocBench-ROCm) engine is one *optional* consumer (install the `[platform]` extra), not the definition of this repo.
 
@@ -74,7 +74,8 @@ omnidocbench-rocm run \
   --api-model-name mineru-pro \
   --git-commit "$(git rev-parse HEAD)" \
   --results-dir results/omnidocbench/v16/linux-rocm \
-  --skip-existing
+  --cdm
+# Add --skip-existing only to resume an interrupted run (make eval-mineru2.5-linux RESUME=1).
 ```
 
 ### MinerU 3.4 Pipeline (supplementary, `mineru-pipeline`)
@@ -90,7 +91,7 @@ omnidocbench-rocm run \
   --backend pipeline \
   --git-commit "$(git rev-parse HEAD)" \
   --results-dir results/omnidocbench/v16/linux-rocm \
-  --skip-existing
+  --cdm
 ```
 
 ### Split-stage execution (for long VLM runs)
@@ -167,8 +168,8 @@ Not affiliated with the MinerU Team / OpenDataLab.
 - The `smoke` backend emits placeholder text, not real OCR. CI/conformance can force `smoke` via `--backend smoke` to validate the adapter contract without a GPU.
 - **Windows-HIP** is `community-wanted` — no formal results yet. The `windows-hip` platform badge remains `community-wanted` across both model cards.
 - **Provisioning scripts** (`adapter/setup/`) are stubs that document the steps; they do not automate full environment setup.
-- **Platform-standard artifacts** (run_summary.json, provenance.json) are not yet generated for `results/omnidocbench/v16/linux-rocm/`. Existing results at `results/omnidocbench/v1.6/` are real, verified full-1651 predictions, but in legacy format. Run `omnidocbench-rocm score` + `publish` to migrate to platform-standard schema.
-- **VLM empty outputs:** 2 of 1651 VLM pages produced empty predictions (recorded as failures).
+- **Platform-standard artifacts** for `results/omnidocbench/v16/linux-rocm/` were generated on 2026-07-21 (self-contained CDM bundles for `mineru2.5` and `mineru-pipeline`: `run_summary` + `provenance` + `metric_result` + `run_stats` + a SHA256 `prediction_manifest` + `dataset_identity`). The legacy results under `results/omnidocbench/v1.6/` are retained for historical comparison and prediction-source provenance. Validate any bundle with `omnidocbench-rocm validate-bundle results/omnidocbench/v16/linux-rocm`.
+- **VLM empty outputs:** 2 of 1651 VLM pages produced empty predictions (recorded as failures + listed in the prediction manifest).
 - **Pipeline empty outputs:** 1 of 1651 pipeline pages produced an empty prediction.
-- **Conformance** passes all structural checks; full `CONFORMANT` status requires platform-standard artifacts generated via `omnidocbench-rocm publish`.
+- **Conformance** passes all structural checks (`omnidocbench-rocm conformance .` → CONFORMANT); platform-standard artifacts are committed.
 - Full list: [`docs/known-gaps.md`](docs/known-gaps.md).

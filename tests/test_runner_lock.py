@@ -1,7 +1,6 @@
 # tests/test_runner_lock.py
 import json
 import pytest
-from mineru_rocm import runner
 from mineru_rocm.runner import RunLock, RunLockHeld, acquire_run_lock
 
 

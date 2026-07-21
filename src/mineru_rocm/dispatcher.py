@@ -7,7 +7,9 @@ contract signature and the out_dir/<image_stem>.md + _run_stats.json output
 convention. Per-page failures are caught and recorded (R2) — never raised.
 """
 from __future__ import annotations
-import argparse, importlib, time
+import argparse
+import importlib
+import time
 from pathlib import Path
 from mineru_rocm.types import RunSummary, PageStatus
 from mineru_rocm import config as adapter_config

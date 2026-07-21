@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "created_at_utc": "2026-07-21T12:42:06.479437+00:00",
-  "git_commit": "f245e7ed63b0ac361b6879cde81b088a1bf06979",
-  "engine_version": "0.3.0",
+  "created_at_utc": "2026-07-21T14:43:59.015009+00:00",
+  "git_commit": "bb4ad481ba3a20f3ce54fc80c6808f8a1691aa43",
+  "engine_version": "0.3.1",
   "model_id": "mineru-pipeline",
   "platform": "linux-rocm",
   "vlm_server_url": "",
   "api_model_name": "",
-  "adapter_command": "python adapter/run_adapter.py --backend pipeline --platform linux-rocm",
-  "scoring_config_path": ".",
-  "dataset_manifest_path": ".",
+  "adapter_command": "python adapter/run_adapter.py --img-dir <workspace>/OmniDocBench_data/images --out-dir <eval-root>/mineru-pipeline-preds --platform linux-rocm --backend pipeline",
+  "scoring_config_path": "eval/configs/omnidocbench_v16.yaml",
+  "dataset_manifest_path": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_cdm_dataset_identity.json",
   "dataset_revision": "2b161d0",
   "prediction_dir": "<eval-root>/mineru-pipeline-preds",
   "page_count": 1651,
@@ -17,11 +17,22 @@
   "failed_pages": 1,
   "fallback_pages": 0,
   "metric_result_paths": [
-    "<workspace>/OmniDocBench/result/mineru-pipeline-preds_quick_match_metric_result.json"
+    "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_cdm_metric_result.json"
   ],
   "run_summary_paths": [
     "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_cdm_run_summary.json"
   ],
-  "run_stats_path": "<eval-root>/mineru-pipeline-preds/_run_stats.json",
-  "backend": "pipeline"
+  "run_stats_path": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_cdm_run_stats.json",
+  "backend": "pipeline",
+  "packaging_commit": "bb4ad481ba3a20f3ce54fc80c6808f8a1691aa43",
+  "prediction_source_commit": "e05eec322dd8bf45447c3dec53349454f0424e61",
+  "prediction_source_command": "mineru-rocm predict pipeline (legacy standalone mineru-rocm CLI; see results/omnidocbench/v1.6/pipeline/run_manifest.json)",
+  "prediction_source_run_manifest": "results/omnidocbench/v1.6/pipeline/run_manifest.json",
+  "prediction_manifest_path": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_cdm_prediction_manifest.json",
+  "prediction_manifest_sha256": "c13c7b11573eaaf2992da54c72076cd9b27d93041a7b4bad8ec2c7086e4d692f",
+  "dataset_identity_path": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_cdm_dataset_identity.json",
+  "source_metric_result_path": "<workspace>/OmniDocBench/result/mineru-pipeline-preds_quick_match_metric_result.json",
+  "source_run_stats_path": "<eval-root>/mineru-pipeline-preds/_run_stats.json",
+  "source_prediction_dir": "<eval-root>/mineru-pipeline-preds",
+  "migration_type": "legacy_predictions_to_platform_artifacts"
 }
