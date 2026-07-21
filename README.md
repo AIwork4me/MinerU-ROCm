@@ -109,14 +109,14 @@ developer debugging — see `docs/reproducibility.md` for the full recipe.
 | Model / Backend | Overall | Text Edit | Formula CDM | Table TEDS |
 |---|---:|---:|---:|---:|
 | _official_ MinerU2.5-Pro _(upstream README vlm-engine row; community-verified, not official support)_ | 95.30 | — | — | — |
-| **ours MinerU2.5-Pro (vlm-vllm, ROCm)** | **95.46** | 0.0360 | 96.46 | 93.54 |
+| **ours MinerU2.5-Pro (vlm-vllm, ROCm)** | **95.56** | 0.0359 | 96.73 | 93.54 |
 | ours MinerU2.5-Pro (vlm-transformers, ROCm) | _sample-only_ | | | |
 
 The `vlm-vllm` row is reproduced on linux-rocm (self-attested, `badge: community`):
 1651/1651 pages attempted, 1649 non-empty predictions (2 empty), no process
-crashes; ~7 h on a single GPU (gfx1100); read-order EditDist 0.1236.
-Overall 95.46 is consistent with the published upstream reference range
-(vlm-engine 95.30; delta +0.16 pp — **not** a controlled CUDA-vs-ROCm
+crashes; ~7 h on a single GPU (gfx1100); read-order EditDist 0.1240.
+Overall 95.56 is consistent with the published upstream reference range
+(vlm-engine 95.30; delta +0.26 pp — **not** a controlled CUDA-vs-ROCm
 comparison). The upstream anchor is from the upstream README "Local Deployment"
 table, recorded as **community-verified, not official support** — see
 `reproducibility.lock.yaml` (`benchmark.official_reference`). `windows-hip` is

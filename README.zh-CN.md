@@ -100,13 +100,13 @@ omnidocbench-rocm publish --predictions-dir <真实预测目录> ...
 | Model / Backend | Overall | Text Edit | Formula CDM | Table TEDS |
 |---|---:|---:|---:|---:|
 | _official_ MinerU2.5-Pro _(上游 README vlm-engine 行；社区验证，非官方支持)_ | 95.30 | — | — | — |
-| **ours MinerU2.5-Pro（vlm-vllm，ROCm）** | **95.46** | 0.0360 | 96.46 | 93.54 |
+| **ours MinerU2.5-Pro（vlm-vllm，ROCm）** | **95.56** | 0.0359 | 96.73 | 93.54 |
 | ours MinerU2.5-Pro（vlm-transformers，ROCm） | _仅采样_ | | | |
 
 `vlm-vllm` 行在 linux-rocm **已复现**（自证，`badge: community`）：1651/1651 页
 已尝试，1649 个产生非空预测（2 个空输出），无进程崩溃；单卡（gfx1100）约
-7 小时；阅读顺序 EditDist 0.1236。Overall 95.46 与公开发布的上游参考区间**一致**
-（vlm-engine 95.30；delta +0.16 pp —— **非**受控 CUDA-vs-ROCm 对照）。上游锚点
+7 小时；阅读顺序 EditDist 0.1240。Overall 95.56 与公开发布的上游参考区间**一致**
+（vlm-engine 95.30；delta +0.26 pp —— **非**受控 CUDA-vs-ROCm 对照）。上游锚点
 取自上游 README "Local Deployment" 表，属**社区验证、非官方支持** —— 见
 `reproducibility.lock.yaml`（`benchmark.official_reference`）。`windows-hip`
 仍为 `community-wanted`（暂无结果）。

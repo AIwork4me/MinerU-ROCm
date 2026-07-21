@@ -58,12 +58,46 @@
                 "ALL_page_avg": 0.09734006786469855,
                 "edit_whole": 0.09908111604255414,
                 "edit_sample_avg": 0.07743082794878418
+            },
+            "CDM": {
+                "all": 0.9705314625850346
             }
         },
         "group": {
             "sample_count": {}
         },
         "page": {
+            "CDM": {
+                "ALL": 0.9673122987001097,
+                "None": 0.9752969724741635,
+                "colorful_backgroud": 0.9165674963924964,
+                "data_source: PPT2PDF": 0.9359793452380952,
+                "data_source: academic_literature": 0.9916638827842394,
+                "data_source: book": 0.9572427793303318,
+                "data_source: colorful_textbook": 0.9570673611111111,
+                "data_source: exam_paper": 0.9823794219032203,
+                "data_source: note": 0.9599623015873017,
+                "fuzzy_content": 0.963,
+                "fuzzy_scan": 0.9032666666666668,
+                "geometric_deformation": 0.989080808080808,
+                "handwriting": 0.9619444444444445,
+                "language: en_ch_mixed": 0.967,
+                "language: english": 0.9814023678905287,
+                "language: simplified_chinese": 0.9320114770061398,
+                "layout: 1andmore_column": 0.9764635971439014,
+                "layout: double_column": 0.9889385021979239,
+                "layout: other_layout": 0.9363101704879483,
+                "layout: single_column": 0.9646976925368597,
+                "layout: three_column": 0.8537567460317461,
+                "subset: equation_hard": 0.9782370109203449,
+                "subset: layout_hard": 0.9663962148962149,
+                "subset: table_hard": 1.0,
+                "subset: v1.5": 0.962251356066339,
+                "text_L-shaped_wrap": 0.9962142857142857,
+                "text_O-shaped_wrap": 0.6765,
+                "watermark": 0.8426133333333332,
+                "with_watermark": 0.9926
+            },
             "Edit_dist": {
                 "ALL": 0.09734006786469857,
                 "None": 0.06902046146160713,
@@ -94,6 +128,17 @@
                 "text_O-shaped_wrap": 0.2777777777777778,
                 "watermark": 0.20328573394332708,
                 "with_watermark": 0.035396162582765456
+            }
+        },
+        "metric_debug": {
+            "CDM": {
+                "stage": "CDM",
+                "workers": 13,
+                "sample_count": 2352,
+                "timeout_case_count": 0,
+                "timeout_cases": [],
+                "exception_case_count": 0,
+                "exception_cases": []
             }
         }
     },

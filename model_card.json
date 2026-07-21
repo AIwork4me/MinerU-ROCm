@@ -4,16 +4,15 @@
   "model_version": "2605",
   "platforms": ["linux-rocm"],
   "badge": {"linux-rocm": "community", "windows-hip": "community-wanted"},
-  "eval_date": "2026-07-19",
+  "eval_date": "2026-07-21",
   "omnidocbench_version": "v1.6",
-  "overall": 95.46,
+  "overall": 95.56,
   "submetrics": {
-    "text_edit_dist": 0.0360,
-    "text_accuracy_percent": 96.40,
+    "text_edit_dist": 0.0359,
     "table_teds_percent": 93.54,
-    "table_teds_structure_only_percent": 96.09,
-    "formula_cdm_percent": 96.46,
-    "reading_order_edit_dist": 0.1236
+    "table_teds_structure_only_percent": 95.33,
+    "formula_cdm_percent": 96.73,
+    "reading_order_edit_dist": 0.1240
   },
   "hardware": {
     "gpu": "AMD gfx1100 (Radeon PRO W7900)",
@@ -24,12 +23,11 @@
     "source": "upstream README 'Local Deployment' table",
     "source_url": "https://github.com/opendatalab/MinerU/blob/master/README.md",
     "vlm_engine_overall": 95.30,
-    "delta_pp": 0.16
+    "delta_pp": 0.26
   },
-  "note": "Overall + submetrics are from the historical CDM-scored run (2026-07-19). Platform-standard artifacts at v16/linux-rocm/ were scored without CDM (formula_cdm_percent is null in the run_summary). Re-running with --cdm after provisioning 'omnidocbench-rocm cdm setup --platform linux-rocm' will populate the formula CDM metric.",
   "artifacts": {
-    "provenance": "results/omnidocbench/v16/linux-rocm/mineru2.5_v16_quick_match_provenance.json",
-    "run_summary": "results/omnidocbench/v16/linux-rocm/mineru2.5_v16_quick_match_run_summary.json",
+    "provenance": "results/omnidocbench/v16/linux-rocm/mineru2.5_v16_quick_match_cdm_provenance.json",
+    "run_summary": "results/omnidocbench/v16/linux-rocm/mineru2.5_v16_quick_match_cdm_run_summary.json",
     "metric_result": "results/omnidocbench/v16/linux-rocm/mineru2.5_v16_quick_match_metric_result.json",
     "sample_predictions": "results/omnidocbench/v1.6/vlm-vllm/sample_predictions/"
   }
