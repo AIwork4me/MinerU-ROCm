@@ -1,3 +1,38 @@
+# Windows-HIP handoff revision — Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: superpowers:executing-plans (inline). Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Rewrite `MinerU-ROCm/docs/HANDOFF-windows-hip.md` so a colleague on Strix Halo/Windows 11 can start Windows-HIP verification immediately — scoring via `omnidocbench-amd-windows`, then landing a self-contained platform bundle.
+
+**Architecture:** Single-file rewrite of the handoff doc to the approved spec (`docs/superpowers/specs/2026-07-21-windows-hip-handoff-design.md`). The doc points the colleague at `omnidocbench-amd-windows` (which already does dataset + CDM + scoring on Windows), adds a MinerU adapter to it, then bridges to `omnidocbench-rocm publish` (0.3.1, no platform backend) for the bundle. Pipeline = Phase 1 (solid), VLM = Phase 2 (exploratory).
+
+**Tech Stack:** Markdown; PowerShell + WSL2 (colleague's box); `omnidocbench-amd-windows` (sibling repo); `omnidocbench-rocm` ≥0.3.1.
+
+## Global Constraints (verbatim from spec)
+
+- Overall formula = `((1−text_EditDist)·100 + formula_CDM·100 + table_TEDS·100)/3`; raw TEDS/CDM are 0–1 fractions; reading-order excluded.
+- Bundle path = `results/omnidocbench/v16/windows-hip/` (NOT `v1.6/`).
+- Dataset + scorer revision = `2b161d0`.
+- Platform install pinned to `omnidocbench-rocm` merged main commit `ce081dbd3848d84cb0622ceee57c8f054845fcf3` until 0.3.1 ships to PyPI; then `>=0.3.1`.
+- Conformance via `omnidocbench-rocm conformance .` (NOT the nonexistent `scripts/check_conformance.py`).
+- Do NOT cite `omnidocbench-rocm score --platform windows-hip` / `cdm setup --platform windows-hip` — they raise `NotImplementedError` (no windows-hip backend). Score via `omnidocbench-amd-windows`.
+- GT sha256 (for publish `--gt-sha256`) = `a45cd84b04ad8b793e775089640e6b681209abea33ead54c1828ddca35fae496`.
+- The token `omnidocbench-amd-windows` may appear only as the repo URL citation (it is in the platform `check_brand` forbidden list); keep MinerU's user-facing surface clean.
+
+---
+
+### Task 1: Rewrite `docs/HANDOFF-windows-hip.md`
+
+**Files:**
+- Modify (full rewrite): `docs/HANDOFF-windows-hip.md`
+
+**Interfaces:** none (documentation only).
+
+- [ ] **Step 1: Replace the entire file with the content below**
+
+Write this exact content to `docs/HANDOFF-windows-hip.md`:
+
+````markdown
 # Windows-HIP verification handoff — MinerU-ROCm (pipeline + VLM)
 
 > **Who does what.** The **Linux / `linux-rocm`** side is verified (community:
@@ -258,3 +293,113 @@ Expect `CONFORMANT`. Verify the GT sha matches your downloaded `OmniDocBench.jso
   `omnidocbench-rocm` as a real auto-detecting `windows-hip` backend (so
   `omnidocbench-rocm score --platform windows-hip` works and the standalone repo
   can retire).
+````
+
+- [ ] **Step 2: Verify the fatal fixes are present + stale refs are gone**
+
+Run:
+```bash
+cd /workspace/MinerU-ROCm
+# F2 fixed: correct formula present, wrong formula absent
+grep -n "formula_CDM × 100 + table_TEDS × 100" docs/HANDOFF-windows-hip.md   # expect a hit
+! grep -n "Table_TEDS + Formula_CDM) / 3" docs/HANDOFF-windows-hip.md         # expect no hit
+# F1 fixed: no broken score/cdm-setup on windows-hip as an instruction (only the explanatory note)
+! grep -n "omnidocbench-rocm score --platform windows-hip$\|cdm setup --platform windows-hip$" docs/HANDOFF-windows-hip.md
+# F3 fixed: v16/windows-hip path present; no v1.6/windows-hip instruction path
+grep -n "results\\\\omnidocbench\\\\v16\\\\windows-hip\|results/omnidocbench/v16/windows-hip" docs/HANDOFF-windows-hip.md
+# F4 fixed: revision 2b161d0
+grep -n "2b161d0" docs/HANDOFF-windows-hip.md
+# F5 fixed: pinned platform install
+grep -n "ce081dbd3848d84cb0622ceee57c8f054845fcf3" docs/HANDOFF-windows-hip.md
+# F6 fixed: no nonexistent script reference
+! grep -n "scripts\\\\check_conformance.py\|scripts/check_conformance.py" docs/HANDOFF-windows-hip.md
+```
+Expected: every `grep` prints ≥1 line; every `! grep` (negated) prints nothing.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add docs/HANDOFF-windows-hip.md
+git commit -m "docs(handoff): rewrite Windows-HIP handoff — score via omnidocbench-amd-windows
+
+Fix 2 fatal blockers (scoring step hit platform NotImplementedError; Overall
+formula missing x100 on TEDS/CDM) + stale path/revision/platform-version/
+script refs. Score on Windows via omnidocbench-amd-windows (CDM included,
+model-agnostic adapters; MinerU-ROCm adapter drops in), then assemble the
+self-contained bundle with omnidocbench-rocm publish 0.3.1. Pipeline=Phase1,
+VLM=Phase2 exploratory.
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+```
+
+---
+
+### Task 2: Verify no regressions in the repo gate
+
+**Files:** none (verification only).
+
+- [ ] **Step 1: Run the MinerU gate**
+
+```bash
+cd /workspace/MinerU-ROCm
+python -m pytest -q                       # expect: 156 passed (or current count, 0 failed)
+python scripts/check_repo.py              # expect: check_repo: clean
+ruff check .                              # expect: All checks passed!
+```
+Expected: all clean. The handoff doc is under `docs/` and is scanned by
+`check_repo.check_no_internal_infra` (no host paths), `check_no_withdrawn_anchor_claims`,
+`check_version_consistency` (must state `ROCm 7.2` — the doc says Strix Halo/Windows,
+no ROCm version claim, so fine), and `check_readme_lock_values` (only README.md, not
+this doc). If `check_repo` flags anything in the handoff, fix the flagged line.
+
+- [ ] **Step 2: Confirm the doc cites the repo only as a URL (brand-cleanliness)**
+
+```bash
+# 'omnidocbench-amd-windows' should appear only as the github URL + the cloned dir name,
+# not as a product/CLI identity. MinerU's own check_repo has no brand gate, but keep it clean.
+grep -c "omnidocbench-amd-windows" docs/HANDOFF-windows-hip.md   # expect a small number (URLs + dir refs)
+```
+
+---
+
+### Task 3: Push + open PR
+
+**Files:** none.
+
+- [ ] **Step 1: Push the branch**
+
+```bash
+cd /workspace/MinerU-ROCm
+git push -u origin docs/windows-hip-handoff-revision
+# If the env push-lock blocks the update (cannot lock ref ... reference already exists),
+# use the throwaway-ref + gh API workaround:
+#   HEAD=$(git rev-parse HEAD)
+#   git push origin "$HEAD:refs/heads/throwhandoff"
+#   gh api repos/AIwork4me/MinerU-ROCm/git/refs/heads/docs/windows-hip-handoff-revision -X PATCH -f sha="$HEAD"
+#   gh api repos/AIwork4me/MinerU-ROCm/git/refs/heads/throwhandoff -X DELETE
+```
+
+- [ ] **Step 2: Open the PR**
+
+```bash
+gh pr create --base main --head docs/windows-hip-handoff-revision \
+  --title "docs(handoff): rewrite Windows-HIP verification handoff" \
+  --body "Rewrites docs/HANDOFF-windows-hip.md so a Strix Halo colleague can start Windows-HIP verification immediately. Scores via omnidocbench-amd-windows (CDM included); assembles the self-contained bundle via omnidocbench-rocm publish 0.3.1. Fixes 2 fatal blockers (scoring step hit platform NotImplementedError; Overall formula missing x100) + stale path/revision/platform-version/script refs. Pipeline=Phase1, VLM=Phase2 exploratory. Spec: docs/superpowers/specs/2026-07-21-windows-hip-handoff-design.md."
+```
+
+- [ ] **Step 3: Confirm CI green (core job; platform-contract is unaffected by a docs change)**
+
+```bash
+gh pr view <PR> --json statusCheckRollup -q '[.statusCheckRollup[] | {name,conclusion}]'
+# expect core: SUCCESS
+```
+
+---
+
+## Self-Review
+
+**Spec coverage:** spec §1 (audit) → Task 1 Step 2 grep checks cover all 7 defects (F1–F7). F7 (VLM path) → §5 Phase 2 in the new doc. spec §2–§3 (scoring via omnidocbench-amd-windows + structure) → Task 1 doc §3–§7. spec §4 (acceptance) → Task 1 Step 2 + Task 2. spec §11 (Phase B contribution) → noted in doc §10 + a one-line future pointer (kept out of scope). ✓
+
+**Placeholder scan:** the `<...>` tokens in the doc are intentional colleague-fill parameters (paths, shas, engine name), not plan placeholders; each is labeled. No TBD/TODO. ✓
+
+**Type consistency:** doc-internal only — formula, paths, revision, sha, CLI flags are identical across §0/§6/§7. ✓
