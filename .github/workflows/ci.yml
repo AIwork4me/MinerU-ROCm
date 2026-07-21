@@ -8,6 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history + tags: check_repo validates git tag/commit provenance
+          # (e.g. test_release_and_run_provenance_flags_mismatched_lock needs the
+          # v0.1.0 annotated tag), which a shallow clone lacks.
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
       - run: pip install -e ".[dev]"
