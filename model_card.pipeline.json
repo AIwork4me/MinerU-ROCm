@@ -23,7 +23,10 @@
   "artifacts": {
     "provenance": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_cdm_provenance.json",
     "run_summary": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_cdm_run_summary.json",
-    "metric_result": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_metric_result.json",
+    "metric_result": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_cdm_metric_result.json",
+    "run_stats": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_cdm_run_stats.json",
+    "prediction_manifest": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_cdm_prediction_manifest.json",
+    "dataset_identity": "results/omnidocbench/v16/linux-rocm/mineru-pipeline_v16_quick_match_cdm_dataset_identity.json",
     "sample_predictions": "results/omnidocbench/v1.6/pipeline/sample_predictions/"
   }
 }
