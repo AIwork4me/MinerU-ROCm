@@ -19,17 +19,17 @@ jobs:
       - run: python -m pip check
 
   # Platform contract: install the OmniDocBench-ROCm engine, run conformance +
-  # the committed-artifact bundle validator. Pinned to a specific platform
-  # commit (no floating main) until omnidocbench-rocm 0.3.1 ships to PyPI; then
-  # switch the install to `"omnidocbench-rocm>=0.3.1,<0.4"`.
+  # the committed-artifact bundle validator. Pinned to the merged platform main
+  # commit (0.3.1, PR #15) — no floating main. Switch to
+  # `"omnidocbench-rocm>=0.3.1,<0.4"` once 0.3.1 ships to PyPI.
   platform-contract:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
-      - name: Install pinned OmniDocBench-ROCm engine
-        run: pip install "git+https://github.com/AIwork4me/OmniDocBench-ROCm.git@6ab015d4b85ae639bebf43a91460959be7bd5c3a#egg=omnidocbench-rocm"
+      - name: Install pinned OmniDocBench-ROCm engine (0.3.1, main ce081db)
+        run: pip install "git+https://github.com/AIwork4me/OmniDocBench-ROCm.git@ce081dbd3848d84cb0622ceee57c8f054845fcf3#egg=omnidocbench-rocm"
       - run: pip install -e ".[dev]"
       - run: omnidocbench-rocm conformance .
       - run: python scripts/validate_platform_artifacts.py
