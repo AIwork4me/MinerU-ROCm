@@ -8,6 +8,15 @@ PRED_DIR     ?= $(IMAGES_DIR)-preds-$(BACKEND)
 SCORER_VENV  ?= $(VIRTUAL_ENV)
 RESULTS_ROOT ?= results/omnidocbench/$(VERSION)/linux-rocm
 
+# Clean full run by default: CDM scoring ON, --skip-existing OFF.
+#   make eval-mineru2.5-linux             # clean CDM run
+#   make eval-mineru2.5-linux RESUME=1    # resume an interrupted run
+#   make eval-mineru2.5-linux CDM=0       # quick debug score without CDM
+CDM ?= 1
+RESUME ?= 0
+CDM_FLAG = $(if $(filter 1,$(CDM)),--cdm,)
+RESUME_FLAG = $(if $(filter 1,$(RESUME)),--skip-existing,)
+
 # ── provisioning ──────────────────────────────────────────────────────────────
 
 setup-linux:
@@ -51,7 +60,8 @@ eval-mineru2.5-linux:
 	  --api-model-name mineru-pro \
 	  --git-commit "$$(git rev-parse HEAD)" \
 	  --results-dir $(RESULTS_ROOT) \
-	  --skip-existing
+	  $(CDM_FLAG) \
+	  $(RESUME_FLAG)
 
 # MinerU 3.4 Pipeline (supplementary)
 eval-pipeline-linux:
@@ -65,7 +75,8 @@ eval-pipeline-linux:
 	  --backend pipeline \
 	  --git-commit "$$(git rev-parse HEAD)" \
 	  --results-dir $(RESULTS_ROOT) \
-	  --skip-existing
+	  $(CDM_FLAG) \
+	  $(RESUME_FLAG)
 
 # ── conformance ───────────────────────────────────────────────────────────────
 

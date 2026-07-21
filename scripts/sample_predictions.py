@@ -8,7 +8,10 @@ Writes sample_predictions/<stem>.md (copied) + sample_predictions/manifest.json.
 Usage: python scripts/sample_predictions.py <pred_dir>
 """
 from __future__ import annotations
-import hashlib, json, shutil, sys
+import hashlib
+import json
+import shutil
+import sys
 from pathlib import Path
 
 N = 10
@@ -36,5 +39,6 @@ def main(pred_dir: Path) -> int:
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("usage: sample_predictions.py <pred_dir>", file=sys.stderr); sys.exit(2)
+        print("usage: sample_predictions.py <pred_dir>", file=sys.stderr)
+        sys.exit(2)
     sys.exit(main(Path(sys.argv[1])))

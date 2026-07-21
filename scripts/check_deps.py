@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright 2026 AIwork4me
 """P0 validator: core is GPU/platform-free; omnidocbench-rocm is only in [platform]."""
-import sys, tomllib
+import tomllib
 from pathlib import Path
 
 with open(Path(__file__).resolve().parents[1] / "pyproject.toml", "rb") as f:

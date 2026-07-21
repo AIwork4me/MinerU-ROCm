@@ -3,7 +3,10 @@
 # Copyright 2026 AIwork4me
 """Repo-consistency gate. Exits 0 clean, 1 on any finding. Run in CI + locally."""
 from __future__ import annotations
-import ast, re, subprocess, sys
+import ast
+import re
+import subprocess
+import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -160,9 +163,9 @@ def check_current_overall_primary(lock, repo=REPO) -> list[str]:
         p = repo / name
         if not p.is_file():
             continue
-        badge_lines = [l for l in p.read_text(encoding="utf-8").splitlines()
-                       if "img.shields.io" in l and "VLM" in l and "(full)" in l]
-        if badge_lines and not any(cur in l for l in badge_lines):
+        badge_lines = [line for line in p.read_text(encoding="utf-8").splitlines()
+                       if "img.shields.io" in line and "VLM" in line and "(full)" in line]
+        if badge_lines and not any(cur in line for line in badge_lines):
             errs.append(f"{name}: VLM badge does not state the current Overall {cur} (lock value)")
     return errs
 

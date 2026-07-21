@@ -1,15 +1,35 @@
+name: CI
+
 on: [push, pull_request]
+
 jobs:
-  smoke:
+  # Core (GPU-free): the package + docs + gates that do not need the engine.
+  core:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
-      # The core is GPU-free (local types.py, no engine import coupling), so CI
-      # installs [dev] only. [platform] (omnidocbench-rocm) is OPTIONAL; the
-      # conformance gate runs in the local / platform env, not in CI.
       - run: pip install -e ".[dev]"
-      - run: python scripts/check_repo.py
-      - run: python -c "from mineru_rocm.types import RunSummary, PageStatus; print('mineru_rocm.types ok')"
       - run: pytest -q
+      - run: ruff check .
+      - run: python scripts/check_repo.py
+      - run: reuse lint
+      - run: python -m build
+      - run: python -m pip check
+
+  # Platform contract: install the OmniDocBench-ROCm engine, run conformance +
+  # the committed-artifact bundle validator. Pinned to a specific platform
+  # commit (no floating main) until omnidocbench-rocm 0.3.1 ships to PyPI; then
+  # switch the install to `"omnidocbench-rocm>=0.3.1,<0.4"`.
+  platform-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - name: Install pinned OmniDocBench-ROCm engine
+        run: pip install "git+https://github.com/AIwork4me/OmniDocBench-ROCm.git@6ab015d4b85ae639bebf43a91460959be7bd5c3a#egg=omnidocbench-rocm"
+      - run: pip install -e ".[dev]"
+      - run: omnidocbench-rocm conformance .
+      - run: python scripts/validate_platform_artifacts.py
