@@ -6,6 +6,50 @@ All notable changes to MinerU-ROCm are documented here. The format is based on
 Versions are tagged on `main`; see `docs/superpowers/specs/` for the design
 behind each phase and `reproducibility.lock.yaml` for the exact provenance.
 
+## P1.1 — evidence consistency + self-contained bundles (2026-07-21)
+
+Cross-repo consistency fix with OmniDocBench-ROCm P0.1 (platform 0.3.1).
+
+### Changed — current canonical VLM result is now 95.56 (platform CDM)
+- **The canonical current VLM Overall is 95.56** (platform CDM-scored,
+  `omnidocbench-rocm run --cdm`), recomputed from the committed CDM metric via
+  `((1−0.0359)·100 + 96.73 + 93.54)/3 = 95.5605`. **95.46 is the prior
+  standalone `mineru-rocm score` result** (Formula CDM 96.46) on the **same
+  1651 predictions** (commit `b75f788`). The Δ +0.10 pp is entirely the
+  Formula-CDM submetric (CDM scoring configuration), not new inference. This
+  reverses the 2026-07-20 demotion to 95.46-primary on the verified basis that
+  95.56 recomputes from the CDM metric over the same prediction set.
+- README + README.zh-CN badge/headline/results, `docs/reproducibility.md`,
+  `docs/how-it-works.md`, `docs/benchmark-methodology.md` → 95.56-primary,
+  95.46 retained only as the documented prior standalone score.
+
+### Added — self-contained platform bundles
+- `results/omnidocbench/v16/linux-rocm/` now holds self-contained CDM bundles
+  for `mineru2.5` and `mineru-pipeline`: committed `metric_result` + `run_stats`
+  + `scoring_config` + `dataset_identity` (revision `2b161d0`, GT sha
+  `a45cd84b…`) + a run-driven SHA256 `prediction_manifest` (mineru2.5 1649 ok /
+  2 failed; pipeline 1650 ok / 1 failed). Provenance splits
+  `packaging_commit` from `prediction_source_commit` (mineru2.5 `b75f788` /
+  pipeline `e05eec3`) and redacts runtime paths to `<eval-root>`. Generated via
+  `omnidocbench-rocm publish` (migration_type `legacy_predictions_to_platform_artifacts`).
+- `model_card.json` + `model_card.pipeline.json` repointed at the CDM bundles
+  (fixes the prior cdm/non-cdm metric mismatch).
+
+### Fixed
+- `scripts/check_repo.py`: replaced the hard-coded `_STALE=95.56` /
+  `_CURRENT=95.46` gate with a **data-driven** check sourced from
+  `reproducibility.lock.yaml` (current overall) + the legacy v1.6 metric
+  (prior overall): the README VLM badge must state the current overall, and the
+  prior overall may appear only alongside the current one.
+- `Makefile` `eval-*` targets: `--cdm` on by default, `--skip-existing` only
+  with `RESUME=1` (was unconditional `--skip-existing`, no `--cdm`).
+- `pyproject.toml`: `platform = ["omnidocbench-rocm>=0.3.1,<0.4"]` (was `>=0.2.0`).
+- CI split into `core` + `platform-contract` jobs; the latter installs the
+  pinned platform and runs `omnidocbench-rocm conformance .` +
+  `scripts/validate_platform_artifacts.py`.
+- `results/omnidocbench/v16/linux-rocm/README.md`: no longer claims the
+  directory is empty / artifacts not yet generated.
+
 ## [Unreleased]
 
 Hardening for upstream MinerU PR #5288 (ROCm docs contribution) — evidence-base consistency + OPSEC + falsifiability.
