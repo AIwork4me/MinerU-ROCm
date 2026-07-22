@@ -231,6 +231,89 @@ def test_pipeline_backend_is_explicitly_selectable(tmp_path, monkeypatch):
     assert rs["ok"] == 1
 
 
+def test_pipeline_run_stats_include_directml_evidence(tmp_path, monkeypatch):
+    _write_img(tmp_path)
+
+    def infer_page(img, platform, cfg):
+        cfg.update({
+            "onnxruntime_provider_requested": "directml",
+            "onnxruntime_providers_available": [
+                "DmlExecutionProvider", "CPUExecutionProvider"
+            ],
+            "onnxruntime_providers_active": [
+                "DmlExecutionProvider", "CPUExecutionProvider"
+            ],
+            "onnxruntime_cpu_fallback_enabled": True,
+            "onnxruntime_cpu_overrides_configured": [
+                "slanet-plus.onnx"
+            ],
+            "onnxruntime_cpu_overrides_active": ["slanet-plus.onnx"],
+            "onnxruntime_cpu_override_run_counts_by_model": {
+                "slanet-plus.onnx": 2
+            },
+            "pytorch_device_mode": "cuda",
+            "pytorch_version": "2.9.1+rocm7.2.1",
+            "pytorch_hip_version": "7.2",
+            "pytorch_gpu_available": True,
+            "pytorch_gpu_name": "AMD test GPU",
+        })
+        return "# pipeline\n"
+
+    monkeypatch.setattr(
+        dispatcher,
+        "_import_sub",
+        lambda name: SimpleNamespace(infer_page=infer_page),
+    )
+    out = tmp_path / "out"
+    dispatcher.run_adapter(
+        tmp_path,
+        out,
+        platform="windows-hip",
+        config={"backend": "pipeline"},
+    )
+    run_stats = json.loads((out / "_run_stats.json").read_text())
+    extra = run_stats["_extra"]
+    assert run_stats["ok"] == 1
+    assert run_stats["fallback"] == 0
+    assert extra["onnxruntime_provider_requested"] == "directml"
+    assert extra["onnxruntime_providers_active"][0] == "DmlExecutionProvider"
+    assert extra["onnxruntime_cpu_overrides_active"] == [
+        "slanet-plus.onnx"
+    ]
+    assert extra["onnxruntime_cpu_override_run_counts_by_model"] == {
+        "slanet-plus.onnx": 2
+    }
+    assert extra["pytorch_device_mode"] == "cuda"
+    assert extra["pytorch_gpu_name"] == "AMD test GPU"
+
+
+def test_directml_runtime_retry_marks_page_as_fallback(tmp_path, monkeypatch):
+    _write_img(tmp_path)
+
+    def infer_page(img, platform, cfg):
+        cfg["onnxruntime_directml_fallback_count"] = 1
+        cfg["onnxruntime_directml_fallback_reasons"] = ["DML runtime error"]
+        return "# recovered\n"
+
+    monkeypatch.setattr(
+        dispatcher,
+        "_import_sub",
+        lambda name: SimpleNamespace(infer_page=infer_page),
+    )
+    out = tmp_path / "out"
+    dispatcher.run_adapter(
+        tmp_path,
+        out,
+        platform="windows-hip",
+        config={"backend": "pipeline"},
+    )
+    stats = json.loads((out / "_run_stats.json").read_text())
+    assert stats["ok"] == 0
+    assert stats["fail"] == 0
+    assert stats["fallback"] == 1
+    assert stats["stats"][0]["status"].startswith("fallback:")
+
+
 def test_vlm_vllm_backend_is_explicitly_selectable(tmp_path, monkeypatch):
     _write_img(tmp_path)
     monkeypatch.setattr(dispatcher, "_import_sub",

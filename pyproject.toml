@@ -34,6 +34,10 @@ dependencies = ["PyYAML>=6.0"]
 # Optional: omnidocbench-rocm platform integration. The adapter uses local
 # mineru_rocm.types — no engine import coupling.
 platform = ["omnidocbench-rocm>=0.3.1,<0.4"]
+windows-pipeline = [
+  "mineru[pipeline]==3.4.4; platform_system == 'Windows'",
+  "onnxruntime-directml==1.24.4; platform_system == 'Windows'",
+]
 dev = ["pytest>=8", "ruff>=0.6", "reuse>=1.3", "build"]
 
 [project.urls]

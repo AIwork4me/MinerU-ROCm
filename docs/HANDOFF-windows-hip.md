@@ -37,7 +37,10 @@ is Phase 2 and exploratory on Windows (no Windows vLLM — see §5).
 
 - **Hardware:** AMD Ryzen AI MAX+ 395 (Strix Halo) — integrated Radeon (RDNA 3.5).
 - **OS:** Windows 11 + **WSL2 (Ubuntu 22.04)**.
-- **Python:** 3.10 or 3.11 (**not** 3.12 — OmniDocBench breaks). 3.11 preferred.
+- **Inference Python:** **3.12**. AMD's official Windows ROCm 7.2.1 PyTorch
+  wheels are cp312-only.
+- **Scoring Python:** 3.10 or 3.11 (**not** 3.12 — OmniDocBench breaks). Keep
+  this separate from the inference environment; 3.11 is preferred.
 - **Disk:** ~50 GB (dataset ~3 GB + weights + TeX Live ~5 GB + IM7 + WSL rootfs).
 
 ---
@@ -53,13 +56,33 @@ cd omnidocbench-amd-windows
 git clone https://github.com/AIwork4me/MinerU-ROCm
 cd MinerU-ROCm
 git checkout <pinned commit recorded in docs/reproducibility.md>
-python -m venv .venv ; .\.venv\Scripts\Activate.ps1
-python -m pip install -U pip
+conda create -n mineru-win-rocm python=3.12 pip -y
+conda activate mineru-win-rocm
+
+# AMD Windows ROCm 7.2.1 SDK (install the four official packages together).
+pip install --no-cache-dir `
+  https://repo.radeon.com/rocm/windows/rocm-rel-7.2.1/rocm_sdk_core-7.2.1-py3-none-win_amd64.whl `
+  https://repo.radeon.com/rocm/windows/rocm-rel-7.2.1/rocm_sdk_devel-7.2.1-py3-none-win_amd64.whl `
+  https://repo.radeon.com/rocm/windows/rocm-rel-7.2.1/rocm_sdk_libraries_custom-7.2.1-py3-none-win_amd64.whl `
+  https://repo.radeon.com/rocm/windows/rocm-rel-7.2.1/rocm-7.2.1.tar.gz
+
+# Official cp312 ROCm PyTorch wheels.
+pip install --no-cache-dir `
+  https://repo.radeon.com/rocm/windows/rocm-rel-7.2.1/torch-2.9.1%2Brocm7.2.1-cp312-cp312-win_amd64.whl `
+  https://repo.radeon.com/rocm/windows/rocm-rel-7.2.1/torchaudio-2.9.1%2Brocm7.2.1-cp312-cp312-win_amd64.whl `
+  https://repo.radeon.com/rocm/windows/rocm-rel-7.2.1/torchvision-0.24.1%2Brocm7.2.1-cp312-cp312-win_amd64.whl
+
+python -c "import torch; assert torch.version.hip and torch.cuda.is_available(); print(torch.__version__, torch.version.hip, torch.cuda.get_device_name(0))"
 # Platform engine (publish/conformance/validate-bundle) — pin to merged main 0.3.1
 # until omnidocbench-rocm 0.3.1 ships to PyPI, then use: pip install "omnidocbench-rocm>=0.3.1,<0.4"
 pip install "git+https://github.com/AIwork4me/OmniDocBench-ROCm.git@ce081dbd3848d84cb0622ceee57c8f054845fcf3#egg=omnidocbench-rocm"
-pip install -e .          # MinerU-ROCm (adapter + pyproject)
-pip install -U "mineru[all]"
+pip install "mineru[pipeline]==3.4.4"
+# Do not use mineru[all] in Phase 1 on Windows: its deferred lmdeploy/VLM extra
+# pins public torch 2.8.0 and replaces the official ROCm 2.9.1 wheel.
+pip install -e . --no-deps          # MinerU-ROCm adapter
+# Install this last so the DirectML ORT binary wins over the CPU ORT wheel.
+pip install --force-reinstall --no-deps "onnxruntime-directml==1.24.4"
+python -c "import onnxruntime as ort; assert ort.get_available_providers()[0] == 'DmlExecutionProvider'; print(ort.get_available_providers())"
 ```
 
 > The platform's `get_backend("windows-hip")` is **not implemented yet** — so
@@ -146,9 +169,32 @@ python adapters\mineru\run_adapter.py `
 ```
 - `--platform windows-hip` is required (the adapter branches on it; never infer
   from the OS).
-- On Windows without a CUDA/ROCm GPU, mineru's PyTorch models run on CPU (correct,
-  slower). DirectML for the ONNX table models is an optional speed-up (see
-  `omnidocbench-amd-windows/docs`); skip it for the first run.
+- On Windows, the adapter requires ONNX Runtime DirectML and creates every ONNX
+  session with `DmlExecutionProvider` first and `CPUExecutionProvider` second.
+  It fails closed when DirectML is unavailable or does not activate. MinerU's
+  PyTorch layout/MFR/OCR sub-models default to the official Windows ROCm
+  `cuda` surface and fail closed when HIP/GPU is unavailable. If a model assigned
+  to DirectML fails during execution, the adapter retries that ONNX model on
+  CPU and records the page as `fallback` plus the count/reason in
+  `_run_stats.json`; this fallback is never silent.
+- DirectML must be imported/configured before ROCm PyTorch in the same process.
+  The adapter enforces that order; importing PyTorch first and DirectML ORT
+  second can deadlock during Windows runtime/DLL initialization.
+- `_run_stats.json._extra` records both paths: PyTorch version, HIP version,
+  GPU name/device mode, requested/active ONNX Runtime providers, and DirectML
+  fallback count/reasons.
+- Known ORT 1.24.4/DirectML limitation: `slanet-plus.onnx` cannot execute its
+  `Loop.0` / `Cast.73` control-flow path on DirectML. The DML provider returns
+  HRESULT `0x80070057` (`E_INVALIDARG`, "parameter error") for the fixed
+  `[1,3,488,488]` float32 input. The same failure occurs for real table crops
+  and an all-zero tensor, while CPUExecutionProvider succeeds, so this is a
+  model/DirectML compatibility issue rather than page content. Windows emits
+  the localized native error as GBK bytes; ORT pybind assumes UTF-8, which is
+  why the surface exception appears as `UnicodeDecodeError`. Phase 1 therefore
+  routes only `slanet-plus.onnx` directly to CPUExecutionProvider. This is an
+  explicit, audited model override rather than a runtime fallback; all other
+  compatible ONNX sessions remain DirectML-first. `_run_stats.json` records
+  the configured/active CPU overrides and per-model override run counts.
 - Expect `ok ≈ 1651, fail ≈ 0, limit_pages: null` in `_run_stats.json`.
 
 ### Phase 2 — VLM `mineru2.5` (exploratory; flagged)

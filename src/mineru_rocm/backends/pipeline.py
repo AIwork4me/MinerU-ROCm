@@ -12,18 +12,24 @@ Contract R4 is enforced by `normalize_markdown`, run on every page's output
 before it is handed back to the dispatcher.
 """
 from __future__ import annotations
+import hashlib
 import os
 import re
 from pathlib import Path
 
+from mineru_rocm.backends.directml import (
+    configure_onnxruntime_directml,
+    directml_runtime_metadata,
+)
+
 # --- Env BEFORE mineru import -----------------------------------------------
 # Both import surfaces used below (`pipeline_analyze.ModelSingleton` in load()
 # and `cli.common.do_parse` in extract()) converge on the same module-level
-# singleton inside mineru; device-mode is read at first model init, so the env
-# vars must be set before any mineru import. Module-level setdefault fires at
-# adapter import time, which precedes the lazy mineru imports inside the
-# methods — exactly the order the spike requires.
-os.environ.setdefault("MINERU_DEVICE_MODE", "cuda")  # HIP_VISIBLE_DEVICES scoped by the launcher
+# singleton inside mineru; device-mode is read at first model init. Configure
+# it in `load()` because only the runner knows the explicit platform. Both
+# Linux and the official Windows ROCm wheels use PyTorch's CUDA-compatible
+# surface; Windows ONNX sub-models are configured through DirectML first.
+# An operator-provided MINERU_DEVICE_MODE still wins.
 # Public HF endpoint by default. `setdefault` still respects an already-exported
 # HF_ENDPOINT (e.g. an eval host exporting the internal mirror), so this is both
 # an OPSEC fix (no internal IP in source) and a correctness fix (public users
@@ -34,6 +40,13 @@ _runner = None  # lazy singleton, created on first infer_page call
 
 
 _DIV_RE = re.compile(r"</?div[^>]*>")
+
+
+def _parse_stem(img: Path, platform: str) -> str:
+    """Return a short internal stem on Windows to avoid MAX_PATH failures."""
+    if platform == "windows-hip":
+        return hashlib.sha256(img.name.encode("utf-8")).hexdigest()[:16]
+    return img.stem
 
 
 def normalize_markdown(md: str) -> str:
@@ -57,7 +70,10 @@ def infer_page(img: Path, platform: str, cfg: dict) -> str:
     if _runner is None:
         _runner = MineruPipelineRunner(platform=platform, cfg=cfg)
         _runner.load()
-    return normalize_markdown(_runner.extract(img))
+    md = _runner.extract(img)
+    if platform == "windows-hip":
+        cfg.update(directml_runtime_metadata())
+    return normalize_markdown(md)
 
 
 class MineruPipelineRunner:
@@ -74,12 +90,42 @@ class MineruPipelineRunner:
         is module-level inside mineru, so the model init paid here is reused by
         every later `do_parse` in extract() within this process.
         """
-        # Lazy import so the env vars set at module top are in place first.
+        os.environ.setdefault("MINERU_DEVICE_MODE", "cuda")
+
+        if self.platform == "windows-hip":
+            # Import DirectML before torch. With the Windows ROCm 7.2.1 wheel,
+            # importing torch first and DirectML ORT second can deadlock during
+            # DLL/runtime initialization; the reverse order is stable.
+            self.cfg.update(configure_onnxruntime_directml())
+
+            device_mode = os.environ["MINERU_DEVICE_MODE"]
+            if device_mode.startswith("cuda"):
+                import torch
+
+                if not torch.cuda.is_available() or not torch.version.hip:
+                    raise RuntimeError(
+                        "windows-hip defaults PyTorch models to AMD ROCm, but "
+                        "this Python environment has no usable HIP device. "
+                        "Install AMD's Windows ROCm PyTorch wheel or explicitly "
+                        "set MINERU_DEVICE_MODE=cpu."
+                    )
+                self.cfg.update({
+                    "pytorch_device_mode": device_mode,
+                    "pytorch_version": torch.__version__,
+                    "pytorch_hip_version": torch.version.hip,
+                    "pytorch_gpu_available": True,
+                    "pytorch_gpu_name": torch.cuda.get_device_name(0),
+                })
+            else:
+                self.cfg["pytorch_device_mode"] = device_mode
+
+        # Lazy import so the platform-specific env is in place first.
         from mineru.backend.pipeline.pipeline_analyze import ModelSingleton
-        # Force model init now — lays layout/OCR/UniMERNet onto cuda:0
-        # (ONNX table models stay on CPU per the spike; not a problem).
+        # Force model init now. ROCm lays layout/OCR/UniMERNet onto cuda:0.
         ModelSingleton().get_model(
             lang=self._lang, formula_enable=True, table_enable=True)
+        if self.platform == "windows-hip":
+            self.cfg.update(directml_runtime_metadata())
 
     def extract(self, img: Path) -> str:
         """Run the warmed pipeline on one image → Markdown string.
@@ -93,7 +139,7 @@ class MineruPipelineRunner:
         # in mineru.utils.pdf_image_tools don't re-enter this code (the spike
         # documents BrokenProcessPool if violated).
         from mineru.cli.common import do_parse, read_fn
-        stem = img.stem
+        stem = _parse_stem(img, self.platform)
         out_dir = self._tmp_out / f"run-{os.getpid()}"
         out_dir.mkdir(parents=True, exist_ok=True)
         do_parse(

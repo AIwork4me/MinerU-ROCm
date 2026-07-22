@@ -6,7 +6,83 @@ that `infer_page` runs on mineru's raw Markdown output.
 """
 from __future__ import annotations
 
-from mineru_rocm.backends.pipeline import normalize_markdown
+import os
+import sys
+import types
+from pathlib import Path
+
+import mineru_rocm.backends.pipeline as pipeline_backend
+from mineru_rocm.backends.pipeline import (
+    MineruPipelineRunner,
+    _parse_stem,
+    normalize_markdown,
+)
+
+
+def test_windows_uses_short_deterministic_internal_stem():
+    image = Path("a" * 240 + ".png")
+    first = _parse_stem(image, "windows-hip")
+
+    assert first == _parse_stem(image, "windows-hip")
+    assert len(first) == 16
+    assert first != image.stem
+
+
+def test_linux_keeps_original_internal_stem():
+    image = Path("page.png")
+    assert _parse_stem(image, "linux-rocm") == "page"
+
+
+def test_windows_pipeline_defaults_to_rocm_before_mineru_import(monkeypatch):
+    monkeypatch.delenv("MINERU_DEVICE_MODE", raising=False)
+    monkeypatch.setattr(
+        pipeline_backend,
+        "configure_onnxruntime_directml",
+        lambda: {"onnxruntime_provider_requested": "directml"},
+    )
+    fake_torch = types.SimpleNamespace(
+        __version__="2.9.1+rocm7.2.1",
+        version=types.SimpleNamespace(hip="7.2"),
+        cuda=types.SimpleNamespace(
+            is_available=lambda: True,
+            get_device_name=lambda index: "AMD test GPU",
+        ),
+    )
+    monkeypatch.setitem(sys.modules, "torch", fake_torch)
+
+    class FakeSingleton:
+        def get_model(self, **kwargs):
+            assert os.environ["MINERU_DEVICE_MODE"] == "cuda"
+
+    fake_module = types.SimpleNamespace(ModelSingleton=FakeSingleton)
+    monkeypatch.setitem(
+        sys.modules, "mineru.backend.pipeline.pipeline_analyze", fake_module
+    )
+
+    cfg = {}
+    MineruPipelineRunner(platform="windows-hip", cfg=cfg).load()
+    assert cfg["pytorch_hip_version"] == "7.2"
+    assert cfg["pytorch_gpu_name"] == "AMD test GPU"
+
+
+def test_pipeline_respects_explicit_device_override(monkeypatch):
+    monkeypatch.setenv("MINERU_DEVICE_MODE", "custom-device")
+    monkeypatch.setattr(
+        pipeline_backend,
+        "configure_onnxruntime_directml",
+        lambda: {"onnxruntime_provider_requested": "directml"},
+    )
+
+    class FakeSingleton:
+        def get_model(self, **kwargs):
+            assert os.environ["MINERU_DEVICE_MODE"] == "custom-device"
+
+    fake_module = types.SimpleNamespace(ModelSingleton=FakeSingleton)
+    monkeypatch.setitem(
+        sys.modules, "mineru.backend.pipeline.pipeline_analyze", fake_module
+    )
+
+    MineruPipelineRunner(platform="windows-hip", cfg={}).load()
 
 
 def test_display_formula_wrapped_in_double_dollar():

@@ -61,6 +61,9 @@ def run_adapter(img_dir: Path, out_dir: Path, *, platform: str, config: dict,
             continue
 
         try:
+            directml_fallbacks_before = int(
+                cfg.get("onnxruntime_directml_fallback_count", 0)
+            )
             if sub is None:
                 md = f"# {img.stem}\n\n(smoke output — backend=smoke)\n"
             else:
@@ -70,7 +73,15 @@ def run_adapter(img_dir: Path, out_dir: Path, *, platform: str, config: dict,
             if not md.strip():
                 raise RuntimeError("empty prediction")
             out_md.write_text(md, encoding="utf-8")
-            stats.append(PageStatus(img.name, "ok", seconds=time.time() - t0, attempts=1))
+            directml_fallbacks_after = int(
+                cfg.get("onnxruntime_directml_fallback_count", 0)
+            )
+            status = "ok"
+            if directml_fallbacks_after > directml_fallbacks_before:
+                status = "fallback: onnxruntime directml runtime fallback"
+            stats.append(PageStatus(
+                img.name, status, seconds=time.time() - t0, attempts=1
+            ))
         except Exception as e:
             stats.append(PageStatus(img.name, f"failed: {e}", error=str(e), seconds=time.time() - t0))
             if out_md.exists():
@@ -96,6 +107,26 @@ def run_adapter(img_dir: Path, out_dir: Path, *, platform: str, config: dict,
     extra = {}
     if resumed_existing > 0:
         extra["resumed_existing"] = resumed_existing
+    for key in (
+        "onnxruntime_provider_requested",
+        "onnxruntime_providers_available",
+        "onnxruntime_providers_active",
+        "onnxruntime_cpu_fallback_enabled",
+        "onnxruntime_directml_fallback_count",
+        "onnxruntime_directml_fallback_reasons",
+        "onnxruntime_directml_fallback_events",
+        "onnxruntime_directml_run_counts_by_model",
+        "onnxruntime_cpu_overrides_configured",
+        "onnxruntime_cpu_overrides_active",
+        "onnxruntime_cpu_override_run_counts_by_model",
+        "pytorch_device_mode",
+        "pytorch_version",
+        "pytorch_hip_version",
+        "pytorch_gpu_available",
+        "pytorch_gpu_name",
+    ):
+        if key in cfg:
+            extra[key] = cfg[key]
 
     rs = RunSummary(count, ok, fail, fallback,
                     cfg.get("limit_pages"), stats, engine=backend)
