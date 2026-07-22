@@ -59,7 +59,8 @@ def check_spdx(repo=REPO) -> list[str]:
         for py in (repo / sub).rglob("*.py"):
             head = "\n".join(py.read_text(encoding="utf-8").splitlines()[:3])
             if "SPDX-License-Identifier" not in head:
-                errs.append(f"{py.relative_to(repo)}: missing SPDX-License-Identifier header")
+                rel = py.relative_to(repo).as_posix()
+                errs.append(f"{rel}: missing SPDX-License-Identifier header")
     return errs
 
 
@@ -203,7 +204,8 @@ def check_prior_overall_contextual(lock, repo=REPO) -> list[str]:
     for p in targets:
         txt = p.read_text(encoding="utf-8", errors="ignore")
         if pri in txt and cur not in txt:
-            errs.append(f"{p.relative_to(repo)} quotes prior VLM Overall {pri} without the current {cur}")
+            rel = p.relative_to(repo).as_posix()
+            errs.append(f"{rel} quotes prior VLM Overall {pri} without the current {cur}")
     return errs
 
 
@@ -235,7 +237,8 @@ def check_no_withdrawn_anchor_claims(repo=REPO) -> list[str]:
         txt = p.read_text(encoding="utf-8", errors="ignore")
         for tok in _WITHDRAWN_ANCHOR_TOKENS:
             if tok in txt:
-                errs.append(f"{p.relative_to(repo)} re-cites withdrawn-anchor token {tok!r} (use the verified upstream-README anchors: vlm-engine 95.30, pipeline 86.47)")
+                rel = p.relative_to(repo).as_posix()
+                errs.append(f"{rel} re-cites withdrawn-anchor token {tok!r} (use the verified upstream-README anchors: vlm-engine 95.30, pipeline 86.47)")
     return errs
 
 
@@ -292,7 +295,8 @@ def check_version_consistency(lock, repo=REPO) -> list[str]:
         txt = p.read_text(encoding="utf-8", errors="ignore")
         for pat in _OVERCLAIM_PATTERNS:
             if pat in txt:
-                findings.append(f"{p.relative_to(repo)}: overclaim pattern {pat!r} (scope claims to what was tested)")
+                rel = p.relative_to(repo).as_posix()
+                findings.append(f"{rel}: overclaim pattern {pat!r} (scope claims to what was tested)")
     return findings
 
 
@@ -379,7 +383,8 @@ def check_score_commands_have_scorer_args(repo=REPO) -> list[str]:
             if not re.search(r"mineru-rocm\s+score\b", block):
                 continue
             if "--omnidocbench-repo" not in block and "OMNIDOCBENCH_REPO" not in block:
-                findings.append(f"{p.relative_to(repo)}: `mineru-rocm score` example lacks --omnidocbench-repo / OMNIDOCBENCH_REPO")
+                rel = p.relative_to(repo).as_posix()
+                findings.append(f"{rel}: `mineru-rocm score` example lacks --omnidocbench-repo / OMNIDOCBENCH_REPO")
     lockp = repo / "reproducibility.lock.yaml"
     if lockp.is_file():
         for line in lockp.read_text(encoding="utf-8").splitlines():

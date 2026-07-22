@@ -13,6 +13,7 @@ before it is handed back to the dispatcher.
 """
 from __future__ import annotations
 import hashlib
+import json
 import os
 import re
 from pathlib import Path
@@ -47,6 +48,33 @@ def _parse_stem(img: Path, platform: str) -> str:
     if platform == "windows-hip":
         return hashlib.sha256(img.name.encode("utf-8")).hexdigest()[:16]
     return img.stem
+
+
+def _content_list_text_fallback(data: object) -> tuple[str, list[str]]:
+    """Recover model-recognized text when MinerU's Markdown is empty.
+
+    MinerU intentionally excludes discarded page headers and footers from its
+    Markdown output, while its content-list output retains them. OmniDocBench
+    can contain pages whose only ground-truth text is such a header. Restrict
+    this fallback to top-level textual content-list blocks so it never changes
+    an otherwise non-empty prediction.
+    """
+    if not isinstance(data, list):
+        return "", []
+
+    parts: list[str] = []
+    block_types: list[str] = []
+    for block in data:
+        if not isinstance(block, dict):
+            continue
+        text = block.get("text")
+        if not isinstance(text, str) or not text.strip():
+            continue
+        parts.append(text.strip())
+        block_type = block.get("type")
+        if isinstance(block_type, str) and block_type not in block_types:
+            block_types.append(block_type)
+    return "\n\n".join(parts), block_types
 
 
 def normalize_markdown(md: str) -> str:
@@ -157,7 +185,35 @@ class MineruPipelineRunner:
             f_dump_middle_json=False,
             f_dump_model_output=False,
             f_dump_orig_pdf=False,
-            f_dump_content_list=False,
+            f_dump_content_list=True,
         )
         md_path = out_dir / stem / "auto" / f"{stem}.md"
-        return md_path.read_text(encoding="utf-8")
+        md = md_path.read_text(encoding="utf-8")
+        if md.strip():
+            return md
+
+        content_list_path = (
+            out_dir / stem / "auto" / f"{stem}_content_list.json"
+        )
+        try:
+            content_list = json.loads(
+                content_list_path.read_text(encoding="utf-8")
+            )
+        except (OSError, json.JSONDecodeError):
+            return md
+
+        recovered, block_types = _content_list_text_fallback(content_list)
+        if not recovered:
+            return md
+
+        self.cfg["pipeline_empty_markdown_recovery_count"] = int(
+            self.cfg.get("pipeline_empty_markdown_recovery_count", 0)
+        ) + 1
+        self.cfg.setdefault(
+            "pipeline_empty_markdown_recovery_events", []
+        ).append({
+            "image": img.name,
+            "source": "content_list",
+            "block_types": block_types,
+        })
+        return recovered + "\n"

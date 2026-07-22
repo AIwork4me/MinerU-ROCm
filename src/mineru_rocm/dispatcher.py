@@ -124,6 +124,8 @@ def run_adapter(img_dir: Path, out_dir: Path, *, platform: str, config: dict,
         "pytorch_hip_version",
         "pytorch_gpu_available",
         "pytorch_gpu_name",
+        "pipeline_empty_markdown_recovery_count",
+        "pipeline_empty_markdown_recovery_events",
     ):
         if key in cfg:
             extra[key] = cfg[key]

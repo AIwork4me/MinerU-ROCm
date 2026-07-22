@@ -14,7 +14,7 @@ import json
 import os
 import subprocess
 import tempfile
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 
 import yaml
 
@@ -52,17 +52,35 @@ def overall_score(metrics: dict) -> float | None:
     return ((1.0 - text) * 100.0 + cdm * 100.0 + teds * 100.0) / 3.0
 
 
+def _eval_config_path(value: str | os.PathLike[str]) -> str:
+    """Return an absolute, slash-stable path for the scorer config.
+
+    Preserve already-absolute paths in either POSIX or Windows syntax. This is
+    important on Windows, where ``Path('/gt/full.json').resolve()`` would invent
+    a drive prefix and silently change a caller-supplied POSIX absolute path.
+    Relative paths are resolved on the current host, then serialized with
+    forward slashes so generated YAML is stable across platforms.
+    """
+    raw = os.fspath(value)
+    if PurePosixPath(raw).is_absolute():
+        return PurePosixPath(raw).as_posix()
+    if PureWindowsPath(raw).is_absolute():
+        return PureWindowsPath(raw).as_posix()
+    return Path(raw).resolve().as_posix()
+
+
 def write_eval_config(*, gt_json: str, pred_dir: str, out_yaml: Path) -> None:
     """Materialize an eval config from the template, substituting GT + pred paths.
 
-    Paths are **absolutized** (``.resolve()``) so the scorer — which runs in its
+    Relative paths are **absolutized** so the scorer — which runs in its
     own cwd (the OmniDocBench repo) — resolves them correctly regardless of where
     the CLI was invoked. (This was the root cause of the P2/P3 0.00-score bug:
-    a relative ``--pred-dir`` resolved wrong in the scorer's cwd.)
+    a relative ``--pred-dir`` resolved wrong in the scorer's cwd.) Existing
+    POSIX/Windows absolute paths retain their original root semantics.
     """
     cfg = yaml.safe_load(_load_eval_template())
-    cfg["end2end_eval"]["dataset"]["ground_truth"]["data_path"] = str(Path(gt_json).resolve())
-    cfg["end2end_eval"]["dataset"]["prediction"]["data_path"] = str(Path(pred_dir).resolve())
+    cfg["end2end_eval"]["dataset"]["ground_truth"]["data_path"] = _eval_config_path(gt_json)
+    cfg["end2end_eval"]["dataset"]["prediction"]["data_path"] = _eval_config_path(pred_dir)
     out_yaml = Path(out_yaml)
     out_yaml.parent.mkdir(parents=True, exist_ok=True)
     out_yaml.write_text(yaml.safe_dump(cfg, allow_unicode=True, sort_keys=False), encoding="utf-8")

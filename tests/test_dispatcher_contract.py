@@ -256,6 +256,12 @@ def test_pipeline_run_stats_include_directml_evidence(tmp_path, monkeypatch):
             "pytorch_hip_version": "7.2",
             "pytorch_gpu_available": True,
             "pytorch_gpu_name": "AMD test GPU",
+            "pipeline_empty_markdown_recovery_count": 1,
+            "pipeline_empty_markdown_recovery_events": [{
+                "image": "page.jpg",
+                "source": "content_list",
+                "block_types": ["header"],
+            }],
         })
         return "# pipeline\n"
 
@@ -285,6 +291,10 @@ def test_pipeline_run_stats_include_directml_evidence(tmp_path, monkeypatch):
     }
     assert extra["pytorch_device_mode"] == "cuda"
     assert extra["pytorch_gpu_name"] == "AMD test GPU"
+    assert extra["pipeline_empty_markdown_recovery_count"] == 1
+    assert extra["pipeline_empty_markdown_recovery_events"][0][
+        "source"
+    ] == "content_list"
 
 
 def test_directml_runtime_retry_marks_page_as_fallback(tmp_path, monkeypatch):

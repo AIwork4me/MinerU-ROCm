@@ -13,10 +13,12 @@ No GPU, no model deps. Pure filesystem + stdlib.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import subprocess
 import sys
+import threading
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -537,8 +539,8 @@ def write_run_manifest(
 
 
 # --- writer mutual-exclusion lock for a prediction directory -----------------
-# POSIX (Linux/ROCm) only: uses fcntl.flock. On a platform without fcntl,
-# acquire() raises a clear error rather than silently allowing concurrent writes.
+# Uses the native OS lock API on each supported platform: fcntl.flock on
+# POSIX and a named kernel mutex on Windows.
 
 
 class RunLockHeld(RuntimeError):
@@ -553,6 +555,23 @@ class LockInfo:
     command: str
 
     def is_alive(self) -> bool:
+        if os.name == "nt":
+            # os.kill(pid, 0) is not a harmless existence probe on Windows:
+            # non-console signals are implemented with TerminateProcess. Query
+            # the process handle instead so lock diagnostics cannot kill it.
+            import ctypes
+
+            process_query_limited_information = 0x1000
+            kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+            kernel32.OpenProcess.argtypes = (ctypes.c_uint32, ctypes.c_bool, ctypes.c_uint32)
+            kernel32.OpenProcess.restype = ctypes.c_void_p
+            kernel32.CloseHandle.argtypes = (ctypes.c_void_p,)
+            handle = kernel32.OpenProcess(process_query_limited_information, False, self.pid)
+            if handle:
+                kernel32.CloseHandle(handle)
+                return True
+            # Access denied also proves that the PID exists.
+            return ctypes.get_last_error() == 5
         try:
             os.kill(self.pid, 0)
         except ProcessLookupError:
@@ -567,21 +586,25 @@ class LockInfo:
 class RunLock:
     """Exclusive writer lock on a prediction directory.
 
-    The authority is ``fcntl.flock(LOCK_EX | LOCK_NB)``: if the holder process
-    dies, the kernel releases the flock automatically, so the next acquire
-    succeeds and overwrites the stale PID record — no manual cleanup needed for a
+    The authority is an OS-managed non-blocking lock. If the holder process
+    dies, the OS releases the lock automatically, so the next acquire succeeds
+    and overwrites the stale PID record — no manual cleanup is needed for a
     crashed holder. The ``.run.lock`` file records PID/host/start/command for
-    human inspection and is removed on graceful release. A still-running holder is
-    never silently displaced (flock refuses the second acquire -> RunLockHeld).
+    human inspection and is removed on graceful release. A still-running holder
+    is never silently displaced (the second acquire raises RunLockHeld).
     """
 
     LOCK_NAME = ".run.lock"
+    _windows_mutex_names: set[str] = set()
+    _windows_mutex_names_lock = threading.Lock()
 
     def __init__(self, pred_dir, command=None) -> None:
         self.pred_dir = Path(pred_dir)
         self.command = " ".join(str(x) for x in command) if isinstance(command, (list, tuple)) else (command or "")
         self.path = self.pred_dir / self.LOCK_NAME
         self._fd: int | None = None
+        self._win_mutex: int | None = None
+        self._win_mutex_name: str | None = None
 
     def _read_holder(self) -> LockInfo | None:
         try:
@@ -590,62 +613,142 @@ class RunLock:
         except (OSError, ValueError, TypeError, json.JSONDecodeError):
             return None
 
-    def acquire(self) -> "RunLock":
-        import fcntl  # POSIX only
+    @staticmethod
+    def _lock_fd_nonblocking(fd: int) -> None:
+        import fcntl
 
-        self.pred_dir.mkdir(parents=True, exist_ok=True)
-        fd = os.open(str(self.path), os.O_CREAT | os.O_RDWR, 0o644)
+        fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+
+    @staticmethod
+    def _unlock_fd(fd: int) -> None:
+        import fcntl
+
+        fcntl.flock(fd, fcntl.LOCK_UN)
+
+    def _acquire_windows_mutex(self) -> None:
+        import ctypes
+
+        normalized = os.path.normcase(str(self.pred_dir.resolve()))
+        digest = hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+        name = f"Local\\MinerURocmRunLock-{digest}"
+        with self._windows_mutex_names_lock:
+            if name in self._windows_mutex_names:
+                raise OSError("Windows mutex is already held by this process")
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        kernel32.CreateMutexW.argtypes = (ctypes.c_void_p, ctypes.c_bool, ctypes.c_wchar_p)
+        kernel32.CreateMutexW.restype = ctypes.c_void_p
+        kernel32.WaitForSingleObject.argtypes = (ctypes.c_void_p, ctypes.c_uint32)
+        kernel32.WaitForSingleObject.restype = ctypes.c_uint32
+        kernel32.CloseHandle.argtypes = (ctypes.c_void_p,)
+        handle = kernel32.CreateMutexW(None, False, name)
+        if not handle:
+            raise ctypes.WinError(ctypes.get_last_error())
+        wait_result = kernel32.WaitForSingleObject(handle, 0)
+        if wait_result in (0x00000000, 0x00000080):  # acquired or abandoned
+            self._win_mutex = handle
+            self._win_mutex_name = name
+            with self._windows_mutex_names_lock:
+                self._windows_mutex_names.add(name)
+            return
+        kernel32.CloseHandle(handle)
+        if wait_result == 0x00000102:  # WAIT_TIMEOUT
+            raise OSError("Windows mutex is held by another process")
+        raise ctypes.WinError()
+
+    def _release_windows_mutex(self) -> None:
+        import ctypes
+
+        assert self._win_mutex is not None
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        kernel32.ReleaseMutex.argtypes = (ctypes.c_void_p,)
+        kernel32.ReleaseMutex.restype = ctypes.c_bool
+        kernel32.CloseHandle.argtypes = (ctypes.c_void_p,)
+        handle = self._win_mutex
+        name = self._win_mutex_name
+        self._win_mutex = None
+        self._win_mutex_name = None
         try:
-            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except OSError as exc:
-            os.close(fd)
-            holder = self._read_holder()
-            if holder is not None:
-                detail = f" (held by pid={holder.pid} host={holder.host} started={holder.started_iso})"
-                alive = "alive" if holder.is_alive() else "apparently dead"
-                advice = (
-                    f"flock auto-releases when the holder process exits, and it is {alive}; "
-                    f"if pid {holder.pid} is genuinely gone but the lock file remains, only then "
-                    f"remove '{self.path}'."
-                )
+            if not kernel32.ReleaseMutex(handle):
+                raise ctypes.WinError(ctypes.get_last_error())
+        finally:
+            kernel32.CloseHandle(handle)
+            if name is not None:
+                with self._windows_mutex_names_lock:
+                    self._windows_mutex_names.discard(name)
+
+    def _raise_lock_held(self, exc: OSError) -> None:
+        holder = self._read_holder()
+        if holder is not None:
+            detail = f" (held by pid={holder.pid} host={holder.host} started={holder.started_iso})"
+            alive = "alive" if holder.is_alive() else "apparently dead"
+            advice = (
+                f"the OS lock auto-releases when the holder process exits, and it is {alive}; "
+                f"if pid {holder.pid} is genuinely gone but the lock file remains, only then "
+                f"remove '{self.path}'."
+            )
+        else:
+            detail = ""
+            advice = (
+                "the OS lock auto-releases when the holder process exits; wait for the other writer "
+                f"to finish, and only remove '{self.path}' if you have confirmed its process is dead."
+            )
+        raise RunLockHeld(
+            f"prediction directory '{self.pred_dir}' is locked by another live writer{detail}; "
+            f"refusing to write concurrently. {advice}"
+        ) from exc
+
+    def acquire(self) -> "RunLock":
+        self.pred_dir.mkdir(parents=True, exist_ok=True)
+        if os.name == "nt":
+            try:
+                self._acquire_windows_mutex()
+            except OSError as exc:
+                self._raise_lock_held(exc)
+        else:
+            fd = os.open(str(self.path), os.O_CREAT | os.O_RDWR, 0o644)
+            try:
+                self._lock_fd_nonblocking(fd)
+            except OSError as exc:
+                os.close(fd)
+                self._raise_lock_held(exc)
+            self._fd = fd
+        try:
+            info = LockInfo(pid=os.getpid(), host=_hostname(), started_iso=iso_utc(), command=self.command)
+            payload = json.dumps(asdict(info), ensure_ascii=False).encode("utf-8")
+            # The lock file may still hold a *longer* stale JSON body from a
+            # previous dead holder. Truncate after overwriting from offset zero
+            # so no stale JSON tail can survive.
+            if os.name == "nt":
+                self.path.write_bytes(payload)
             else:
-                detail = ""
-                advice = (
-                    "flock auto-releases when the holder process exits; wait for the other writer "
-                    f"to finish, and only remove '{self.path}' if you have confirmed its process is dead."
-                )
-            raise RunLockHeld(
-                f"prediction directory '{self.pred_dir}' is locked by another live writer{detail}; "
-                f"refusing to write concurrently. {advice}"
-            ) from exc
-        self._fd = fd
-        info = LockInfo(pid=os.getpid(), host=_hostname(), started_iso=iso_utc(), command=self.command)
-        payload = json.dumps(asdict(info), ensure_ascii=False).encode("utf-8")
-        # The lock file may still hold a *longer* stale JSON body from a previous
-        # (dead) holder whose flock has been released. Overwriting from offset 0
-        # without truncating would leave the old tail appended after the new
-        # payload, producing invalid JSON. Seek to 0, write, then ftruncate to the
-        # exact new length so no stale tail can survive.
-        os.lseek(fd, 0, os.SEEK_SET)
-        written = os.write(fd, payload)
-        os.ftruncate(fd, written)
-        os.fsync(fd)
+                os.lseek(fd, 0, os.SEEK_SET)
+                written = os.write(fd, payload)
+                os.ftruncate(fd, written)
+                os.fsync(fd)
+        except BaseException:
+            self.release()
+            raise
         return self
 
     def release(self) -> None:
-        if self._fd is None:
+        if self._fd is None and self._win_mutex is None:
             return
-        import fcntl
-
+        # Remove the metadata while still holding the OS lock. Otherwise a new
+        # holder could acquire and publish its JSON between unlock and unlink,
+        # only to have the old holder delete the new record.
         try:
-            fcntl.flock(self._fd, fcntl.LOCK_UN)
+            self.path.unlink()
+        except FileNotFoundError:
+            pass
+        if os.name == "nt":
+            self._release_windows_mutex()
+            return
+        assert self._fd is not None
+        try:
+            self._unlock_fd(self._fd)
         finally:
             os.close(self._fd)
             self._fd = None
-            try:
-                self.path.unlink()
-            except FileNotFoundError:
-                pass
 
     def __enter__(self) -> "RunLock":
         return self.acquire()

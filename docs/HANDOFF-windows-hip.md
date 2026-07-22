@@ -195,6 +195,13 @@ python adapters\mineru\run_adapter.py `
   explicit, audited model override rather than a runtime fallback; all other
   compatible ONNX sessions remain DirectML-first. `_run_stats.json` records
   the configured/active CPU overrides and per-model override run counts.
+- MinerU's Markdown exporter intentionally omits discarded headers/footers.
+  OmniDocBench includes a nearly blank note page whose only GT text is the
+  detected header `NO. Date`; MinerU retains that text in its content list but
+  otherwise emits empty Markdown. The adapter therefore requests the content
+  list and, only when the entire Markdown prediction is empty, recovers its
+  model-recognized textual blocks. `_run_stats.json` audits these rare events
+  as `pipeline_empty_markdown_recovery_*`; non-empty predictions are unchanged.
 - Expect `ok ≈ 1651, fail ≈ 0, limit_pages: null` in `_run_stats.json`.
 
 ### Phase 2 — VLM `mineru2.5` (exploratory; flagged)

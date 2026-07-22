@@ -6,6 +6,7 @@ that `infer_page` runs on mineru's raw Markdown output.
 """
 from __future__ import annotations
 
+import json
 import os
 import sys
 import types
@@ -14,6 +15,7 @@ from pathlib import Path
 import mineru_rocm.backends.pipeline as pipeline_backend
 from mineru_rocm.backends.pipeline import (
     MineruPipelineRunner,
+    _content_list_text_fallback,
     _parse_stem,
     normalize_markdown,
 )
@@ -83,6 +85,53 @@ def test_pipeline_respects_explicit_device_override(monkeypatch):
     )
 
     MineruPipelineRunner(platform="windows-hip", cfg={}).load()
+
+
+def test_content_list_fallback_uses_only_nonempty_text_blocks():
+    text, block_types = _content_list_text_fallback([
+        {"type": "header", "text": "  NO. Date  "},
+        {"type": "image", "img_path": "images/0.jpg"},
+        {"type": "footer", "text": ""},
+        "invalid",
+    ])
+
+    assert text == "NO. Date"
+    assert block_types == ["header"]
+
+
+def test_extract_recovers_content_list_text_only_for_empty_markdown(
+    tmp_path, monkeypatch
+):
+    cfg = {}
+    runner = MineruPipelineRunner(platform="windows-hip", cfg=cfg)
+    runner._tmp_out = tmp_path / "mineru-tmp"
+
+    def fake_do_parse(**kwargs):
+        stem = kwargs["pdf_file_names"][0]
+        out = Path(kwargs["output_dir"]) / stem / "auto"
+        out.mkdir(parents=True)
+        (out / f"{stem}.md").write_text("", encoding="utf-8")
+        (out / f"{stem}_content_list.json").write_text(
+            json.dumps([{"type": "header", "text": "NO. Date"}]),
+            encoding="utf-8",
+        )
+        assert kwargs["f_dump_content_list"] is True
+
+    fake_common = types.SimpleNamespace(
+        do_parse=fake_do_parse,
+        read_fn=lambda path: b"image-bytes",
+    )
+    monkeypatch.setitem(sys.modules, "mineru.cli.common", fake_common)
+
+    result = runner.extract(Path("blank-page.jpg"))
+
+    assert result == "NO. Date\n"
+    assert cfg["pipeline_empty_markdown_recovery_count"] == 1
+    assert cfg["pipeline_empty_markdown_recovery_events"] == [{
+        "image": "blank-page.jpg",
+        "source": "content_list",
+        "block_types": ["header"],
+    }]
 
 
 def test_display_formula_wrapped_in_double_dollar():
