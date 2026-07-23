@@ -3,15 +3,13 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  # Core (GPU-free): the package + docs + gates that do not need the engine.
+  # Core (GPU-free): package, documentation, and repository gates.
   core:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          # Full history + tags: check_repo validates git tag/commit provenance
-          # (e.g. test_release_and_run_provenance_flags_mismatched_lock needs the
-          # v0.1.0 annotated tag), which a shallow clone lacks.
+          # Full history and tags are required by the release-provenance gate.
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
@@ -23,18 +21,15 @@ jobs:
       - run: python -m build
       - run: python -m pip check
 
-  # Platform contract: install the OmniDocBench-ROCm engine, run conformance +
-  # the committed-artifact bundle validator. Pinned to the merged platform main
-  # commit (0.3.1, PR #15) — no floating main. Switch to
-  # `"omnidocbench-rocm>=0.3.1,<0.4"` once 0.3.1 ships to PyPI.
+  # Platform contract: use an immutable published wheel, not a floating branch.
   platform-contract:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
-      - name: Install pinned OmniDocBench-ROCm engine (0.3.1, main ce081db)
-        run: pip install "git+https://github.com/AIwork4me/OmniDocBench-ROCm.git@ce081dbd3848d84cb0622ceee57c8f054845fcf3#egg=omnidocbench-rocm"
+      - name: Install pinned OmniDocBench-ROCm engine (0.3.2)
+        run: pip install "https://github.com/AIwork4me/OmniDocBench-ROCm/releases/download/v0.3.2/omnidocbench_rocm-0.3.2-py3-none-any.whl#sha256=a6e1d97dfe3d75c54bf148f178ab5a42c48760516c1ea81d687bc3fb730a02ad"
       - run: pip install -e ".[dev]"
       - run: omnidocbench-rocm conformance .
       - run: python scripts/validate_platform_artifacts.py
