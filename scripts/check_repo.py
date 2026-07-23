@@ -128,6 +128,38 @@ def check_modelcard_lock_agreement(lock) -> list[str]:
             ap = REPO / art_val
             if not ap.exists():
                 findings.append(f"{fname} artefact {art_name!r} -> {art_val!r} does not resolve under the repo (dangling ref)")
+
+    # The root pipeline card keeps the canonical linux-rocm headline value for
+    # backward compatibility. Windows-HIP has a platform-specific card and a
+    # separate lock entry so neither platform silently overwrites the other.
+    windows_pipeline = (
+        (((lock.get("benchmark") or {}).get("windows_hip") or {}).get("full_1651") or {}).get("pipeline") or {}
+    )
+    windows_expected = windows_pipeline.get("overall")
+    if windows_expected is not None:
+        fname = "model_card.pipeline.windows-hip.json"
+        path = REPO / fname
+        if not path.is_file():
+            findings.append(f"{fname} missing")
+        else:
+            import json
+
+            card = json.loads(path.read_text(encoding="utf-8"))
+            if card.get("overall") != windows_expected:
+                findings.append(
+                    f"{fname}.overall {card.get('overall')} != "
+                    f"lock windows_hip.full_1651.pipeline.overall {windows_expected}"
+                )
+            for art_name, art_val in (card.get("artifacts", {}) or {}).items():
+                if not isinstance(art_val, str):
+                    continue
+                if "://" in art_val or art_val.startswith("<") or "(" in art_val:
+                    continue
+                if not (REPO / art_val).exists():
+                    findings.append(
+                        f"{fname} artefact {art_name!r} -> {art_val!r} "
+                        "does not resolve under the repo (dangling ref)"
+                    )
     return findings
 
 

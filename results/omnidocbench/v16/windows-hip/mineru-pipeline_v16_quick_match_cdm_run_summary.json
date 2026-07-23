@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "save_name": "mineru-pipeline_v16_quick_match_cdm",
+  "engine": "pipeline",
+  "cdm": true,
+  "created_at_utc": "2026-07-23T01:46:25.536345+00:00",
+  "prediction_count": 1651,
+  "ok_pages": 1651,
+  "failed_pages": 0,
+  "fallback_pages": 0,
+  "metric_result_path": "results/omnidocbench/v16/windows-hip/mineru-pipeline_v16_quick_match_cdm_metric_result.json",
+  "run_stats_path": "results/omnidocbench/v16/windows-hip/mineru-pipeline_v16_quick_match_cdm_run_stats.json",
+  "readme_metrics": {
+    "text_edit_dist": 0.05654667503567776,
+    "reading_order_edit_dist": 0.15313839053961972,
+    "table_teds_percent": 82.03833096420277,
+    "formula_cdm_percent": 83.39081255175297
+  },
+  "metric_quality": {
+    "formula_cdm": {
+      "valid": true,
+      "reason": "",
+      "sample_count": 2352,
+      "exception_case_count": 0
+    }
+  },
+  "run_stats_summary": {
+    "count": 1651,
+    "ok": 1651,
+    "fail": 0,
+    "fallback": 0,
+    "limit_pages": null,
+    "failure_samples": []
+  }
+}

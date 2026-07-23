@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-07-23T01:46:25.548344+00:00",
+  "git_commit": "66e662f21c6268138282860554a3cda9e661a77c",
+  "engine_version": "0.3.1",
+  "model_id": "mineru-pipeline",
+  "platform": "windows-hip",
+  "vlm_server_url": "",
+  "api_model_name": "",
+  "adapter_command": "python adapters/mineru/run_adapter.py --backend pipeline --platform windows-hip --img-dir <dataset>/images --out-dir <predictions>/mineru_pipeline",
+  "scoring_config_path": "results/omnidocbench/v16/windows-hip/mineru-pipeline_v16_quick_match_cdm_scoring_config.yaml",
+  "dataset_manifest_path": "results/omnidocbench/v16/windows-hip/mineru-pipeline_v16_quick_match_cdm_dataset_identity.json",
+  "dataset_revision": "2b161d0",
+  "prediction_dir": "<eval-root>/predictions/mineru_pipeline",
+  "page_count": 1651,
+  "ok_pages": 1651,
+  "failed_pages": 0,
+  "fallback_pages": 0,
+  "metric_result_paths": [
+    "results/omnidocbench/v16/windows-hip/mineru-pipeline_v16_quick_match_cdm_metric_result.json"
+  ],
+  "run_summary_paths": [
+    "results/omnidocbench/v16/windows-hip/mineru-pipeline_v16_quick_match_cdm_run_summary.json"
+  ],
+  "run_stats_path": "results/omnidocbench/v16/windows-hip/mineru-pipeline_v16_quick_match_cdm_run_stats.json",
+  "backend": "pipeline",
+  "packaging_commit": "66e662f21c6268138282860554a3cda9e661a77c",
+  "prediction_source_commit": "66e662f21c6268138282860554a3cda9e661a77c",
+  "prediction_source_command": "python adapters/mineru/run_adapter.py --backend pipeline --platform windows-hip --img-dir <dataset>/images --out-dir <predictions>/mineru_pipeline",
+  "prediction_source_run_manifest": "",
+  "prediction_manifest_path": "results/omnidocbench/v16/windows-hip/mineru-pipeline_v16_quick_match_cdm_prediction_manifest.json",
+  "prediction_manifest_sha256": "c04f85fa339fc5bab542202a47a2d3af7bc41678cb7600fdde9318580a3187b8",
+  "dataset_identity_path": "results/omnidocbench/v16/windows-hip/mineru-pipeline_v16_quick_match_cdm_dataset_identity.json",
+  "source_metric_result_path": "<eval-root>/OmniDocBench/result/mineru_pipeline_quick_match_metric_result.json",
+  "source_run_stats_path": "<eval-root>/predictions/mineru_pipeline/_run_stats.json",
+  "source_prediction_dir": "<eval-root>/predictions/mineru_pipeline",
+  "migration_type": "legacy_predictions_to_platform_artifacts"
+}

@@ -4,7 +4,7 @@ Track the open items for `MinerU-ROCm` here. A `verified` badge requires these t
 
 - **ONNX tables run on CPU on ROCm.** The RapidOCR / RapidTable ONNX models in the pipeline fall back to the CPU execution provider on ROCm builds. Output is correct but slow; an optional ROCm-EP patch (building `onnxruntime-rocm` and pointing the table OCR EP at it) is not wired up here.
 - **`MINERU_FORMULA_CH_SUPPORT` must stay off.** Setting it to `true` pulls native PaddlePaddle-GPU, which has no ROCm wheel for this stack. Keep it `false` (default) and use the fallback formula renderer.
-- **windows-hip unverified.** No results have been produced on a Windows + HIP/DirectML machine. The `windows-hip` platform is declared in `model_card.*.json` but its results dir is empty; validate end-to-end before claiming the badge.
+- **Windows-HIP VLM remains unverified.** Pipeline Phase 1 is complete on Strix Halo (1651/1651, Overall 86.59, conformant CDM bundle). MinerU2.5 VLM Phase 2 still needs a viable Windows serving runtime.
 
 ## Deferred — upstream-PR-readiness backlog (2026-07-20)
 
@@ -16,4 +16,4 @@ Tracked here so they are not silently dropped (do not block the upstream PR):
 - **v1.0.0 release** not cut — needs tag + wheel + `SHA256SUMS` + `release-artifact.md`/`release-checklist.md`.
 - **`gpu-smoke.yml`** GPU-CI bridge not added (self-hosted gfx1100 runner topology TBD).
 - **Docs**: `architecture.md`, `hardware-matrix.md`, `release-artifact.md`, `release-checklist.md` still missing (spec §8).
-- **windows-hip** results still `community-wanted`.
+- **windows-hip VLM** remains `community-wanted`; the pipeline result is `community`.

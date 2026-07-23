@@ -1,5 +1,12 @@
 # Windows-HIP verification handoff — MinerU-ROCm (pipeline + VLM)
 
+> **Phase 1 completion (2026-07-23).** The Windows-HIP pipeline completed
+> 1651/1651 pages and native Windows CDM scoring: Overall **86.59**, text
+> EditDist **0.0565**, formula CDM **83.39**, table TEDS **82.04**, reading-order
+> EditDist **0.1531** (`page.ALL`). The self-contained evidence bundle is under
+> `results/omnidocbench/v16/windows-hip/`; validate it against
+> `model_card.pipeline.windows-hip.json`. Phase 2 VLM remains deferred.
+
 > **Who does what.** The **Linux / `linux-rocm`** side is verified (community:
 > pipeline Overall **86.48**, VLM Overall **95.56** CDM — see `model_card.json` /
 > `model_card.pipeline.json` + the self-contained bundles under
@@ -266,7 +273,7 @@ omnidocbench-rocm publish `
   --migration-type legacy_predictions_to_platform_artifacts
 
 omnidocbench-rocm validate-bundle results\omnidocbench\v16\windows-hip `
-  --model-card model_card.json          # or model_card.pipeline.json for the pipeline
+  --model-card model_card.pipeline.windows-hip.json  # pipeline; use model_card.json for VLM
 ```
 Expect `CONFORMANT`. Verify the GT sha matches your downloaded `OmniDocBench.json`
 (`certutil -hashfile OmniDocBench.json SHA256` on Windows).
@@ -278,13 +285,15 @@ Expect `CONFORMANT`. Verify the GT sha matches your downloaded `OmniDocBench.jso
 1. **Commit** the bundle under `results/omnidocbench/v16/windows-hip/` to this
    repo (provenance + `metric_result.json` + `run_stats.json` + prediction
    manifest + dataset identity; bulk `.md` stay gitignored per repo policy).
-2. **Update** `model_card.json` (VLM) and/or `model_card.pipeline.json`:
-   `badge.windows-hip → "community"`, fill `eval_date` + `overall` + `submetrics`
-   + `hardware` (`gpu: "AMD Ryzen AI MAX+ 395 (Strix Halo)"`). (`verified` still
-   needs a maintainer Docker reproduction on both platforms.)
+2. **Update** the root card's `badge.windows-hip → "community"` and add a
+   platform-specific card containing the Windows `eval_date` + `overall` +
+   `submetrics` + `hardware` (`gpu: "AMD Ryzen AI MAX+ 395 (Strix Halo)"`). A
+   separate card prevents the single top-level Linux score from being silently
+   overwritten. (`verified` still needs a maintainer reproduction.)
 3. `omnidocbench-rocm conformance .` → **CONFORMANT**.
 4. **Open a PR** (or send `metric_result.json` + commit sha to the linux-rocm
-   owner) so `hub/registry.yaml` in `OmniDocBench-ROCm` gets the windows-hip row.
+   owner). The primary VLM can update its `hub/registry.yaml` windows row; the
+   supplementary pipeline stays in this repo's pipeline cards and results table.
 
 ---
 
@@ -293,7 +302,7 @@ Expect `CONFORMANT`. Verify the GT sha matches your downloaded `OmniDocBench.jso
 | Provided by Claude (already in the repo) | Provided by you (colleague) |
 |---|---|
 | MinerU-ROCm adapter/dispatcher (writes `.md` + `_run_stats.json`, branches on `--platform`) | The Windows run + real artifacts |
-| `model_card{,.pipeline}.json` windows-hip badge slot + hardware | Filled windows-hip badge + result |
+| Root model cards with a windows-hip badge slot | Filled badge + platform-specific Windows card and result |
 | `omnidocbench-rocm publish`/`validate-bundle`/`conformance` (0.3.1) | The `metric_result.json` / Overall |
 | This handoff + the linux-rocm reference bundles | Any Windows-specific patch (e.g. DirectML EP) + repro notes |
 

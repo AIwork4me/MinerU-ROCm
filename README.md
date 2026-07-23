@@ -129,11 +129,14 @@ table, recorded as **community-verified, not official support** — see
 |---|---:|---:|---:|---:|
 | _official_ MinerU 3.4 pipeline | 86.47 | — | — | — |
 | **ours MinerU 3.4 pipeline (ROCm gfx1100, linux-rocm)** | **86.48** | 0.0566 | 83.07 | 82.04 |
-| windows-hip | _community-wanted_ | | | |
+| **ours MinerU 3.4 pipeline (Strix Halo, windows-hip)** | **86.59** | 0.0565 | 83.39 | 82.04 |
 
-Pipeline results are at `results/omnidocbench/v1.6/pipeline/`. Known: 1 empty
-output page. The primary registry card is `mineru2.5` (VLM); pipeline is a
-supplementary card in the same repo — see `model_card.pipeline.json`.
+Linux pipeline results are at `results/omnidocbench/v1.6/pipeline/`; the
+Windows-HIP Phase 1 bundle is at `results/omnidocbench/v16/windows-hip/`.
+The Windows run recovered the one header-only empty output and finished
+1651/1651 pages. The primary registry card is `mineru2.5` (VLM); pipeline is a
+supplementary card in the same repo — see `model_card.pipeline.json` and
+`model_card.pipeline.windows-hip.json`.
 
 ## Reproducibility
 
@@ -166,10 +169,10 @@ Not affiliated with the MinerU Team / OpenDataLab.
 ## Known Gaps
 
 - The `smoke` backend emits placeholder text, not real OCR. CI/conformance can force `smoke` via `--backend smoke` to validate the adapter contract without a GPU.
-- **Windows-HIP** is `community-wanted` — no formal results yet. The `windows-hip` platform badge remains `community-wanted` across both model cards.
+- **Windows-HIP pipeline Phase 1** is `community` with a conformant 1651-page CDM bundle; the MinerU2.5 VLM remains `community-wanted` for Phase 2.
 - **Provisioning scripts** (`adapter/setup/`) are stubs that document the steps; they do not automate full environment setup.
 - **Platform-standard artifacts** for `results/omnidocbench/v16/linux-rocm/` were generated on 2026-07-21 (self-contained CDM bundles for `mineru2.5` and `mineru-pipeline`: `run_summary` + `provenance` + `metric_result` + `run_stats` + a SHA256 `prediction_manifest` + `dataset_identity`). The legacy results under `results/omnidocbench/v1.6/` are retained for historical comparison and prediction-source provenance. Validate any bundle with `omnidocbench-rocm validate-bundle results/omnidocbench/v16/linux-rocm`.
 - **VLM empty outputs:** 2 of 1651 VLM pages produced empty predictions (recorded as failures + listed in the prediction manifest).
-- **Pipeline empty outputs:** 1 of 1651 pipeline pages produced an empty prediction.
+- **Pipeline empty outputs:** the Linux reference has 1 empty prediction; the Windows-HIP run recovered the header-only page and finished 1651/1651.
 - **Conformance** passes all structural checks (`omnidocbench-rocm conformance .` → CONFORMANT); platform-standard artifacts are committed.
 - Full list: [`docs/known-gaps.md`](docs/known-gaps.md).

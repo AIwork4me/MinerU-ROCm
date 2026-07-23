@@ -1,0 +1,337 @@
+{
+    "text_block": {
+        "all": {
+            "Edit_dist": {
+                "ALL_page_avg": 0.05654667503567776,
+                "edit_whole": 0.04667611015378166,
+                "edit_sample_avg": 0.0574810426392597
+            }
+        },
+        "group": {
+            "sample_count": {}
+        },
+        "page": {
+            "Edit_dist": {
+                "ALL": 0.05654667503567776,
+                "None": 0.04365199990551578,
+                "colorful_backgroud": 0.05408618085708279,
+                "data_source: PPT2PDF": 0.046981033849989466,
+                "data_source: academic_literature": 0.031020666476569744,
+                "data_source: book": 0.05533979187208027,
+                "data_source: colorful_textbook": 0.11345779661201352,
+                "data_source: exam_paper": 0.08397462359402195,
+                "data_source: historical_document": 0.30516327332138937,
+                "data_source: magazine": 0.03917036894829576,
+                "data_source: newspaper": 0.03540010187476624,
+                "data_source: note": 0.06852058691428342,
+                "data_source: research_report": 0.02433154104693274,
+                "fuzzy_content": 0.16840052276262407,
+                "fuzzy_scan": 0.06427046046528445,
+                "geometric_deformation": 0.15957552851621354,
+                "handwriting": 0.4243940012621107,
+                "language: en_ch_mixed": 0.070693237153361,
+                "language: english": 0.04257067307266772,
+                "language: other": 0.15078616352201257,
+                "language: simplified_chinese": 0.06679231597480113,
+                "language: traditional_chinese": 0.14232987623563131,
+                "layout: 1andmore_column": 0.03096775062495807,
+                "layout: double_column": 0.06080419053801469,
+                "layout: other_layout": 0.077109372157698,
+                "layout: single_column": 0.050887003754242564,
+                "layout: three_column": 0.0609514781902746,
+                "subset: equation_hard": 0.12732160807158605,
+                "subset: layout_hard": 0.0941267469986964,
+                "subset: table_hard": 0.04235806724820532,
+                "subset: v1.5": 0.0489642514553436,
+                "text_L-shaped_wrap": 0.05841674298599053,
+                "text_O-shaped_wrap": 0.28061224489795916,
+                "text_embedded_in_image": 0.04144949118888062,
+                "transparent_pages": 0.12439377295860723,
+                "watermark": 0.09337593897968267,
+                "with_watermark": 0.06454892761745946
+            }
+        }
+    },
+    "display_formula": {
+        "all": {
+            "Edit_dist": {
+                "ALL_page_avg": 0.26688895880775515,
+                "edit_whole": 0.36980543658072157,
+                "edit_sample_avg": 0.2566973443841458
+            },
+            "CDM": {
+                "all": 0.8211364795918361
+            }
+        },
+        "group": {
+            "sample_count": {}
+        },
+        "page": {
+            "CDM": {
+                "ALL": 0.8339081255175297,
+                "None": 0.9085196676021045,
+                "colorful_backgroud": 0.8353818558253341,
+                "data_source: PPT2PDF": 0.9312027380952381,
+                "data_source: academic_literature": 0.7864131511385375,
+                "data_source: book": 0.8040173270985859,
+                "data_source: colorful_textbook": 0.8233583333333333,
+                "data_source: exam_paper": 0.8753137201410325,
+                "data_source: note": 0.6537634920634919,
+                "fuzzy_content": 0.488375,
+                "fuzzy_scan": 0.49597499999999994,
+                "geometric_deformation": 0.9559949494949495,
+                "handwriting": 0.8187222222222221,
+                "language: en_ch_mixed": 0.967,
+                "language: english": 0.8815105414448999,
+                "language: simplified_chinese": 0.7131392420761131,
+                "layout: 1andmore_column": 0.9406000623303049,
+                "layout: double_column": 0.8398701515417119,
+                "layout: other_layout": 0.8648823645937173,
+                "layout: single_column": 0.8100470574033897,
+                "layout: three_column": 0.8353982142857144,
+                "subset: equation_hard": 0.7664891413628103,
+                "subset: layout_hard": 0.927918437118437,
+                "subset: table_hard": 0.507,
+                "subset: v1.5": 0.860800926282277,
+                "text_L-shaped_wrap": 0.9962142857142857,
+                "text_O-shaped_wrap": 0.8335,
+                "watermark": 0.6832832971014493,
+                "with_watermark": 0.7972216666666666
+            },
+            "Edit_dist": {
+                "ALL": 0.26688895880775515,
+                "None": 0.17944294270653935,
+                "colorful_backgroud": 0.25993361641156326,
+                "data_source: PPT2PDF": 0.18858374684793341,
+                "data_source: academic_literature": 0.3283211866863206,
+                "data_source: book": 0.3142219640489004,
+                "data_source: colorful_textbook": 0.27256325650407426,
+                "data_source: exam_paper": 0.18555598364458717,
+                "data_source: note": 0.4205371796714988,
+                "fuzzy_content": 0.6365348399246704,
+                "fuzzy_scan": 0.46545331454423683,
+                "geometric_deformation": 0.15985589804524591,
+                "handwriting": 0.3341653122823311,
+                "language: en_ch_mixed": 0.24725274725274726,
+                "language: english": 0.22169422295656196,
+                "language: simplified_chinese": 0.3803503330366439,
+                "layout: 1andmore_column": 0.13296824760008874,
+                "layout: double_column": 0.21386729429482665,
+                "layout: other_layout": 0.2556478942301371,
+                "layout: single_column": 0.30667459445180506,
+                "layout: three_column": 0.2861999734088375,
+                "subset: equation_hard": 0.37184752433878554,
+                "subset: layout_hard": 0.20341442071370341,
+                "subset: table_hard": 0.49133333333333334,
+                "subset: v1.5": 0.22256553263793755,
+                "text_L-shaped_wrap": 0.06941955396256472,
+                "text_O-shaped_wrap": 0.2,
+                "watermark": 0.3225158815808273,
+                "with_watermark": 0.25703732835954096
+            }
+        },
+        "metric_debug": {
+            "CDM": {
+                "stage": "CDM",
+                "workers": 8,
+                "sample_count": 2352,
+                "timeout_case_count": 0,
+                "timeout_cases": [],
+                "exception_case_count": 0,
+                "exception_cases": []
+            }
+        }
+    },
+    "table": {
+        "all": {
+            "TEDS": {
+                "all": 0.7963806157258821
+            },
+            "TEDS_structure_only": {
+                "all": 0.8651354842154116
+            },
+            "Edit_dist": {
+                "ALL_page_avg": 0.36407037541933895,
+                "edit_whole": 0.4410000842055821,
+                "edit_sample_avg": 0.35072268950807045
+            }
+        },
+        "group": {
+            "sample_count": {}
+        },
+        "page": {
+            "Edit_dist": {
+                "ALL": 0.36407037541933895,
+                "None": 0.5267346356528034,
+                "colorful_backgroud": 0.4727231134601658,
+                "data_source: PPT2PDF": 0.39855365172602136,
+                "data_source: academic_literature": 0.2591913195684014,
+                "data_source: book": 0.4351795646194158,
+                "data_source: colorful_textbook": 0.485759699797363,
+                "data_source: exam_paper": 0.46696144023191527,
+                "data_source: magazine": 0.4319509816671153,
+                "data_source: newspaper": 0.3839252727241702,
+                "data_source: note": 0.6468785947487147,
+                "data_source: research_report": 0.255987600356715,
+                "fuzzy_scan": 0.5497754769293759,
+                "geometric_deformation": 0.2535068071797942,
+                "language: en_ch_mixed": 0.46049987426558175,
+                "language: english": 0.3101176613142489,
+                "language: simplified_chinese": 0.3836029197344056,
+                "language: traditional_chinese": 0.3631896159703962,
+                "layout: 1andmore_column": 0.18876463434089588,
+                "layout: double_column": 0.4022481278316946,
+                "layout: other_layout": 0.35543941810739454,
+                "layout: single_column": 0.3927531259282253,
+                "layout: three_column": 0.40565918337291285,
+                "subset: equation_hard": 0.3161415525114155,
+                "subset: layout_hard": 0.3366451040203915,
+                "subset: table_hard": 0.3736320594561708,
+                "subset: v1.5": 0.3623261488251359,
+                "watermark": 0.5568069377303272,
+                "with_watermark": 0.4154317759442347
+            },
+            "TEDS": {
+                "ALL": 0.8203833096420278,
+                "None": 0.504212361317202,
+                "colorful_backgroud": 0.8526933555293157,
+                "data_source: PPT2PDF": 0.8645899070730398,
+                "data_source: academic_literature": 0.7520872450099901,
+                "data_source: book": 0.9035637648803352,
+                "data_source: colorful_textbook": 0.9087319862109309,
+                "data_source: exam_paper": 0.9371495872050334,
+                "data_source: magazine": 0.7579360825239593,
+                "data_source: newspaper": 0.6046598339234583,
+                "data_source: note": 0.5810484757714909,
+                "data_source: research_report": 0.8290899504821226,
+                "fuzzy_scan": 0.9265217886427992,
+                "geometric_deformation": 0.9528636411416699,
+                "language: en_ch_mixed": 0.8816497120544633,
+                "language: english": 0.763507118667923,
+                "language: simplified_chinese": 0.8479164540122172,
+                "language: traditional_chinese": 0.6937632347216599,
+                "layout: 1andmore_column": 0.8685213762281527,
+                "layout: double_column": 0.8734416755483625,
+                "layout: other_layout": 0.7929964747650146,
+                "layout: single_column": 0.812653352902259,
+                "layout: three_column": 0.4704337355027889,
+                "subset: equation_hard": 0.686518323809595,
+                "subset: layout_hard": 0.8673601913552714,
+                "subset: table_hard": 0.6994438719592371,
+                "subset: v1.5": 0.8534973847793201,
+                "watermark": 0.9563591602707288,
+                "with_watermark": 0.7101218701875897
+            },
+            "TEDS_structure_only": {
+                "ALL": 0.8884494477113659,
+                "None": 0.56875,
+                "colorful_backgroud": 0.9147396755854998,
+                "data_source: PPT2PDF": 0.9327967171717172,
+                "data_source: academic_literature": 0.8775570221057704,
+                "data_source: book": 0.9453576126453673,
+                "data_source: colorful_textbook": 0.9564666834099607,
+                "data_source: exam_paper": 0.9753813505926245,
+                "data_source: magazine": 0.8595041823513832,
+                "data_source: newspaper": 0.712935631384025,
+                "data_source: note": 0.6529525170835139,
+                "data_source: research_report": 0.878716116878261,
+                "fuzzy_scan": 0.9466666666666667,
+                "geometric_deformation": 0.9642857142857143,
+                "language: en_ch_mixed": 0.9559793826371461,
+                "language: english": 0.8694131540858304,
+                "language: simplified_chinese": 0.8945466853427303,
+                "language: traditional_chinese": 0.7952387039062406,
+                "layout: 1andmore_column": 0.9513593665607648,
+                "layout: double_column": 0.9589592329950885,
+                "layout: other_layout": 0.8813667820975875,
+                "layout: single_column": 0.8713956969729414,
+                "layout: three_column": 0.5611111111111111,
+                "subset: equation_hard": 0.8478260869565217,
+                "subset: layout_hard": 0.9750123854944174,
+                "subset: table_hard": 0.8151657298187784,
+                "subset: v1.5": 0.9069601709444892,
+                "watermark": 0.9938574938574938,
+                "with_watermark": 0.8423175265738012
+            }
+        },
+        "metric_debug": {
+            "TEDS": {
+                "stage": "TEDS",
+                "workers": 16,
+                "timeout_sec": 120.0,
+                "sample_count": 665,
+                "timeout_case_count": 0,
+                "timeout_cases": [],
+                "error_case_count": 0,
+                "error_cases": []
+            }
+        }
+    },
+    "reading_order": {
+        "all": {
+            "Edit_dist": {
+                "ALL_page_avg": 0.15313839053961972,
+                "edit_whole": 0.14415900017358096,
+                "edit_sample_avg": 0.15313839053961972
+            }
+        },
+        "group": {
+            "sample_count": {}
+        },
+        "page": {
+            "Edit_dist": {
+                "ALL": 0.15313839053961972,
+                "None": 0.0567916753147058,
+                "colorful_backgroud": 0.11931647220498767,
+                "data_source: PPT2PDF": 0.08911697427297442,
+                "data_source: academic_literature": 0.20343924659640003,
+                "data_source: book": 0.1643483424104761,
+                "data_source: colorful_textbook": 0.15560683658807534,
+                "data_source: exam_paper": 0.12603796234878575,
+                "data_source: historical_document": 0.4652959943282523,
+                "data_source: magazine": 0.11325754243502723,
+                "data_source: newspaper": 0.12238085379993102,
+                "data_source: note": 0.1040865780496248,
+                "data_source: research_report": 0.3180708065310866,
+                "fuzzy_content": 0.26190476190476186,
+                "fuzzy_scan": 0.09058958184345181,
+                "geometric_deformation": 0.2294746752342403,
+                "handwriting": 0.45208333333333334,
+                "language: en_ch_mixed": 0.1423740064063827,
+                "language: english": 0.1250381009171492,
+                "language: other": 0.23529411764705882,
+                "language: simplified_chinese": 0.17975662977177595,
+                "language: traditional_chinese": 0.30772048464356155,
+                "layout: 1andmore_column": 0.10074152551505036,
+                "layout: double_column": 0.10867809530800995,
+                "layout: other_layout": 0.15394374851237588,
+                "layout: single_column": 0.17605662278872852,
+                "layout: three_column": 0.07251119853008932,
+                "subset: equation_hard": 0.16705668800563483,
+                "subset: layout_hard": 0.17727374238223859,
+                "subset: table_hard": 0.41393291952165884,
+                "subset: v1.5": 0.13192458051696407,
+                "text_L-shaped_wrap": 0.0,
+                "text_O-shaped_wrap": 0.7222222222222222,
+                "text_embedded_in_image": 0.43939393939393934,
+                "transparent_pages": 0.062070938215102976,
+                "watermark": 0.1726999106332527,
+                "with_watermark": 0.17646248541686682
+            }
+        }
+    },
+    "match_debug": {
+        "workers": 24,
+        "page_count": 1651,
+        "quick_match_truncated_timeout_sec": 300,
+        "match_timeout_sec": 420,
+        "text_match_fallback_pages": {
+            "quick_match_timeout": [],
+            "page_timeout": []
+        },
+        "text_match_fallback_counts": {
+            "quick_match_timeout": 0,
+            "page_timeout": 0
+        }
+    }
+}

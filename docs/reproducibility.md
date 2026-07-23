@@ -1,17 +1,23 @@
 # Reproducibility
 
-A score is only meaningful if someone else can reproduce it from the committed repo. The canonical published result is the **OmniDocBench-ROCm platform CDM score** (`omnidocbench-rocm run --cdm` → the self-contained bundle under `results/omnidocbench/v16/linux-rocm/`); the standalone `mineru-rocm` CLI remains available for developer debugging. `reproducibility.lock.yaml` is the single source of truth (pinned commits, byte-exact weight/GT SHAs, scorer commit, both venvs' environment, the metric formula, the official anchors, and the ROCm recipe).
+A score is only meaningful if someone else can reproduce it from the committed repo. The canonical published results are the **OmniDocBench-ROCm platform CDM bundles** under `results/omnidocbench/v16/{linux-rocm,windows-hip}/`; the standalone `mineru-rocm` CLI remains available for developer debugging. `reproducibility.lock.yaml` is the single source of truth (pinned commits, byte-exact weight/GT SHAs, scorer commit, environments, the metric formula, the official anchors, and the ROCm recipes).
 
-## Results (OmniDocBench v1.6, full 1651 pages, gfx1100 / ROCm 7.2)
+## Results (OmniDocBench v1.6, full 1651 pages)
 
 | Backend | Overall | Text EditDist ↓ | Formula CDM ↑ | Table TEDS ↑ | read-order EditDist |
 |---|---:|---:|---:|---:|---:|
 | MinerU 3.4 pipeline | **86.48** | 0.0566 | 83.07 | 82.04 | 0.1534 |
+| MinerU 3.4 pipeline (windows-hip, Strix Halo) | **86.59** | 0.0565 | 83.39 | 82.04 | 0.1531 |
 | MinerU2.5-Pro VLM (vLLM-on-ROCm, platform CDM) | **95.56** | 0.0359 | 96.73 | 93.54 | 0.1240 |
 
 Prior standalone `mineru-rocm score` path: VLM Overall **95.46** (Formula CDM 96.46, Text 0.0360, read-order 0.1236) on the **same 1651 predictions** — Δ −0.10 pp vs the platform CDM result, entirely the Formula-CDM submetric (CDM scoring configuration), not new inference.
 
 Official anchors (upstream README "Local Deployment" table): pipeline **86.47** (Δ +0.01 pp), vlm-engine **95.30** (Δ +0.26 pp vs the platform CDM 95.56). These are contextual reference anchors, **not** a controlled CUDA-vs-ROCm comparison (the upstream table does not pin identical hardware, model revision, build, or decoding config).
+
+The Windows pipeline is +0.11 pp from the linux-rocm pipeline and passes the
+Phase 1 ±1.0 pp reproduction gate. Its inference stack is Windows ROCm PyTorch
+plus ONNX Runtime DirectML, with the documented `slanet-plus.onnx` CPU override.
+See `docs/HANDOFF-windows-hip.md` and the Windows bundle README.
 
 **Overall** = `((1 − text_EditDist) × 100 + formula_CDM × 100 + table_TEDS × 100) / 3`, OmniDocBench `page.ALL` aggregation; reading-order EditDist is reported separately and is **not** part of Overall.
 
@@ -64,7 +70,7 @@ mineru-rocm score --gt-json "$GT_JSON" --pred-dir "$PRED_DIR_VLM" \
   --omnidocbench-repo "$OMNIDOCBENCH_REPO" --venv-python "$SCORER_VENV/bin/python"
 ```
 
-The authoritative artefacts land under each pred-dir: `run_manifest.json` (conservation laws), `metric_result.json`, `_errors.jsonl`, `predict.log`. The committed copies live under `results/omnidocbench/v1.6/{pipeline,vlm-vllm}/`.
+The authoritative artefacts land under each pred-dir: `run_manifest.json` (conservation laws), `metric_result.json`, `_errors.jsonl`, `predict.log`. The Linux standalone copies live under `results/omnidocbench/v1.6/{pipeline,vlm-vllm}/`; platform-standard Linux and Windows bundles live under `results/omnidocbench/v16/{linux-rocm,windows-hip}/`.
 
 ## Serving the VLM (vLLM-on-ROCm)
 
@@ -78,7 +84,7 @@ The tested server launch script is tracked in `examples/serve_vlm_vllm.sh`; its 
 
 ## Non-determinism
 
-- **pipeline**: deterministic across runs (byte-identical predictions).
+- **pipeline**: deterministic within a fixed environment (byte-identical predictions). The Windows-HIP score is +0.11 pp from linux-rocm, within the declared cross-platform tolerance.
 - **VLM (vLLM)**: the platform CDM-scored Overall is **95.56**; the prior standalone-path score was **95.46** (same 1651 predictions, scorer revision `2b161d0`). The Δ +0.10 pp is the Formula-CDM submetric (96.46 → 96.73), attributable to the CDM scoring configuration at scoring time — **not** run-to-run inference drift. Inference-level run-to-run drift was not separately isolated.
 
 ## Provenance in the lock

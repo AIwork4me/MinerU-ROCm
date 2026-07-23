@@ -1,0 +1,17 @@
+# OmniDocBench v1.6 full-set evaluation for MinerU pipeline predictions,
+# including CDM for display formulas.
+#
+# This is a TEMPLATE: score.ps1 replaces <REPO_ROOT> with the absolute
+# omnidocbench-amd-windows checkout path at runtime.
+end2end_eval:
+  metrics:
+    text_block:      { metric: [Edit_dist] }
+    display_formula: { metric: [Edit_dist, CDM], cdm_workers: 8 }
+    table:           { metric: [TEDS, Edit_dist], teds_workers: 16 }
+    reading_order:   { metric: [Edit_dist] }
+  dataset:
+    dataset_name: end2end_dataset
+    ground_truth: { data_path: <REPO_ROOT>/eval-infra/01-omnidocbench/data/OmniDocBench.json }
+    prediction:   { data_path: <REPO_ROOT>/predictions/mineru_pipeline }
+    match_method: quick_match
+    match_workers: 24

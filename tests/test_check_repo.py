@@ -91,7 +91,7 @@ def test_official_reference_verified():
 
 
 def test_modelcard_lock_agreement():
-    """model_card.json (VLM) + model_card.pipeline.json Overall match the lock (tri-source)."""
+    """Linux/VLM root cards and the Windows pipeline card match their lock entries."""
     import json
     import scripts.check_repo as cr
     lock = cr._load_lock()
@@ -99,6 +99,9 @@ def test_modelcard_lock_agreement():
     expected = {
         "model_card.json": (full.get("vlm_vllm") or {}).get("overall"),
         "model_card.pipeline.json": (full.get("pipeline") or {}).get("overall"),
+        "model_card.pipeline.windows-hip.json": (
+            ((((lock.get("benchmark") or {}).get("windows_hip") or {}).get("full_1651") or {}).get("pipeline") or {}).get("overall")
+        ),
     }
     for fname, exp in expected.items():
         if exp is None:
