@@ -38,7 +38,7 @@ windows-pipeline = [
   "mineru[pipeline]==3.4.4; platform_system == 'Windows'",
   "onnxruntime-directml==1.24.4; platform_system == 'Windows'",
 ]
-dev = ["pytest>=8", "ruff>=0.6", "reuse>=1.3", "build"]
+dev = ["pytest>=8", "ruff>=0.6", "reuse>=1.3", "build", "numpy>=1.26"]
 
 [project.urls]
 Homepage = "https://github.com/AIwork4me/MinerU-ROCm"
