@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mineru-rocm"
-version = "0.1.0"
+version = "1.0.0"
 description = "Evaluation-backed AMD ROCm port of opendatalab/MinerU (3.4 pipeline + 2.5-Pro VLM) for OmniDocBench v1.6"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -17,7 +17,7 @@ keywords = [
   "vllm", "omnidocbench", "vision-language-model",
 ]
 classifiers = [
-  "Development Status :: 3 - Alpha",
+  "Development Status :: 4 - Beta",
   "Intended Audience :: Science/Research",
   "Operating System :: POSIX :: Linux",
   "Programming Language :: Python :: 3",
@@ -33,7 +33,9 @@ dependencies = ["PyYAML>=6.0"]
 [project.optional-dependencies]
 # Optional: omnidocbench-rocm platform integration. The adapter uses local
 # mineru_rocm.types — no engine import coupling.
-platform = ["omnidocbench-rocm>=0.3.1,<0.4"]
+platform = [
+  "omnidocbench-rocm @ https://github.com/AIwork4me/OmniDocBench-ROCm/releases/download/v0.3.2/omnidocbench_rocm-0.3.2-py3-none-any.whl#sha256=a6e1d97dfe3d75c54bf148f178ab5a42c48760516c1ea81d687bc3fb730a02ad",
+]
 windows-pipeline = [
   "mineru[pipeline]==3.4.4; platform_system == 'Windows'",
   "onnxruntime-directml==1.24.4; platform_system == 'Windows'",

@@ -6,6 +6,32 @@ All notable changes to MinerU-ROCm are documented here. The format is based on
 Versions are tagged on `main`; see `docs/superpowers/specs/` for the design
 behind each phase and `reproducibility.lock.yaml` for the exact provenance.
 
+## [1.0.0] — 2026-07-23
+
+First evidence-complete community release.
+
+### Added
+
+- A conformant Windows-HIP Phase 1 bundle for the MinerU 3.4.4 pipeline:
+  1651/1651 pages, Overall 86.59, Windows ROCm PyTorch plus DirectML, with the
+  DirectML-incompatible `slanet-plus.onnx` model recorded as an audited CPU
+  override rather than a silent fallback.
+- Platform-specific Windows model card, prediction manifest, dataset identity,
+  scoring configuration, provenance, run summary, and run statistics.
+- Release, architecture, and hardware-matrix documentation.
+
+### Changed
+
+- Package and citation version promoted to 1.0.0.
+- The optional platform extra and CI now use the published, SHA256-pinned
+  OmniDocBench-ROCm 0.3.2 wheel.
+
+### Verified
+
+- Linux ROCm: MinerU2.5-Pro VLM Overall 95.56 and pipeline Overall 86.48.
+- Windows-HIP: pipeline Overall 86.59; VLM Phase 2 remains explicitly out of
+  scope for this release.
+
 ## P1.1 — evidence consistency + self-contained bundles (2026-07-21)
 
 Cross-repo consistency fix with OmniDocBench-ROCm P0.1 (platform 0.3.1).
@@ -50,7 +76,7 @@ Cross-repo consistency fix with OmniDocBench-ROCm P0.1 (platform 0.3.1).
 - `results/omnidocbench/v16/linux-rocm/README.md`: no longer claims the
   directory is empty / artifacts not yet generated.
 
-## [Unreleased]
+## Upstream-readiness hardening (2026-07-20)
 
 Hardening for upstream MinerU PR #5288 (ROCm docs contribution) — evidence-base consistency + OPSEC + falsifiability.
 - P1 platform migration: `omnidocbench-amd` → `omnidocbench-rocm` (historical name: pre-P1 used omnidocbench-amd; now migrated to OmniDocBench-ROCm).

@@ -8,8 +8,8 @@ abstract: >-
 authors:
   - alias: AIwork4me
 type: software
-version: "0.1.0"
-date-released: "2026-07-19"
+version: "1.0.0"
+date-released: "2026-07-23"
 license: Apache-2.0
 keywords:
   - document-parsing

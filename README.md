@@ -150,6 +150,11 @@ The official reference (pipeline 86.47, vlm-engine 95.30) is sourced from the
 upstream MinerU README "Local Deployment" table as a community-verified anchor,
 not official support. See `docs/reproducibility.md` for the full recipe.
 
+Release consumers should also read [`docs/release-artifact.md`](docs/release-artifact.md),
+[`docs/hardware-matrix.md`](docs/hardware-matrix.md), and
+[`docs/architecture.md`](docs/architecture.md). The release checklist is
+maintained at [`docs/release-checklist.md`](docs/release-checklist.md).
+
 ## License — read before downloading weights
 
 This repo is **Apache-2.0** (original packaging/tooling). The MinerU pipeline
