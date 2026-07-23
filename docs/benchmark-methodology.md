@@ -11,12 +11,15 @@
 | Model | Backend | Overall | Text EditDist | Formula CDM | Table TEDS |
 |---|---|---:|---:|---:|---:|
 | MinerU 3.4 pipeline | in-process (MinerUPipelineRunner on ROCm) | **86.48** | 0.0566 | 83.07 | 82.04 |
+| MinerU 3.4 pipeline | Windows ROCm PyTorch + DirectML ONNX | **86.59** | 0.0565 | 83.39 | 82.04 |
 | MinerU2.5-Pro VLM | vLLM-on-ROCm `0.16.1.dev0+g89a77b108.d20260317` (http-client) | **95.56** | 0.0359 | 96.73 | 93.54 |
 
-Both: OmniDocBench v1.6, 1651 pages, AMD gfx1100 (Radeon PRO W7900, 48 GB; 1 GPU per benchmark, host has 4×),
-ROCm 7.2, bf16. Scored via OmniDocBench's `pdf_validation.py` (quick_match) with the CDM (display-formula)
-variant. (The prior standalone `mineru-rocm score` path scored the VLM at 95.46 — Formula CDM 96.46 — on the
-same 1651 predictions; Δ +0.10 pp, entirely the Formula-CDM submetric.)
+All rows use OmniDocBench v1.6, 1651 pages, `quick_match`, and CDM. Linux used
+AMD gfx1100 (Radeon PRO W7900, 48 GB; one GPU per benchmark), ROCm 7.2. Windows
+used Ryzen AI MAX+ 395 / Radeon 8060S with Windows ROCm 7.2.1 and DirectML.
+(The prior standalone `mineru-rocm score` path scored the VLM at 95.46 —
+Formula CDM 96.46 — on the same predictions; Δ +0.10 pp, entirely the CDM
+configuration.)
 
 ## "Evaluation-backed" — what it means
 
@@ -37,7 +40,9 @@ a controlled CUDA-vs-ROCm hardware-level comparison.
   1651 predictions, scorer revision `2b161d0`). The Δ +0.10 pp is the Formula-CDM
   submetric (96.46 → 96.73), attributable to the CDM scoring configuration at
   scoring time — not vLLM run-to-run drift (which was not separately isolated).
-  The pipeline backend is deterministic (byte-identical across runs).
+  The pipeline backend is deterministic within a fixed environment; the
+  Windows-HIP result differs from linux-rocm by +0.11 pp, within the declared
+  cross-platform tolerance.
 - **Empty pages.** The VLM produces ~0.12% empty-output pages (2/1651) — pages
   where the model returned no content. These score 0 for that page; the Overall
   (averaged over 1651) absorbs the impact (~0.01pp).

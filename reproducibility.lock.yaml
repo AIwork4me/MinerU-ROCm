@@ -135,6 +135,26 @@ benchmark:
       text_edit: 0.0359
       eval_date: '2026-07-21'
     vlm_transformers: not_run
+  windows_hip:
+    date: '2026-07-23'
+    hardware: AMD Ryzen AI MAX+ 395 (Radeon 8060S, Strix Halo), Windows ROCm 7.2.1
+    dataset_revision: 2b161d0
+    ground_truth_sha256: a45cd84b04ad8b793e775089640e6b681209abea33ead54c1828ddca35fae496
+    full_1651:
+      pipeline:
+        overall: 86.59
+        overall_unrounded: 86.59149200412931
+        text_edit_dist: 0.05654667503567776
+        formula_cdm: 0.8339081255175297
+        table_teds: 0.8203833096420278
+        reading_order_edit_dist: 0.15313839053961972
+        empty_pages: 0
+        ok_pages: 1651
+        failed_pages: 0
+        fallback_pages: 0
+        eval_date: '2026-07-23'
+        prediction_source_commit: 66e662f21c6268138282860554a3cda9e661a77c
+      vlm: not_run
   official_reference:
     source: verified
     source_url: https://github.com/opendatalab/MinerU/blob/master/README.md

@@ -6,11 +6,11 @@ Pick the backend that best fits your model type and target platform. This is gui
 |---|---|---|
 | pure VLM | vLLM/ROCm | llama.cpp/GGUF (HIP or Vulkan) |
 | layout+VLM | ONNX `onnxruntime-rocm` (ROCm EP) + VLM server | ONNX `onnxruntime-directml` (DirectML EP, via Microsoft Olive) + VLM server |
-| pipeline (MinerU2.5) | MinerU on ROCm | MinerU on DirectML/ONNX |
+| pipeline (MinerU 3.4) | MinerU on ROCm | ROCm PyTorch + DirectML ONNX; audited CPU override for `slanet-plus.onnx` |
 
 ## Windows DirectML path
 
-For the Windows `onnxruntime-directml` path (layout models, ONNX-based pipelines), follow the AMD Ryzen AI GPU documentation, which covers DirectML EP setup and model optimization via Microsoft Olive:
+For the Windows `onnxruntime-directml` path, follow the AMD Ryzen AI GPU documentation, which covers DirectML EP setup and model optimization via Microsoft Olive. The verified MinerU pipeline uses DirectML for compatible ONNX sessions, Windows ROCm PyTorch for layout/MFR/OCR, and routes only the DirectML-incompatible `slanet-plus.onnx` model to CPU:
 
 https://ryzenai.docs.amd.com/en/latest/gpu/ryzenai_gpu.html
 

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "model_id": "mineru-pipeline",
+  "model_version": "3.4.4",
+  "platforms": ["windows-hip"],
+  "badge": {"windows-hip": "community"},
+  "eval_date": "2026-07-23",
+  "omnidocbench_version": "v1.6",
+  "overall": 86.59,
+  "submetrics": {
+    "text_edit_dist": 0.05654667503567776,
+    "table_teds_percent": 82.03833096420277,
+    "table_teds_structure_only_percent": 88.8449447711366,
+    "formula_cdm_percent": 83.39081255175297,
+    "reading_order_edit_dist": 0.15313839053961972
+  },
+  "hardware": {
+    "gpu": "AMD Ryzen AI MAX+ 395 (Radeon 8060S, Strix Halo)",
+    "vram": "shared unified memory",
+    "rocm_driver": "Windows ROCm 7.2.1 / HIP 7.2.53211"
+  },
+  "backend": "pipeline",
+  "execution_provider": "ROCm PyTorch + ONNX Runtime DirectML; slanet-plus.onnx audited CPU override",
+  "note": "Windows-HIP Phase 1 community result. PyTorch layout/MFR/OCR and compatible ONNX models ran on the local AMD GPU; slanet-plus.onnx used the documented CPU override. VLM Phase 2 is not claimed by this card.",
+  "artifacts": {
+    "provenance": "results/omnidocbench/v16/windows-hip/mineru-pipeline_v16_quick_match_cdm_provenance.json",
+    "run_summary": "results/omnidocbench/v16/windows-hip/mineru-pipeline_v16_quick_match_cdm_run_summary.json",
+    "metric_result": "results/omnidocbench/v16/windows-hip/mineru-pipeline_v16_quick_match_cdm_metric_result.json",
+    "run_stats": "results/omnidocbench/v16/windows-hip/mineru-pipeline_v16_quick_match_cdm_run_stats.json",
+    "prediction_manifest": "results/omnidocbench/v16/windows-hip/mineru-pipeline_v16_quick_match_cdm_prediction_manifest.json",
+    "dataset_identity": "results/omnidocbench/v16/windows-hip/mineru-pipeline_v16_quick_match_cdm_dataset_identity.json",
+    "scoring_config": "results/omnidocbench/v16/windows-hip/mineru-pipeline_v16_quick_match_cdm_scoring_config.yaml",
+    "bundle_readme": "results/omnidocbench/v16/windows-hip/README.md"
+  }
+}
